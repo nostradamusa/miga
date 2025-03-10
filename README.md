@@ -1,2 +1,2 @@
-# miga
+# MIGA
 MIGA Trading Academy
