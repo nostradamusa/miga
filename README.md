@@ -3,7 +3,6 @@
 MIGA Trading Academy
 Welcome to MIGA Trading Academy, a platform dedicated to empowering traders with the knowledge and strategies to succeed in the financial markets.
 
-About MIGA
 MIGA (Market Intelligence & Growth Academy) is designed to help traders, from beginners to experts, master the art of trading through:
 
 Advanced Market Analysis: Understanding technical and fundamental indicators.
