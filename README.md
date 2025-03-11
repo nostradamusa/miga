@@ -17,3 +17,5 @@ This repository includes educational materials, trading scripts, and resources, 
 📊 Market Insights – Reports and analyses of current trends.
 🖥 Code for Automation – Python scripts for backtesting and strategy implementation.
 🔍 Research Papers – Deep dives into trading methodologies.
+
+Any Questions or Community Ideas: Please Join Discord
