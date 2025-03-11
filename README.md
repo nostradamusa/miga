@@ -10,6 +10,7 @@ Advanced Market Analysis: Understanding technical and fundamental indicators.
 Risk Management Strategies: Preserving capital while maximizing opportunities.
 Psychological Mastery: Building discipline and emotional resilience.
 Algorithmic & Manual Trading: Leveraging both systematic and discretionary approaches.
+
 What You'll Find in This Repository
 This repository includes educational materials, trading scripts, and resources, such as:
 
