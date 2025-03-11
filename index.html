@@ -16,6 +16,37 @@
         h1 {
             color: #333;
         }
+        .form-container, .quiz-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
         .quiz-link {
             display: inline-block;
             margin: 10px;
@@ -29,12 +60,66 @@
         .quiz-link:hover {
             background-color: #0056b3;
         }
+        .welcome {
+            margin-bottom: 20px;
+            font-size: 18px;
+            color: #555;
+        }
+        #quiz-selection {
+            display: none;
+        }
     </style>
 </head>
 <body>
     <h1>Welcome to MIGA Academy Quizzes</h1>
-    <p>Select a quiz to get started:</p>
-    <a href="quiz1.html" class="quiz-link">Quiz 1: Basics/Intermediate</a>
-    <a href="quiz2.html" class="quiz-link">Quiz 2: Advanced/Mastery</a>
+
+    <!-- Registration Form -->
+    <div class="form-container" id="register-form-container">
+        <p>Please enter your name to start:</p>
+        <form id="register-form">
+            <label for="firstName">First Name:</label>
+            <input type="text" id="firstName" name="firstName" required>
+            <label for="lastName">Last Name:</label>
+            <input type="text" id="lastName" name="lastName" required>
+            <button type="submit">Start Quizzes</button>
+        </form>
+    </div>
+
+    <!-- Quiz Selection (Hidden Until Registered) -->
+    <div class="quiz-container" id="quiz-selection">
+        <div id="welcome-message" class="welcome"></div>
+        <p>Select a quiz to get started:</p>
+        <a href="quiz1.html" class="quiz-link">Quiz 1: Basics/Intermediate</a>
+        <a href="quiz2.html" class="quiz-link">Quiz 2: Advanced/Mastery</a>
+    </div>
+
+    <script>
+        // Check if user is already registered
+        const user = JSON.parse(localStorage.getItem('user'));
+        if (user) {
+            showQuizSelection(user);
+        }
+
+        // Handle form submission
+        document.getElementById('register-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const firstName = document.getElementById('firstName').value.trim();
+            const lastName = document.getElementById('lastName').value.trim();
+            if (firstName && lastName) {
+                const user = { firstName, lastName };
+                localStorage.setItem('user', JSON.stringify(user));
+                showQuizSelection(user);
+            } else {
+                alert('Please enter both your First Name and Last Name.');
+            }
+        });
+
+        function showQuizSelection(user) {
+            document.getElementById('register-form-container').style.display = 'none';
+            document.getElementById('quiz-selection').style.display = 'block';
+            document.getElementById('welcome-message').innerText = 
+                `Welcome, ${user.firstName} ${user.lastName}!`;
+        }
+    </script>
 </body>
 </html>
