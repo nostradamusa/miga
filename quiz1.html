@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MIGA Academy Quiz 1</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1, h2 {
+            color: #333;
+            text-align: center;
+        }
+        .quiz-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        .question p {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .options label {
+            display: block;
+            margin: 5px 0;
+            cursor: pointer;
+        }
+        button {
+            display: inline-block;
+            width: 48%;
+            padding: 10px;
+            margin: 5px 1%;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #result1 {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 18px;
+            display: none;
+        }
+        .pass {
+            color: #28a745;
+        }
+        .fail {
+            color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+    <h1>MIGA Academy Quizzes</h1>
+
+    <!-- Quiz 1: Basics/Intermediate -->
+    <div class="quiz-container" id="quiz1">
+        <h2>Quiz 1: Basics/Intermediate Skill Level</h2>
+        <form id="quiz1-form">
+            <div class="question">
+                <p>1. What is the primary goal of day trading according to the document?</p>
+                <div class="options">
+                    <label><input type="radio" name="q1" value="A"> A) To hold stocks long-term</label>
+                    <label><input type="radio" name="q1" value="B"> B) To profit from volatility</label>
+                    <label><input type="radio" name="q1" value="C"> C) To avoid market fluctuations</label>
+                    <label><input type="radio" name="q1" value="D"> D) To invest in fundamentals</label>
+                </div>
+            </div>
+            <div class="question">
+                <p>2. What does the author identify as his type of trader?</p>
+                <div class="options">
+                    <label><input type="radio" name="q2" value="A"> A) Fundamental trader</label>
+                    <label><input type="radio" name="q2" value="B"> B) Pattern trader</label>
+                    <label><input type="radio" name="q2" value="C"> C) Value investor</label>
+                    <label><input type="radio" name="q2" value="D"> D) Forex trader</label>
+                </div>
+            </div>
+            <div class="question">
+                <p>3. What separates good traders from bad traders according to Chapter 2?</p>
+                <div class="options">
+                    <label><input type="radio" name="q3" value="A"> A) Stock selection</label>
+                    <label><input type="radio" name="q3" value="B"> B) Risk management</label>
+                    <label><input type="radio" name="q3" value="C"> C) Trading volume</label>
+                    <label><input type="radio" name="q3" value="D"> D) Market timing</label>
+                </div>
+            </div>
+            <div class="question">
+                <p>4. What type of stocks does the author avoid trading?</p>
+                <div class="options">
+                    <label><input type="radio" name="q4" value="A"> A) NYSE stocks</label>
+                    <label><input type="radio" name="q4" value="B"> B) Penny stocks</label>
+                    <label><input type="radio" name="q4" value="C"> C) High-volume stocks</label>
+                    <label><input type="radio" name="q4" value="D"> D) NASDAQ stocks</label>
+                </div>
+            </div>
+            <div class="question">
+                <p>5. What tool does the author recommend for scanning stocks?</p>
+                <div class="options">
+                    <label><input type="radio" name="q5" value="A"> A) eSignal</label>
+                    <label><input type="radio" name="q5" value="B"> B) Trade-Ideas</label>
+                    <label><input type="radio" name="q5" value="C"> C) Benzinga Pro</label>
+                    <label><input type="radio" name="q5" value="D"> D) SpeedTrader</label>
+                </div>
+            </div>
+            <div class="question">
+                <p>6. What is the easiest time to make money, per the document?</p>
+                <div class="options">
+                    <label><input type="radio" name="q6" value="A"> A) 9:30-11:00 AM</label>
+                    <label><input type="radio" name="q6" value="B"> B) 12:00-2:00 PM</label>
+                    <label><input type="radio" name="q6" value="C"> C) 3:00-4:00 PM</label>
+                    <label><input type="radio" name="q6" value="D"> D) Pre-market</label>
+                </div>
+            </div>
+            <div class="question">
+                <p>7. What type of analysis does the author prioritize for day trading?</p>
+                <div class="options">
+                    <label><input type="radio" name="q7" value="A"> A) Fundamental analysis</label>
+                    <label><input type="radio" name="q7" value="B"> B) Technical analysis</label>
+                    <label><input type="radio" name="q7" value="C"> C) Sentiment analysis</label>
+                    <label><input type="radio" name="q7" value="D"> D) Macro analysis</label>
+                </div>
+            </div>
+            <div class="question">
+                <p>8. What creates high relative volume in stocks?</p>
+                <div class="options">
+                    <label><input type="radio" name="q8" value="A"> A) Lack of news</label>
+                    <label><input type="radio" name="q8" value="B"> B) Catalysts like earnings or news</label>
+                    <label><input type="radio" name="q8" value="C"> C) Stable prices</label>
+                    <label><input type="radio" name="q8" value="D"> D) Low trader interest</label>
+                </div>
+            </div>
+            <div class="question">
+                <p>9. What should you always know before entering a trade?</p>
+                <div class="options">
+                    <label><input type="radio" name="q9" value="A"> A) The stock’s fundamentals</label>
+                    <label><input type="radio" name="q9" value="B"> B) Your potential risk</label>
+                    <label><input type="radio" name="q9" value="C"> C) The market trend</label>
+                    <label><input type="radio" name="q9" value="D"> D) The stock’s history</label>
+                </div>
+            </div>
+            <div class="question">
+                <p>10. What is emphasized as extremely important for long-term success as a day trader?</p>
+                <div class="options">
+                    <label><input type="radio" name="q10" value="A"> A) Aggressive trading</label>
+                    <label><input type="radio" name="q10" value="B"> B) Patience</label>
+                    <label><input type="radio" name="q10" value="C"> C) High leverage</label>
+                    <label><input type="radio" name="q10" value="D"> D) Fundamental analysis</label>
+                </div>
+            </div>
+            <div class="question">
+                <p>11. What does the document suggest day traders hunt for to find volatility?</p>
+                <div class="options">
+                    <label><input type="radio" name="q11" value="A"> A) Stable markets</label>
+                    <label><input type="radio" name="q11" value="B"> B) Catalysts like earnings or news</label>
+                    <label><input type="radio" name="q11" value="C"> C) Low-volume stocks</label>
+                    <label><input type="radio" name="q11" value="D"> D) Penny stocks</label>
+                </div>
+            </div>
+            <div class="question">
+                <p>12. What is the minimum gap percentage for the Gap and Go! strategy?</p>
+                <div class="options">
+                    <label><input type="radio" name="q12" value="A"> A) 2%</label>
+                    <label><input type="radio" name="q12" value="B"> B) 3%</label>
+                    <label><input type="radio" name="q12" value="C"> C) 4%</label>
+                    <label><input type="radio" name="q12" value="D"> D) 5%</label>
+                </div>
+            </div>
+            <div class="question">
+                <p>13. What confirms that a chart pattern will resolve successfully?</p>
+                <div class="options">
+                    <label><input type="radio" name="q13" value="A"> A) Low volume</label>
+                    <label><input type="radio" name="q13" value="B"> B) High relative volume</label>
+                    <label><input type="radio" name="q13" value="C"> C) No catalyst</label>
+                    <label><input type="radio" name="q13" value="D"> D) Technical indicators</label>
+                </div>
+            </div>
+            <div class="question">
+                <p>14. Which time frames does the author primarily use for charts?</p>
+                <div class="options">
+                    <label><input type="radio" name="q14" value="A"> A) 1 min, 5 min, and daily</label>
+                    <label><input type="radio" name="q14" value="B"> B) 15 min and hourly</label>
+                    <label><input type="radio" name="q14" value="C"> C) Weekly and monthly</label>
+                    <label><input type="radio" name="q14" value="D"> D) 30 min and daily</label>
+                </div>
+            </div>
+            <div class="question">
+                <p>15. What is a “window” on a daily chart?</p>
+                <div class="options">
+                    <label><input type="radio" name="q15" value="A"> A) A period of high resistance</label>
+                    <label><input type="radio" name="q15" value="B"> B) An area with no support or resistance</label>
+                    <label><input type="radio" name="q15" value="C"> C) A consolidation pattern</label>
+                    <label><input type="radio" name="q15" value="D"> D) A high-volume spike</label>
+                </div>
+            </div>
+            <div class="question">
+                <p>16. What service does the author use for breaking news?</p>
+                <div class="options">
+                    <label><input type="radio" name="q16" value="A"> A) Trade-Ideas</label>
+                    <label><input type="radio" name="q16" value="B"> B) eSignal</label>
+                    <label><input type="radio" name="q16" value="C"> C) Benzinga Pro</label>
+                    <label><input type="radio" name="q16" value="D"> D) StockCharts</label>
+                </div>
+            </div>
+            <div class="question">
+                <p>17. What is the minimum profit/loss ratio successful day traders aim for?</p>
+                <div class="options">
+                    <label><input type="radio" name="q17" value="A"> A) 1:2</label>
+                    <label><input type="radio" name="q17" value="B"> B) 1:1</label>
+                    <label><input type="radio" name="q17" value="C"> C) 2:1</label>
+                    <label><input type="radio" name="q17" value="D"> D) 3:1</label>
+                </div>
+            </div>
+            <div class="question">
+                <p>18. What does the author suggest doing after a loss?</p>
+                <div class="options">
+                    <label><input type="radio" name="q18" value="A"> A) Reviewing trades</label>
+                    <label><input type="radio" name="q18" value="B"> B) Trading out of frustration</label>
+                    <label><input type="radio" name="q18" value="C"> C) Adjusting risk</label>
+                    <label><input type="radio" name="q18" value="D"> D) Ignoring the loss</label>
+                </div>
+            </div>
+            <div class="question">
+                <p>19. What is a characteristic of a Red to Green move?</p>
+                <div class="options">
+                    <label><input type="radio" name="q19" value="A"> A) Stock gaps down and sells off</label>
+                    <label><input type="radio" name="q19" value="B"> B) Stock gaps up, sells off, then rips up</label>
+                    <label><input type="radio" name="q19" value="C"> C) Stock stays flat</label>
+                    <label><input type="radio" name="q19" value="D"> D) Stock gaps down and recovers</label>
+                </div>
+            </div>
+            <div class="question">
+                <p>20. What does the document say about trading during poor market conditions?</p>
+                <div class="options">
+                    <label><input type="radio" name="q20" value="A"> A) It’s the best time to trade</label>
+                    <label><input type="radio" name="q20" value="B"> B) It typically leads to losses</label>
+                    <label><input type="radio" name="q20" value="C"> C) It increases volatility</label>
+                    <label><input type="radio" name="q20" value="D"> D) It’s ideal for beginners</label>
+                </div>
+            </div>
+            <div class="question">
+                <p>21. What is the Average True Range (ATR)?</p>
+                <div class="options">
+                    <label><input type="radio" name="q21" value="A"> A) The average volume of a stock</label>
+                    <label><input type="radio" name="q21" value="B"> B) The average price range of a stock in a day</label>
+                    <label><input type="radio" name="q21" value="C"> C) The average stop loss</label>
+                    <label><input type="radio" name="q21" value="D"> D) The average profit target</label>
+                </div>
+            </div>
+            <div class="question">
+                <p>22. What should you avoid when trading news?</p>
+                <div class="options">
+                    <label><input type="radio" name="q22" value="A"> A) Waiting for a pattern</label>
+                    <label><input type="radio" name="q22" value="B"> B) Impulsive buying</label>
+                    <label><input type="radio" name="q22" value="C"> C) Using hot keys</label>
+                    <label><input type="radio" name="q22" value="D"> D) Watching volume</label>
+                </div>
+            </div>
+            <div class="question">
+                <p>23. What type of trader is discouraged due to the difficulty of maintaining a high win rate?</p>
+                <div class="options">
+                    <label><input type="radio" name="q23" value="A"> A) Pattern trader</label>
+                    <label><input type="radio" name="q23" value="B"> B) Scalper</label>
+                    <label><input type="radio" name="q23" value="C"> C) Momentum trader</label>
+                    <label><input type="radio" name="q23" value="D"> D) Reversal trader</label>
+                </div>
+            </div>
+            <div class="question">
+                <p>24. When do the cleanest breakouts typically occur?</p>
+                <div class="options">
+                    <label><input type="radio" name="q24" value="A"> A) Midday</label>
+                    <label><input type="radio" name="q24" value="B"> B) At the market open</label>
+                    <label><input type="radio" name="q24" value="C"> C) Late afternoon</label>
+                    <label><input type="radio" name="q24" value="D"> D) Pre-market</label>
+                </div>
+            </div>
+            <div class="question">
+                <p>25. What is the biggest obstacle to trading success according to Chapter 8?</p>
+                <div class="options">
+                    <label><input type="radio" name="q25" value="A"> A) Lack of tools</label>
+                    <label><input type="radio" name="q25" value="B"> B) Emotions</label>
+                    <label><input type="radio" name="q25" value="C"> C) Poor stock selection</label>
+                    <label><input type="radio" name="q25" value="D"> D) Market conditions</label>
+                </div>
+            </div>
+            <div class="question">
+                <p>26. Why do most traders fail, as outlined in the text?</p>
+                <div class="options">
+                    <label><input type="radio" name="q26" value="A"> A) They lack quick decision-making and discipline</label>
+                    <label><input type="radio" name="q26" value="B"> B) They trade too patiently</label>
+                    <label><input type="radio" name="q26" value="C"> C) They avoid technical analysis</label>
+                    <label><input type="radio" name="q26" value="D"> D) They focus on long-term gains</label>
+                </div>
+            </div>
+            <div class="question">
+                <p>27. What profit/loss ratio does the author personally aim for?</p>
+                <div class="options">
+                    <label><input type="radio" name="q27" value="A"> A) 1:1</label>
+                    <label><input type="radio" name="q27" value="B"> B) 2:1</label>
+                    <label><input type="radio" name="q27" value="C"> C) 3:1</label>
+                    <label><input type="radio" name="q27" value="D"> D) 4:1</label>
+                </div>
+            </div>
+            <div class="question">
+                <p>28. What gives day traders an edge over high-frequency traders (HFTs)?</p>
+                <div class="options">
+                    <label><input type="radio" name="q28" value="A"> A) Fundamental analysis</label>
+                    <label><input type="radio" name="q28" value="B"> B) Pattern-based trading</label>
+                    <label><input type="radio" name="q28" value="C"> C) Low-volume stocks</label>
+                    <label><input type="radio" name="q28" value="D"> D) Technical indicators</label>
+                </div>
+            </div>
+            <div class="question">
+                <p>29. What is a “Gap and Go!” strategy based on?</p>
+                <div class="options">
+                    <label><input type="radio" name="q29" value="A"> A) Stocks gapping down over 4%</label>
+                    <label><input type="radio" name="q29" value="B"> B) Stocks gapping up over 4%</label>
+                    <label><input type="radio" name="q29" value="C"> C) Stocks with no gap</label>
+                    <label><input type="radio" name="q29" value="D"> D) Stocks with low volume</label>
+                </div>
+            </div>
+            <div class="question">
+                <p>30. What is the author’s favorite intraday pattern?</p>
+                <div class="options">
+                    <label><input type="radio" name="q30" value="A"> A) Flat Top Breakout</label>
+                    <label><input type="radio" name="q30" value="B"> B) Bull Flag</label>
+                    <label><input type="radio" name="q30" value="C"> C) Bear Flag</label>
+                    <label><input type="radio" name="q30" value="D"> D) Double Top</label>
+                </div>
+            </div>
+            <div class="question">
+                <p>31. What does the Reversal Strategy require?</p>
+                <div class="options">
+                    <label><input type="radio" name="q31" value="A"> A) A slow decline</label>
+                    <label><input type="radio" name="q31" value="B"> B) A quick snap in momentum</label>
+                    <label><input type="radio" name="q31" value="C"> C) Low volume</label>
+                    <label><input type="radio" name="q31" value="D"> D) No catalyst</label>
+                </div>
+            </div>
+            <div class="question">
+                <p>32. What is the End of Day Squeeze strategy focused on?</p>
+                <div class="options">
+                    <label><input type="radio" name="q32" value="A"> A) Early morning gaps</label>
+                    <label><input type="radio" name="q32" value="B"> B) Late-day consolidation breakouts</label>
+                    <label><input type="radio" name="q32" value="C"> C) Midday reversals</label>
+                    <label><input type="radio" name="q32" value="D"> D) Pre-market volume</label>
+                </div>
+            </div>
+            <div class="question">
+                <p>33. What practice does the author use to improve discipline?</p>
+                <div class="options">
+                    <label><input type="radio" name="q33" value="A"> A) Meditation</label>
+                    <label><input type="radio" name="q33" value="B"> B) Overtrading</label>
+                    <label><input type="radio" name="q33" value="C"> C) Ignoring losses</label>
+                    <label><input type="radio" name="q33" value="D"> D) Fundamental analysis</label>
+                </div>
+            </div>
+            <div class="question">
+                <p>34. What is a common mistake new traders make?</p>
+                <div class="options">
+                    <label><input type="radio" name="q34" value="A"> A) Holding winners too long</label>
+                    <label><input type="radio" name="q34" value="B"> B) Selling winners too soon and holding losers</label>
+                    <label><input type="radio" name="q34" value="C"> C) Avoiding patterns</label>
+                    <label><input type="radio" name="q34" value="D"> D) Trading low volume</label>
+                </div>
+            </div>
+            <div class="question">
+                <p>35. What does the Surging Up scanner focus on?</p>
+                <div class="options">
+                    <label><input type="radio" name="q35" value="A"> A) Price consolidation</label>
+                    <label><input type="radio" name="q35" value="B"> B) Heavy relative volume</label>
+                    <label><input type="radio" name="q35" value="C"> C) Low ATR stocks</label>
+                    <label><input type="radio" name="q35" value="D"> D) News alerts</label>
+                </div>
+            </div>
+            <div class="question">
+                <p>36. What is a key requirement for a Bull Flag pullback?</p>
+                <div class="options">
+                    <label><input type="radio" name="q36" value="A"> A) It must retrace more than 50%</label>
+                    <label><input type="radio" name="q36" value="B"> B) It must hold the 50% retracement line</label>
+                    <label><input type="radio" name="q36" value="C"> C) It must drop to the low of day</label>
+                    <label><input type="radio" name="q36" value="D"> D) It must consolidate for an hour</label>
+                </div>
+            </div>
+            <div class="question">
+                <p>37. What does the author look for when preparing a watch list?</p>
+                <div class="options">
+                    <label><input type="radio" name="q37" value="A"> A) Stocks with low volume</label>
+                    <label><input type="radio" name="q37" value="B"> B) Stocks with high pre-market volume</label>
+                    <label><input type="radio" name="q37" value="C"> C) Stocks with no catalyst</label>
+                    <label><input type="radio" name="q37" value="D"> D) Penny stocks</label>
+                </div>
+            </div>
+            <div class="question">
+                <p>38. What makes a trigger powerful on a daily chart?</p>
+                <div class="options">
+                    <label><input type="radio" name="q38" value="A"> A) Proximity to resistance</label>
+                    <label><input type="radio" name="q38" value="B"> B) At least the ATR of space to the next resistance</label>
+                    <label><input type="radio" name="q38" value="C"> C) Low volume</label>
+                    <label><input type="radio" name="q38" value="D"> D) Hidden levels</label>
+                </div>
+            </div>
+            <div class="question">
+                <p>39. What is a key criterion for a Flat Top Breakout scanner?</p>
+                <div class="options">
+                    <label><input type="radio" name="q39" value="A"> A) Stock moved over 5% in the last 2 hours</label>
+                    <label><input type="radio" name="q39" value="B"> B) Stock has low volume</label>
+                    <label><input type="radio" name="q39" value="C"> C) Stock is at the low of the day</label>
+                    <label><input type="radio" name="q39" value="D"> D) Stock has no catalyst</label>
+                </div>
+            </div>
+            <div class="question">
+                <p>40. When is the Momentum Strategy most effective?</p>
+                <div class="options">
+                    <label><input type="radio" name="q40" value="A"> A) Midday</label>
+                    <label><input type="radio" name="q40" value="B"> B) 9:30-10:00 AM</label>
+                    <label><input type="radio" name="q40" value="C"> C) After 3:00 PM</label>
+                    <label><input type="radio" name="q40" value="D"> D) Pre-market</label>
+                </div>
+            </div>
+            <button type="button" onclick="submitQuiz1()">Submit Quiz 1</button>
+            <button type="button" onclick="resetQuiz1()">Reset Quiz 1</button>
+        </form>
+        <div id="result1"></div>
+    </div>
+
+    <script>
+        const quiz1Answers = {
+            q1: 'B', q2: 'B', q3: 'B', q4: 'B', q5: 'B', q6: 'A', q7: 'B', q8: 'B', q9: 'B', q10: 'B',
+            q11: 'B', q12: 'C', q13: 'B', q14: 'A', q15: 'B', q16: 'C', q17: 'B', q18: 'A', q19: 'B', q20: 'B',
+            q21: 'B', q22: 'B', q23: 'B', q24: 'B', q25: 'B', q26: 'A', q27: 'B', q28: 'B', q29: 'B', q30: 'B',
+            q31: 'B', q32: 'B', q33: 'A', q34: 'B', q35: 'B', q36: 'B', q37: 'B', q38: 'B', q39: 'A', q40: 'B'
+        };
+
+        function submitQuiz1() {
+            const form = document.getElementById('quiz1-form');
+            let score = 0;
+            for (let i = 1; i <= 40; i++) {
+                const selected = form.querySelector(`input[name="q${i}"]:checked`);
+                if (selected && selected.value === quiz1Answers[`q${i}`]) {
+                    score++;
+                }
+            }
+            displayResult('result1', score, 40);
+        }
+
+        function displayResult(resultId, score, total) {
+            const percentage = (score / total) * 100;
+            const resultDiv = document.getElementById(resultId);
+            const pass = percentage >= 80;
+            resultDiv.innerHTML = `Your Score: ${score}/${total} (${percentage.toFixed(2)}%) - You ${pass ? 'PASSED!' : 'FAILED.'}`;
+            resultDiv.className = pass ? 'pass' : 'fail';
+            resultDiv.style.display = 'block';
+        }
+
+        function resetQuiz1() {
+            const form = document.getElementById('quiz1-form');
+            form.reset();
+            document.getElementById('result1').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
