@@ -3,84 +3,67 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MIGA Trading Academy — Mastery Quiz</title>
+<title>MIGA Trading Academy — Intermediate Quiz</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;600;700&family=Barlow+Condensed:wght@400;700&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --red:#cc1f1f;--red2:#9e1515;--red3:#ff4444;
-    --green:#1e7e34;--green3:#4caf75;
-    --dark:#0d0d0d;--dark2:#141414;--dark3:#1c1c1c;--dark4:#282828;--dark5:#323232;
-    --light:#e8e8e8;--muted:#777;--gold:#c9a84c;--gold2:#a08030;
+  :root {
+    --red:#cc1f1f; --red2:#9e1515; --green:#1e7e34;
+    --dark:#111; --dark2:#1a1a1a; --dark3:#222; --dark4:#2e2e2e;
+    --light:#e8e8e8; --muted:#777; --gold:#c9a84c;
   }
   *{margin:0;padding:0;box-sizing:border-box;}
   body{background:var(--dark);color:var(--light);font-family:'Barlow',sans-serif;min-height:100vh;overflow-x:hidden;}
-  body::before{content:'';position:fixed;inset:0;background-image:repeating-linear-gradient(135deg,transparent,transparent 60px,rgba(204,31,31,.02) 60px,rgba(204,31,31,.02) 61px);pointer-events:none;z-index:0;}
+  body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(204,31,31,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(204,31,31,.04) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0;}
 
-  header{position:relative;z-index:1;background:var(--dark2);border-bottom:3px solid var(--red);}
-  .header-top{padding:20px 36px;display:flex;align-items:center;gap:18px;}
-  .logo-badge{width:60px;height:60px;background:var(--red);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:26px;color:#fff;box-shadow:0 0 28px rgba(204,31,31,.5);flex-shrink:0;}
+  header{position:relative;z-index:1;background:var(--dark2);border-bottom:3px solid var(--red);padding:22px 36px;display:flex;align-items:center;gap:18px;}
+  .logo-badge{width:60px;height:60px;background:var(--red);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:26px;color:#fff;box-shadow:0 0 20px rgba(204,31,31,.4);flex-shrink:0;}
   .header-text h1{font-family:'Bebas Neue',sans-serif;font-size:1.9rem;letter-spacing:3px;}
-  .header-text p{font-size:.78rem;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-top:2px;}
-  .quiz-level{margin-left:auto;background:rgba(204,31,31,.2);border:1px solid var(--red);color:var(--red3);padding:5px 16px;border-radius:4px;font-family:'Barlow Condensed',sans-serif;font-size:.8rem;letter-spacing:3px;text-transform:uppercase;animation:pulse-border 2s ease-in-out infinite;}
-  @keyframes pulse-border{0%,100%{box-shadow:0 0 0 0 rgba(204,31,31,0);}50%{box-shadow:0 0 10px 3px rgba(204,31,31,.25);}}
-  .header-warning{background:rgba(204,31,31,.07);border-top:1px solid rgba(204,31,31,.2);padding:9px 36px;font-size:.74rem;color:var(--muted);letter-spacing:1px;text-transform:uppercase;display:flex;align-items:center;gap:9px;}
-  .warn-dot{width:7px;height:7px;background:var(--red);border-radius:50%;animation:blink 1.2s ease-in-out infinite;flex-shrink:0;}
-  @keyframes blink{0%,100%{opacity:1;}50%{opacity:.2;}}
+  .header-text p{font-size:.8rem;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-top:2px;}
+  .quiz-level{margin-left:auto;background:rgba(204,31,31,.15);border:1px solid var(--red);color:var(--red);padding:5px 16px;border-radius:4px;font-family:'Barlow Condensed',sans-serif;font-size:.8rem;letter-spacing:3px;text-transform:uppercase;}
 
-  main{position:relative;z-index:1;max-width:880px;margin:0 auto;padding:36px 20px 80px;}
+  main{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:36px 20px 80px;}
 
-  .intro{background:var(--dark2);border:1px solid var(--dark4);border-left:4px solid var(--red);border-radius:8px;padding:24px 28px;margin-bottom:36px;position:relative;overflow:hidden;}
-  .intro::after{content:'FVG';position:absolute;right:-8px;top:50%;transform:translateY(-50%) rotate(90deg);font-family:'Bebas Neue',sans-serif;font-size:5rem;color:rgba(204,31,31,.04);pointer-events:none;letter-spacing:6px;}
-  .intro h2{font-family:'Bebas Neue',sans-serif;font-size:1.55rem;letter-spacing:2px;margin-bottom:8px;}
-  .intro p{color:#999;line-height:1.73;font-size:.91rem;}
-  .meta-row{display:flex;gap:12px;margin-top:14px;flex-wrap:wrap;}
-  .meta-pill{background:var(--dark4);padding:5px 12px;border-radius:20px;font-size:.72rem;color:var(--muted);letter-spacing:1px;text-transform:uppercase;}
+  .intro{background:var(--dark3);border:1px solid var(--dark4);border-left:4px solid var(--red);border-radius:8px;padding:24px 28px;margin-bottom:36px;}
+  .intro h2{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:2px;margin-bottom:8px;}
+  .intro p{color:#aaa;line-height:1.7;font-size:.93rem;}
+  .meta-row{display:flex;gap:14px;margin-top:16px;flex-wrap:wrap;}
+  .meta-pill{background:var(--dark4);padding:5px 12px;border-radius:20px;font-size:.73rem;color:var(--muted);letter-spacing:1px;text-transform:uppercase;}
   .meta-pill span{color:var(--light);font-weight:700;}
-  .meta-pill.hot{background:rgba(204,31,31,.15);color:var(--red3);border:1px solid rgba(204,31,31,.3);}
 
-  .progress-container{margin-bottom:26px;position:sticky;top:0;background:var(--dark);padding:13px 0 7px;z-index:10;}
-  .progress-label{display:flex;justify-content:space-between;font-size:.72rem;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:7px;}
+  .progress-container{margin-bottom:28px;position:sticky;top:0;background:var(--dark);padding:14px 0 8px;z-index:10;}
+  .progress-label{display:flex;justify-content:space-between;font-size:.73rem;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:7px;}
   .progress-bar{height:3px;background:var(--dark4);border-radius:2px;overflow:hidden;}
-  .progress-fill{height:100%;background:linear-gradient(90deg,var(--red2),var(--red3),var(--gold));transition:width .5s ease;width:0%;}
+  .progress-fill{height:100%;background:linear-gradient(90deg,var(--red),var(--gold));border-radius:2px;transition:width .5s ease;width:0%;}
 
   /* ── QUESTION CARD ── */
-  .question-card{background:var(--dark2);border:1px solid var(--dark4);border-radius:10px;margin-bottom:24px;overflow:hidden;transition:border-color .3s,box-shadow .3s;}
-  .question-card.answered-correct{border-color:var(--green);box-shadow:0 0 18px rgba(30,126,52,.1);}
-  .question-card.answered-wrong{border-color:var(--red2);box-shadow:0 0 18px rgba(204,31,31,.1);}
+  .question-card{background:var(--dark2);border:1px solid var(--dark4);border-radius:10px;margin-bottom:26px;overflow:hidden;transition:border-color .3s;}
+  .question-card.answered-correct{border-color:var(--green);}
+  .question-card.answered-wrong{border-color:var(--red2);}
 
   .question-header{padding:18px 22px 14px;border-bottom:1px solid var(--dark4);display:flex;align-items:flex-start;gap:14px;}
   .question-header.with-chart{align-items:center;}
-  .q-left{flex:1;min-width:0;display:flex;flex-direction:column;gap:7px;}
+  .q-left{flex:1;min-width:0;display:flex;flex-direction:column;gap:8px;}
   .q-top-row{display:flex;align-items:flex-start;gap:10px;}
-  .q-number{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;color:var(--red);min-width:34px;flex-shrink:0;line-height:1.3;}
-  .question-text{font-size:.98rem;color:#ddd;line-height:1.6;flex:1;}
-  .q-difficulty{flex-shrink:0;padding:3px 9px;border-radius:3px;font-size:.63rem;letter-spacing:2px;text-transform:uppercase;font-weight:700;font-family:'Barlow Condensed',sans-serif;margin-top:2px;}
+  .q-number{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;color:var(--red);letter-spacing:1px;min-width:34px;flex-shrink:0;line-height:1.3;}
+  .question-text{font-size:1rem;color:#ddd;line-height:1.6;flex:1;}
+  .q-difficulty{flex-shrink:0;padding:3px 9px;border-radius:3px;font-size:.64rem;letter-spacing:2px;text-transform:uppercase;font-weight:700;font-family:'Barlow Condensed',sans-serif;margin-top:2px;}
+  .diff-easy{background:rgba(30,126,52,.2);color:#4caf75;border:1px solid rgba(30,126,52,.4);}
   .diff-medium{background:rgba(201,168,76,.2);color:var(--gold);border:1px solid rgba(201,168,76,.4);}
   .diff-hard{background:rgba(204,31,31,.2);color:#ff7070;border:1px solid rgba(204,31,31,.4);}
-  .diff-elite{background:rgba(180,0,0,.3);color:#ff3333;border:1px solid rgba(255,50,50,.5);box-shadow:0 0 8px rgba(255,0,0,.12);}
 
   /* ── CHART PANEL ── */
-  .q-chart{flex-shrink:0;width:210px;border-radius:6px;display:block;border:1px solid #1a1a1a;}
-  @media(max-width:640px){
+  .q-chart{flex-shrink:0;width:200px;border-radius:6px;display:block;border:1px solid #1e1e1e;}
+  @media(max-width:620px){
     .question-header.with-chart{flex-direction:column;}
-    .q-chart{width:100%;max-width:290px;}
+    .q-chart{width:100%;max-width:280px;}
   }
-
-  /* ── SCENARIO BOX ── */
-  .scenario-box{margin:10px 22px 0;padding:14px 18px;background:#0a0a0a;border:1px solid var(--dark4);border-left:3px solid var(--gold);border-radius:0 7px 7px 0;}
-  .scenario-label{font-family:'Barlow Condensed',sans-serif;font-size:.64rem;color:var(--gold2);text-transform:uppercase;letter-spacing:3px;font-weight:700;margin-bottom:6px;}
-  .scenario-text{font-size:.86rem;color:#bbb;line-height:1.7;}
-  .scenario-text strong{color:#e0e0e0;}
-  .bull{color:#26a69a;font-weight:700;}
-  .bear{color:#ef5350;font-weight:700;}
-  .fvg{color:var(--gold);font-weight:700;background:rgba(201,168,76,.1);padding:0 4px;border-radius:2px;}
 
   /* ── OPTIONS ── */
   .options{padding:14px 22px 18px;display:flex;flex-direction:column;gap:9px;}
-  .option-btn{background:var(--dark3);border:1px solid var(--dark5);color:var(--light);padding:12px 16px;border-radius:7px;cursor:pointer;text-align:left;font-family:'Barlow',sans-serif;font-size:.9rem;line-height:1.5;transition:all .2s;display:flex;align-items:flex-start;gap:11px;}
+  .option-btn{background:var(--dark3);border:1px solid var(--dark4);color:var(--light);padding:12px 16px;border-radius:7px;cursor:pointer;text-align:left;font-family:'Barlow',sans-serif;font-size:.91rem;line-height:1.5;transition:all .2s;display:flex;align-items:flex-start;gap:11px;}
   .option-btn:hover:not(:disabled){background:var(--dark4);border-color:var(--red);transform:translateX(3px);}
   .option-btn:disabled{cursor:default;}
-  .option-letter{font-family:'Barlow Condensed',sans-serif;font-size:.8rem;font-weight:700;color:var(--red);min-width:20px;flex-shrink:0;margin-top:1px;}
+  .option-letter{font-family:'Barlow Condensed',sans-serif;font-size:.82rem;font-weight:700;color:var(--red);min-width:20px;flex-shrink:0;margin-top:1px;}
   .option-btn.correct{background:rgba(30,126,52,.14);border-color:var(--green);color:#7ed99a;}
   .option-btn.wrong{background:rgba(204,31,31,.12);border-color:var(--red2);color:#ff8888;}
   .option-btn.correct .option-letter{color:#4caf75;}
@@ -88,61 +71,52 @@
 
   /* ── EXPLANATION ── */
   .explanation{margin:0 22px 18px;padding:13px 16px;background:var(--dark3);border-radius:7px;display:none;}
-  .explanation.show{display:block;animation:fadeSlide .35s ease;}
-  .exp-label{font-size:.64rem;text-transform:uppercase;letter-spacing:2px;font-weight:700;font-family:'Barlow Condensed',sans-serif;margin-bottom:6px;}
-  .exp-correct .exp-label{color:var(--green3);}
-  .exp-wrong .exp-label{color:var(--red3);}
-  .explanation p{font-size:.85rem;color:#bbb;line-height:1.68;}
-  .exp-key{margin-top:9px;padding:9px 13px;background:var(--dark4);border-left:3px solid var(--gold);border-radius:0 5px 5px 0;font-size:.8rem;color:#ccc;line-height:1.65;}
-  .exp-key strong{color:var(--gold);}
-  @keyframes fadeSlide{from{opacity:0;transform:translateY(-6px);}to{opacity:1;transform:translateY(0);}}
+  .explanation.show{display:block;animation:fadeSlide .3s ease;}
+  .exp-label{font-size:.64rem;text-transform:uppercase;letter-spacing:2px;font-weight:700;font-family:'Barlow Condensed',sans-serif;margin-bottom:5px;}
+  .exp-correct .exp-label{color:var(--green);}
+  .exp-wrong .exp-label{color:var(--red);}
+  .explanation p{font-size:.86rem;color:#bbb;line-height:1.65;}
+  @keyframes fadeSlide{from{opacity:0;transform:translateY(-5px);}to{opacity:1;transform:translateY(0);}}
 
   /* ── SCORE CARD ── */
-  #score-card{display:none;background:var(--dark2);border:1px solid var(--dark4);border-radius:12px;padding:44px 36px;text-align:center;position:relative;overflow:hidden;margin-top:10px;}
-  #score-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--red2),var(--red3),var(--gold));}
-  .score-ring{width:130px;height:130px;position:relative;margin:0 auto 24px;}
-  .score-ring svg{position:absolute;top:0;left:0;width:100%;height:100%;transform:rotate(-90deg);}
-  .score-ring-inner{position:absolute;inset:11px;background:var(--dark3);border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;}
-  .score-number{font-family:'Bebas Neue',sans-serif;font-size:2.8rem;line-height:1;color:var(--red3);}
-  .score-denom{font-size:.7rem;color:var(--muted);letter-spacing:2px;text-transform:uppercase;}
+  #score-card{display:none;background:var(--dark2);border:1px solid var(--dark4);border-radius:12px;padding:44px 36px;text-align:center;position:relative;overflow:hidden;}
+  #score-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--red),var(--gold),var(--green));}
+  .score-circle{width:120px;height:120px;border-radius:50%;border:4px solid var(--red);display:flex;flex-direction:column;align-items:center;justify-content:center;margin:0 auto 24px;background:var(--dark3);box-shadow:0 0 36px rgba(204,31,31,.2);}
+  .score-number{font-family:'Bebas Neue',sans-serif;font-size:2.8rem;line-height:1;color:var(--red);}
+  .score-denom{font-size:.72rem;color:var(--muted);letter-spacing:2px;text-transform:uppercase;}
   #score-card h2{font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:3px;margin-bottom:10px;}
-  #score-card p{color:#999;font-size:.91rem;line-height:1.72;max-width:460px;margin:0 auto;}
+  #score-card p{color:#aaa;font-size:.92rem;line-height:1.7;max-width:440px;margin:0 auto;}
   .grade-bar{display:flex;gap:10px;justify-content:center;margin:22px 0 0;flex-wrap:wrap;}
-  .grade-item{padding:7px 18px;border-radius:5px;font-size:.78rem;font-family:'Barlow Condensed',sans-serif;letter-spacing:1px;text-transform:uppercase;}
-  .grade-correct{background:rgba(30,126,52,.18);color:#4caf75;border:1px solid rgba(30,126,52,.4);}
-  .grade-wrong{background:rgba(204,31,31,.14);color:#ff6b6b;border:1px solid rgba(204,31,31,.3);}
+  .grade-item{padding:7px 18px;border-radius:5px;font-size:.79rem;font-family:'Barlow Condensed',sans-serif;letter-spacing:1px;text-transform:uppercase;}
+  .grade-correct{background:rgba(30,126,52,.2);color:#4caf75;border:1px solid rgba(30,126,52,.4);}
+  .grade-wrong{background:rgba(204,31,31,.15);color:#ff6b6b;border:1px solid rgba(204,31,31,.3);}
   .restart-btn{margin-top:28px;background:var(--red);color:#fff;border:none;padding:13px 36px;border-radius:6px;font-family:'Barlow Condensed',sans-serif;font-size:.95rem;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:background .2s;}
   .restart-btn:hover{background:var(--red2);}
+  #pass-badge{display:inline-block;margin-bottom:14px;padding:7px 26px;border-radius:5px;font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;letter-spacing:3px;text-transform:uppercase;font-weight:700;}
 </style>
 </head>
 <body>
 <header>
-  <div class="header-top">
-    <div class="logo-badge">MTA</div>
-    <div class="header-text">
-      <h1>MIGA Trading Academy</h1>
-      <p>Advanced Trading Education</p>
-    </div>
-    <div class="quiz-level">Quiz 2 · Mastery</div>
+  <div class="logo-badge">MTA</div>
+  <div class="header-text">
+    <h1>MIGA Trading Academy</h1>
+    <p>Trading Education Series</p>
   </div>
-  <div class="header-warning">
-    <div class="warn-dot"></div>
-    Advanced — Fair Value Gaps · Entry &amp; Exit Precision · Multi-Timeframe Structure
-  </div>
+  <div class="quiz-level">Quiz 1 · Intermediate</div>
 </header>
 <main>
   <div class="intro">
-    <h2>Mastery Trading Quiz</h2>
-    <p>Every question includes a live chart visual. You'll be tested on FVG identification, precise entries and exits, multi-timeframe structure, and full scenario-based trade decisions. Pass mark is 70% (11/15).</p>
+    <h2>Intermediate Trading Quiz</h2>
+    <p>Test your knowledge of candlestick patterns, chart reading, risk management, and core day-trading strategy. Each question includes a live chart visual to illustrate the concept.</p>
     <div class="meta-row">
       <div class="meta-pill"><span>15</span> Questions</div>
       <div class="meta-pill">Pass: <span>11/15 (70%)</span></div>
-      <div class="meta-pill hot">⚠ FVG · Entries · Exits · Structure</div>
+      <div class="meta-pill">Topics: <span>Candlesticks · Patterns · Risk · Strategy</span></div>
     </div>
   </div>
 
   <div class="progress-container">
-    <div class="progress-label"><span>Mastery Progress</span><span id="progress-text">0 / 15 answered</span></div>
+    <div class="progress-label"><span>Progress</span><span id="progress-text">0 / 15 answered</span></div>
     <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
   </div>
 
@@ -152,41 +126,37 @@
       <div class="q-left">
         <div class="q-top-row">
           <div class="q-number">01</div>
-          <div class="question-text">What is a Fair Value Gap (FVG)?</div>
-          <div class="q-difficulty diff-medium">Medium</div>
+          <div class="question-text">What does a green (bullish) candlestick tell you about price action during that period?</div>
+          <div class="q-difficulty diff-easy">Easy</div>
         </div>
       </div>
-      <!-- 3-candle FVG formation -->
-      <svg class="q-chart" viewBox="0 0 210 108" xmlns="http://www.w3.org/2000/svg">
-        <rect width="210" height="108" fill="#060606" rx="5"/>
-        <!-- C1 -->
-        <line x1="42" y1="30" x2="42" y2="40" stroke="#22a085" stroke-width="1.5"/>
-        <rect x="35" y="40" width="14" height="28" fill="#22a085" rx="1"/>
-        <line x1="42" y1="68" x2="42" y2="78" stroke="#22a085" stroke-width="1.5"/>
-        <text x="42" y="88" text-anchor="middle" fill="#555" font-size="7" font-family="sans-serif">C1</text>
-        <!-- C2 big impulse -->
-        <line x1="72" y1="10" x2="72" y2="18" stroke="#22a085" stroke-width="1.5"/>
-        <rect x="65" y="18" width="14" height="42" fill="#22a085" rx="1"/>
-        <line x1="72" y1="60" x2="72" y2="68" stroke="#22a085" stroke-width="1.5"/>
-        <text x="72" y="88" text-anchor="middle" fill="#c9a84c" font-size="7.5" font-family="Barlow Condensed,sans-serif">C2</text>
-        <!-- C3 -->
-        <line x1="102" y1="14" x2="102" y2="22" stroke="#22a085" stroke-width="1.5"/>
-        <rect x="95" y="22" width="14" height="26" fill="#22a085" rx="1"/>
-        <line x1="102" y1="48" x2="102" y2="58" stroke="#22a085" stroke-width="1.5"/>
-        <text x="102" y="88" text-anchor="middle" fill="#555" font-size="7" font-family="sans-serif">C3</text>
-        <!-- FVG zone: C1 high to C3 low -->
-        <line x1="35" y1="40" x2="200" y2="40" stroke="rgba(201,168,76,.4)" stroke-width=".8" stroke-dasharray="3,2"/>
-        <line x1="95" y1="48" x2="200" y2="48" stroke="rgba(201,168,76,.4)" stroke-width=".8" stroke-dasharray="3,2"/>
-        <rect x="120" y="40" width="70" height="8" fill="rgba(201,168,76,.2)" stroke="rgba(201,168,76,.5)" stroke-width=".8" stroke-dasharray="2,2" rx="2"/>
-        <text x="155" y="47" text-anchor="middle" fill="#c9a84c" font-size="7" font-family="Barlow Condensed,sans-serif">FVG ZONE</text>
-        <text x="105" y="101" text-anchor="middle" fill="#c9a84c" font-size="7.5" font-family="sans-serif">C1 high ↔ C3 low = gap</text>
+      <!-- BULL vs BEAR anatomy -->
+      <svg class="q-chart" viewBox="0 0 200 108" xmlns="http://www.w3.org/2000/svg">
+        <rect width="200" height="108" fill="#060606" rx="5"/>
+        <line x1="0" y1="27" x2="200" y2="27" stroke="#141414" stroke-width="1"/>
+        <line x1="0" y1="54" x2="200" y2="54" stroke="#141414" stroke-width="1"/>
+        <line x1="0" y1="81" x2="200" y2="81" stroke="#141414" stroke-width="1"/>
+        <!-- BULL candle x=62 -->
+        <line x1="62" y1="14" x2="62" y2="27" stroke="#22a085" stroke-width="1.5"/>
+        <rect x="54" y="27" width="16" height="46" fill="#22a085" rx="1"/>
+        <line x1="62" y1="73" x2="62" y2="88" stroke="#22a085" stroke-width="1.5"/>
+        <text x="62" y="101" text-anchor="middle" fill="#22a085" font-size="8.5" font-family="Barlow Condensed,sans-serif" letter-spacing="1">BULLISH</text>
+        <text x="82" y="30" fill="#333" font-size="7" font-family="sans-serif">← CLOSE</text>
+        <text x="82" y="72" fill="#333" font-size="7" font-family="sans-serif">← OPEN</text>
+        <!-- BEAR candle x=138 -->
+        <line x1="138" y1="12" x2="138" y2="24" stroke="#e84040" stroke-width="1.5"/>
+        <rect x="130" y="24" width="16" height="48" fill="#e84040" rx="1"/>
+        <line x1="138" y1="72" x2="138" y2="88" stroke="#e84040" stroke-width="1.5"/>
+        <text x="138" y="101" text-anchor="middle" fill="#e84040" font-size="8.5" font-family="Barlow Condensed,sans-serif" letter-spacing="1">BEARISH</text>
+        <text x="98" y="27" fill="#333" font-size="7" font-family="sans-serif">OPEN →</text>
+        <text x="98" y="71" fill="#333" font-size="7" font-family="sans-serif">CLOSE →</text>
       </svg>
     </div>
     <div class="options" id="opts-0">
-      <button class="option-btn" onclick="answer(0,0)"><span class="option-letter">A</span>A gap between a stock's current price and its fundamental valuation (P/E ratio)</button>
-      <button class="option-btn" onclick="answer(0,1)"><span class="option-letter">B</span>A 3-candle price imbalance where candle 1's high and candle 3's low do not overlap — leaving an unfilled zone where institutions transacted</button>
-      <button class="option-btn" onclick="answer(0,2)"><span class="option-letter">C</span>The gap between a stock's pre-market price and its regular session open</button>
-      <button class="option-btn" onclick="answer(0,3)"><span class="option-letter">D</span>The spread between bid and ask during low-volume periods</button>
+      <button class="option-btn" onclick="answer(0,0)"><span class="option-letter">A</span>The closing price was lower than the opening price</button>
+      <button class="option-btn" onclick="answer(0,1)"><span class="option-letter">B</span>The closing price was higher than the opening price</button>
+      <button class="option-btn" onclick="answer(0,2)"><span class="option-letter">C</span>Price only moved upward with no sellers present</button>
+      <button class="option-btn" onclick="answer(0,3)"><span class="option-letter">D</span>Volume was higher than average</button>
     </div>
     <div class="explanation" id="exp-0"></div>
   </div>
@@ -197,44 +167,37 @@
       <div class="q-left">
         <div class="q-top-row">
           <div class="q-number">02</div>
-          <div class="question-text">In a bullish FVG, which candle's LOW and which candle's HIGH define the gap zone for a long entry?</div>
-          <div class="q-difficulty diff-medium">Medium</div>
+          <div class="question-text">The upper wick (shadow) of a candlestick represents:</div>
+          <div class="q-difficulty diff-easy">Easy</div>
         </div>
       </div>
-      <!-- FVG labeled clearly C1 high / C3 low -->
-      <svg class="q-chart" viewBox="0 0 210 108" xmlns="http://www.w3.org/2000/svg">
-        <rect width="210" height="108" fill="#060606" rx="5"/>
-        <!-- C1 with HIGH labeled -->
-        <line x1="38" y1="28" x2="38" y2="38" stroke="#22a085" stroke-width="1.5"/>
-        <rect x="31" y="38" width="14" height="28" fill="#22a085" rx="1"/>
-        <line x1="38" y1="66" x2="38" y2="76" stroke="#22a085" stroke-width="1.5"/>
-        <circle cx="38" cy="28" r="3" fill="none" stroke="#c9a84c" stroke-width="1.2"/>
-        <text x="55" y="31" fill="#c9a84c" font-size="7" font-family="sans-serif">C1 HIGH ←</text>
-        <text x="38" y="88" text-anchor="middle" fill="#555" font-size="7" font-family="sans-serif">C1</text>
-        <!-- C2 big -->
-        <line x1="70" y1="8" x2="70" y2="16" stroke="#22a085" stroke-width="1.5"/>
-        <rect x="63" y="16" width="14" height="44" fill="#22a085" rx="1"/>
-        <line x1="70" y1="60" x2="70" y2="68" stroke="#22a085" stroke-width="1.5"/>
-        <text x="70" y="88" text-anchor="middle" fill="#c9a84c" font-size="7" font-family="sans-serif">C2</text>
-        <!-- C3 with LOW labeled -->
-        <line x1="102" y1="12" x2="102" y2="20" stroke="#22a085" stroke-width="1.5"/>
-        <rect x="95" y="20" width="14" height="22" fill="#22a085" rx="1"/>
-        <line x1="102" y1="42" x2="102" y2="50" stroke="#22a085" stroke-width="1.5"/>
-        <circle cx="102" cy="42" r="3" fill="none" stroke="#e84040" stroke-width="1.2"/>
-        <text x="108" y="45" fill="#e84040" font-size="7" font-family="sans-serif">→ C3 LOW</text>
-        <text x="102" y="88" text-anchor="middle" fill="#555" font-size="7" font-family="sans-serif">C3</text>
-        <!-- Zone between C1 high and C3 low -->
-        <line x1="28" y1="28" x2="200" y2="28" stroke="rgba(201,168,76,.35)" stroke-width=".7" stroke-dasharray="3,2"/>
-        <line x1="92" y1="42" x2="200" y2="42" stroke="rgba(204,31,31,.35)" stroke-width=".7" stroke-dasharray="3,2"/>
-        <rect x="122" y="28" width="68" height="14" fill="rgba(201,168,76,.18)" stroke="rgba(201,168,76,.5)" stroke-width=".8" stroke-dasharray="2,2" rx="2"/>
-        <text x="156" y="38" text-anchor="middle" fill="#c9a84c" font-size="7" font-family="Barlow Condensed,sans-serif">ENTRY ZONE</text>
+      <!-- Upper wick anatomy -->
+      <svg class="q-chart" viewBox="0 0 200 108" xmlns="http://www.w3.org/2000/svg">
+        <rect width="200" height="108" fill="#060606" rx="5"/>
+        <line x1="0" y1="27" x2="200" y2="27" stroke="#141414" stroke-width="1"/>
+        <line x1="0" y1="81" x2="200" y2="81" stroke="#141414" stroke-width="1"/>
+        <!-- Single candle with prominent upper wick, x=80 -->
+        <line x1="80" y1="10" x2="80" y2="34" stroke="#22a085" stroke-width="1.5"/>
+        <rect x="72" y="34" width="16" height="34" fill="#22a085" rx="1"/>
+        <line x1="80" y1="68" x2="80" y2="82" stroke="#22a085" stroke-width="1.5"/>
+        <!-- Arrow + label pointing to upper wick -->
+        <line x1="110" y1="20" x2="88" y2="20" stroke="#c9a84c" stroke-width="1.2" marker-end="url(#arr)"/>
+        <text x="113" y="18" fill="#c9a84c" font-size="8" font-family="Barlow Condensed,sans-serif">UPPER WICK</text>
+        <text x="113" y="28" fill="#666" font-size="7" font-family="sans-serif">= HIGHEST PRICE</text>
+        <!-- Arrow to body -->
+        <line x1="110" y1="51" x2="90" y2="51" stroke="#555" stroke-width="1" stroke-dasharray="3,2"/>
+        <text x="113" y="54" fill="#555" font-size="7" font-family="sans-serif">BODY</text>
+        <!-- Arrow to lower wick -->
+        <line x1="110" y1="76" x2="90" y2="76" stroke="#555" stroke-width="1" stroke-dasharray="3,2"/>
+        <text x="113" y="79" fill="#555" font-size="7" font-family="sans-serif">LOWER WICK</text>
+        <defs><marker id="arr" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#c9a84c"/></marker></defs>
       </svg>
     </div>
     <div class="options" id="opts-1">
-      <button class="option-btn" onclick="answer(1,0)"><span class="option-letter">A</span>The gap between candle 2's open and candle 2's close</button>
-      <button class="option-btn" onclick="answer(1,1)"><span class="option-letter">B</span>The LOW of candle 3 and the HIGH of candle 1 — this unfilled space is the FVG entry zone</button>
-      <button class="option-btn" onclick="answer(1,2)"><span class="option-letter">C</span>The HIGH of candle 3 and the LOW of candle 1</button>
-      <button class="option-btn" onclick="answer(1,3)"><span class="option-letter">D</span>The gap zone between the prior day's close and today's open</button>
+      <button class="option-btn" onclick="answer(1,0)"><span class="option-letter">A</span>The opening price of the candle</button>
+      <button class="option-btn" onclick="answer(1,1)"><span class="option-letter">B</span>The highest price reached during the period</button>
+      <button class="option-btn" onclick="answer(1,2)"><span class="option-letter">C</span>The volume traded at the top</button>
+      <button class="option-btn" onclick="answer(1,3)"><span class="option-letter">D</span>A gap in price between two candles</button>
     </div>
     <div class="explanation" id="exp-1"></div>
   </div>
@@ -245,45 +208,48 @@
       <div class="q-left">
         <div class="q-top-row">
           <div class="q-number">03</div>
-          <div class="question-text">Price surges and leaves an FVG between $14.20 and $14.80. It pulls back into this zone. What is the correct approach?</div>
-          <div class="q-difficulty diff-medium">Medium</div>
+          <div class="question-text">In day trading, what does "volatility" primarily refer to?</div>
+          <div class="q-difficulty diff-easy">Easy</div>
         </div>
       </div>
-      <!-- FVG pullback + confirmation candle -->
-      <svg class="q-chart" viewBox="0 0 210 108" xmlns="http://www.w3.org/2000/svg">
-        <rect width="210" height="108" fill="#060606" rx="5"/>
-        <!-- Prior high resistance -->
-        <line x1="0" y1="14" x2="210" y2="14" stroke="rgba(204,31,31,.4)" stroke-width=".8" stroke-dasharray="3,2"/>
-        <text x="4" y="12" fill="rgba(204,31,31,.6)" font-size="6.5" font-family="sans-serif">$15.40 prior high</text>
-        <!-- Bull run candles -->
-        <rect x="8" y="64" width="10" height="18" fill="#22a085" rx="1"/>
-        <rect x="22" y="50" width="10" height="18" fill="#22a085" rx="1"/>
-        <rect x="36" y="36" width="10" height="18" fill="#22a085" rx="1"/>
-        <!-- FVG zone -->
-        <line x1="0" y1="38" x2="210" y2="38" stroke="rgba(201,168,76,.45)" stroke-width=".8" stroke-dasharray="3,2"/>
-        <line x1="0" y1="52" x2="210" y2="52" stroke="rgba(201,168,76,.45)" stroke-width=".8" stroke-dasharray="3,2"/>
-        <rect x="54" y="38" width="130" height="14" fill="rgba(201,168,76,.14)" stroke="rgba(201,168,76,.4)" stroke-width=".8" stroke-dasharray="2,2" rx="1"/>
-        <text x="119" y="47" text-anchor="middle" fill="#c9a84c" font-size="7" font-family="Barlow Condensed,sans-serif">FVG ZONE</text>
-        <!-- Pullback candle entering FVG -->
-        <line x1="66" y1="22" x2="66" y2="38" stroke="#e84040" stroke-width="1.5"/>
-        <rect x="59" y="38" width="14" height="18" fill="#e84040" rx="1" opacity=".9"/>
-        <line x1="66" y1="56" x2="66" y2="62" stroke="#e84040" stroke-width="1.5"/>
-        <!-- Confirmation hammer in FVG -->
-        <line x1="90" y1="34" x2="90" y2="40" stroke="#22a085" stroke-width="1.5"/>
-        <rect x="83" y="40" width="14" height="9" fill="#22a085" rx="1"/>
-        <line x1="90" y1="49" x2="90" y2="58" stroke="#22a085" stroke-width="1.5"/><!-- wick into FVG showing buy -->
-        <text x="110" y="62" fill="#22a085" font-size="6.5" font-family="sans-serif">↑ confirmation</text>
-        <!-- Stop below FVG -->
-        <line x1="54" y1="56" x2="180" y2="56" stroke="rgba(204,31,31,.5)" stroke-width=".8" stroke-dasharray="3,2"/>
-        <text x="130" y="64" fill="rgba(204,31,31,.7)" font-size="6.5" font-family="sans-serif">stop below FVG</text>
-        <text x="105" y="101" text-anchor="middle" fill="#c9a84c" font-size="7.5" font-family="sans-serif">wait for confirmation in the zone</text>
+      <!-- Flat vs volatile comparison -->
+      <svg class="q-chart" viewBox="0 0 200 108" xmlns="http://www.w3.org/2000/svg">
+        <rect width="200" height="108" fill="#060606" rx="5"/>
+        <text x="50" y="12" text-anchor="middle" fill="#444" font-size="7" font-family="sans-serif">LOW VOLATILITY</text>
+        <text x="150" y="12" text-anchor="middle" fill="#c9a84c" font-size="7" font-family="sans-serif">HIGH VOLATILITY</text>
+        <line x1="100" y1="0" x2="100" y2="108" stroke="#1e1e1e" stroke-width="1"/>
+        <!-- Flat candles left -->
+        <rect x="16" y="46" width="8" height="6" fill="#22a085" rx="1"/>
+        <line x1="20" y1="43" x2="20" y2="46" stroke="#22a085" stroke-width="1.2"/>
+        <line x1="20" y1="52" x2="20" y2="55" stroke="#22a085" stroke-width="1.2"/>
+        <rect x="28" y="45" width="8" height="7" fill="#e84040" rx="1"/>
+        <line x1="32" y1="42" x2="32" y2="45" stroke="#e84040" stroke-width="1.2"/>
+        <line x1="32" y1="52" x2="32" y2="55" stroke="#e84040" stroke-width="1.2"/>
+        <rect x="40" y="46" width="8" height="6" fill="#22a085" rx="1"/>
+        <rect x="52" y="45" width="8" height="7" fill="#e84040" rx="1"/>
+        <rect x="64" y="46" width="8" height="6" fill="#22a085" rx="1"/>
+        <text x="50" y="98" text-anchor="middle" fill="#444" font-size="7.5" font-family="sans-serif">flat, no opportunity</text>
+        <!-- Volatile candles right -->
+        <line x1="116" y1="40" x2="116" y2="52" stroke="#22a085" stroke-width="1.2"/>
+        <rect x="111" y="52" width="10" height="20" fill="#22a085" rx="1"/>
+        <line x1="116" y1="72" x2="116" y2="82" stroke="#22a085" stroke-width="1.2"/>
+        <line x1="130" y1="25" x2="130" y2="38" stroke="#e84040" stroke-width="1.2"/>
+        <rect x="125" y="38" width="10" height="28" fill="#e84040" rx="1"/>
+        <line x1="130" y1="66" x2="130" y2="78" stroke="#e84040" stroke-width="1.2"/>
+        <line x1="144" y1="30" x2="144" y2="42" stroke="#22a085" stroke-width="1.2"/>
+        <rect x="139" y="42" width="10" height="26" fill="#22a085" rx="1"/>
+        <line x1="144" y1="68" x2="144" y2="80" stroke="#22a085" stroke-width="1.2"/>
+        <line x1="158" y1="18" x2="158" y2="32" stroke="#e84040" stroke-width="1.2"/>
+        <rect x="153" y="32" width="10" height="32" fill="#e84040" rx="1"/>
+        <line x1="158" y1="64" x2="158" y2="76" stroke="#e84040" stroke-width="1.2"/>
+        <text x="150" y="98" text-anchor="middle" fill="#c9a84c" font-size="7.5" font-family="sans-serif">big moves = profit</text>
       </svg>
     </div>
     <div class="options" id="opts-2">
-      <button class="option-btn" onclick="answer(2,0)"><span class="option-letter">A</span>Short the stock immediately — the pullback confirms downside continuation</button>
-      <button class="option-btn" onclick="answer(2,1)"><span class="option-letter">B</span>Enter long the moment price touches the FVG top with no confirmation</button>
-      <button class="option-btn" onclick="answer(2,2)"><span class="option-letter">C</span>Wait for price to enter the FVG, then look for a bullish confirmation candle (rejection wick, engulfing, momentum shift) before entering long with a stop below the FVG</button>
-      <button class="option-btn" onclick="answer(2,3)"><span class="option-letter">D</span>Ignore the FVG — wait for price to reclaim the prior high before entering</button>
+      <button class="option-btn" onclick="answer(2,0)"><span class="option-letter">A</span>The number of shares a stock has outstanding</button>
+      <button class="option-btn" onclick="answer(2,1)"><span class="option-letter">B</span>How frequently a stock is mentioned in the news</button>
+      <button class="option-btn" onclick="answer(2,2)"><span class="option-letter">C</span>The degree and speed of price movement — the fuel for day trading profit</button>
+      <button class="option-btn" onclick="answer(2,3)"><span class="option-letter">D</span>A stock's average daily trading volume</button>
     </div>
     <div class="explanation" id="exp-2"></div>
   </div>
@@ -294,43 +260,43 @@
       <div class="q-left">
         <div class="q-top-row">
           <div class="q-number">04</div>
-          <div class="question-text">What does it mean when a FVG is "filled" or "mitigated"?</div>
-          <div class="q-difficulty diff-medium">Medium</div>
+          <div class="question-text">What is a "catalyst" in the context of day trading?</div>
+          <div class="q-difficulty diff-easy">Easy</div>
         </div>
       </div>
-      <!-- FVG then price fills through it -->
-      <svg class="q-chart" viewBox="0 0 210 108" xmlns="http://www.w3.org/2000/svg">
-        <rect width="210" height="108" fill="#060606" rx="5"/>
-        <!-- Left: FVG unfilled (valid) -->
-        <text x="40" y="10" text-anchor="middle" fill="#22a085" font-size="7" font-family="sans-serif">UNFILLED ✓</text>
-        <rect x="10" y="56" width="10" height="18" fill="#22a085" rx="1"/>
-        <rect x="24" y="28" width="10" height="32" fill="#22a085" rx="1"/>
-        <rect x="38" y="32" width="10" height="22" fill="#22a085" rx="1"/>
-        <rect x="16" y="36" width="36" height="14" fill="rgba(201,168,76,.2)" stroke="rgba(201,168,76,.5)" stroke-width=".8" stroke-dasharray="2,2" rx="1"/>
-        <text x="34" y="46" text-anchor="middle" fill="#c9a84c" font-size="6.5" font-family="sans-serif">FVG</text>
-        <!-- separator -->
-        <line x1="105" y1="6" x2="105" y2="102" stroke="#1e1e1e" stroke-width="1"/>
-        <!-- Right: FVG filled (invalid) -->
-        <text x="158" y="10" text-anchor="middle" fill="#e84040" font-size="7" font-family="sans-serif">FILLED ✗ (invalid)</text>
-        <rect x="116" y="56" width="10" height="18" fill="#22a085" rx="1"/>
-        <rect x="130" y="28" width="10" height="32" fill="#22a085" rx="1"/>
-        <rect x="144" y="32" width="10" height="22" fill="#22a085" rx="1"/>
-        <!-- Price comes back and fills through FVG zone -->
-        <line x1="162" y1="24" x2="162" y2="36" stroke="#e84040" stroke-width="1.5"/>
-        <rect x="155" y="36" width="14" height="28" fill="#e84040" rx="1"/>
-        <line x1="162" y1="64" x2="162" y2="72" stroke="#e84040" stroke-width="1.5"/>
-        <!-- Crossed out FVG zone -->
-        <rect x="122" y="36" width="36" height="14" fill="rgba(100,100,100,.1)" stroke="rgba(100,100,100,.3)" stroke-width=".8" stroke-dasharray="2,2" rx="1"/>
-        <line x1="122" y1="36" x2="158" y2="50" stroke="rgba(204,31,31,.4)" stroke-width="1"/>
-        <line x1="158" y1="36" x2="122" y2="50" stroke="rgba(204,31,31,.4)" stroke-width="1"/>
-        <text x="105" y="101" text-anchor="middle" fill="#888" font-size="7.5" font-family="sans-serif">filled = zone no longer valid</text>
+      <!-- Catalyst gap-up -->
+      <svg class="q-chart" viewBox="0 0 200 108" xmlns="http://www.w3.org/2000/svg">
+        <rect width="200" height="108" fill="#060606" rx="5"/>
+        <line x1="0" y1="81" x2="200" y2="81" stroke="#141414" stroke-width="1"/>
+        <!-- Flat candles before news -->
+        <rect x="10" y="66" width="9" height="8" fill="#22a085" rx="1"/>
+        <rect x="22" y="65" width="9" height="9" fill="#e84040" rx="1"/>
+        <rect x="34" y="66" width="9" height="8" fill="#22a085" rx="1"/>
+        <rect x="46" y="65" width="9" height="8" fill="#e84040" rx="1"/>
+        <!-- News label + lightning bolt -->
+        <text x="72" y="40" text-anchor="middle" fill="#c9a84c" font-size="8" font-family="Barlow Condensed,sans-serif" letter-spacing="1">NEWS!</text>
+        <text x="72" y="51" text-anchor="middle" fill="#555" font-size="7" font-family="sans-serif">CATALYST</text>
+        <line x1="72" y1="55" x2="72" y2="64" stroke="#c9a84c" stroke-width="1.2" stroke-dasharray="3,2"/>
+        <!-- Gap-up + big candles -->
+        <line x1="90" y1="18" x2="90" y2="28" stroke="#22a085" stroke-width="1.5"/>
+        <rect x="82" y="28" width="12" height="26" fill="#22a085" rx="1"/>
+        <line x1="90" y1="54" x2="90" y2="61" stroke="#22a085" stroke-width="1.5"/>
+        <line x1="106" y1="12" x2="106" y2="22" stroke="#22a085" stroke-width="1.5"/>
+        <rect x="98" y="22" width="12" height="28" fill="#22a085" rx="1"/>
+        <line x1="106" y1="50" x2="106" y2="58" stroke="#22a085" stroke-width="1.5"/>
+        <line x1="122" y1="10" x2="122" y2="18" stroke="#22a085" stroke-width="1.5"/>
+        <rect x="114" y="18" width="12" height="24" fill="#22a085" rx="1"/>
+        <line x1="122" y1="42" x2="122" y2="52" stroke="#22a085" stroke-width="1.5"/>
+        <!-- Gap zone indicator -->
+        <rect x="58" y="58" width="26" height="7" fill="rgba(201,168,76,.15)" stroke="rgba(201,168,76,.4)" stroke-width=".8" stroke-dasharray="3,2"/>
+        <text x="71" y="97" text-anchor="middle" fill="#c9a84c" font-size="7" font-family="sans-serif">GAP UP ↑</text>
       </svg>
     </div>
     <div class="options" id="opts-3">
-      <button class="option-btn" onclick="answer(3,0)"><span class="option-letter">A</span>The gap zone is no longer valid — price has traded through it, balancing the prior imbalance</button>
-      <button class="option-btn" onclick="answer(3,1)"><span class="option-letter">B</span>The stock has reported earnings and the gap is now explained</button>
-      <button class="option-btn" onclick="answer(3,2)"><span class="option-letter">C</span>A market maker has purchased all available shares within the zone</button>
-      <button class="option-btn" onclick="answer(3,3)"><span class="option-letter">D</span>Volume has increased to match the volume when the gap was created</button>
+      <button class="option-btn" onclick="answer(3,0)"><span class="option-letter">A</span>A tool used to calculate position size</button>
+      <button class="option-btn" onclick="answer(3,1)"><span class="option-letter">B</span>A news event, earnings report, or press release that triggers abnormal price movement</button>
+      <button class="option-btn" onclick="answer(3,2)"><span class="option-letter">C</span>A candlestick pattern that predicts a reversal</button>
+      <button class="option-btn" onclick="answer(3,3)"><span class="option-letter">D</span>The market maker managing order flow</button>
     </div>
     <div class="explanation" id="exp-3"></div>
   </div>
@@ -341,41 +307,35 @@
       <div class="q-left">
         <div class="q-top-row">
           <div class="q-number">05</div>
-          <div class="question-text">A strong move creates a clean FVG. Before it fills, price moves higher and creates a SECOND FVG above the first. What does this indicate?</div>
-          <div class="q-difficulty diff-hard">Hard</div>
+          <div class="question-text">Which of the following best describes a "Hammer" candlestick pattern?</div>
+          <div class="q-difficulty diff-easy">Easy</div>
         </div>
       </div>
-      <!-- Stacked FVGs -->
-      <svg class="q-chart" viewBox="0 0 210 108" xmlns="http://www.w3.org/2000/svg">
-        <rect width="210" height="108" fill="#060606" rx="5"/>
-        <!-- Candles moving up aggressively -->
-        <rect x="8" y="72" width="10" height="20" fill="#22a085" rx="1"/>
-        <rect x="22" y="56" width="10" height="22" fill="#22a085" rx="1"/>
-        <!-- FVG 1 (lower) -->
-        <rect x="8" y="60" width="36" height="12" fill="rgba(201,168,76,.2)" stroke="rgba(201,168,76,.5)" stroke-width=".8" stroke-dasharray="2,2" rx="1"/>
-        <text x="26" y="69" text-anchor="middle" fill="#c9a84c" font-size="7" font-family="Barlow Condensed,sans-serif">FVG #1</text>
-        <rect x="36" y="34" width="10" height="22" fill="#22a085" rx="1"/>
-        <rect x="50" y="18" width="10" height="22" fill="#22a085" rx="1"/>
-        <!-- FVG 2 (higher) -->
-        <rect x="36" y="28" width="36" height="12" fill="rgba(201,168,76,.25)" stroke="rgba(201,168,76,.6)" stroke-width=".8" stroke-dasharray="2,2" rx="1"/>
-        <text x="54" y="37" text-anchor="middle" fill="#c9a84c" font-size="7" font-family="Barlow Condensed,sans-serif">FVG #2</text>
-        <rect x="64" y="14" width="10" height="16" fill="#22a085" rx="1"/>
-        <!-- Arrow showing institutional aggression -->
-        <text x="90" y="22" fill="#22a085" font-size="7" font-family="Barlow Condensed,sans-serif">STACKED</text>
-        <text x="90" y="31" fill="#22a085" font-size="7" font-family="Barlow Condensed,sans-serif">= AGGRESSIVE</text>
-        <text x="90" y="40" fill="#22a085" font-size="7" font-family="Barlow Condensed,sans-serif">BUYING</text>
-        <!-- Pullback arrow to FVG 2 -->
-        <line x1="82" y1="44" x2="70" y2="34" stroke="#22a085" stroke-width="1" stroke-dasharray="3,2"/>
-        <text x="84" y="48" fill="#555" font-size="6.5" font-family="sans-serif">entry on</text>
-        <text x="84" y="56" fill="#555" font-size="6.5" font-family="sans-serif">pullback →</text>
-        <text x="105" y="101" text-anchor="middle" fill="#c9a84c" font-size="7.5" font-family="sans-serif">stacked FVGs = institutions buying hard</text>
+      <!-- Hammer candle -->
+      <svg class="q-chart" viewBox="0 0 200 108" xmlns="http://www.w3.org/2000/svg">
+        <rect width="200" height="108" fill="#060606" rx="5"/>
+        <line x1="0" y1="27" x2="200" y2="27" stroke="#141414" stroke-width="1"/>
+        <line x1="0" y1="81" x2="200" y2="81" stroke="#141414" stroke-width="1"/>
+        <text x="100" y="10" text-anchor="middle" fill="#c9a84c" font-size="8" font-family="Barlow Condensed,sans-serif" letter-spacing="1">HAMMER</text>
+        <!-- Hammer: small body at top, long lower wick -->
+        <line x1="100" y1="20" x2="100" y2="32" stroke="#22a085" stroke-width="1.5"/><!-- tiny upper wick -->
+        <rect x="92" y="32" width="16" height="12" fill="#22a085" rx="1"/><!-- small body -->
+        <line x1="100" y1="44" x2="100" y2="90" stroke="#22a085" stroke-width="1.5"/><!-- LONG lower wick -->
+        <!-- Labels -->
+        <line x1="122" y1="38" x2="110" y2="38" stroke="#c9a84c" stroke-width="1"/>
+        <text x="124" y="41" fill="#c9a84c" font-size="7.5" font-family="sans-serif">small body</text>
+        <line x1="128" y1="67" x2="110" y2="67" stroke="#555" stroke-width="1"/>
+        <text x="130" y="70" fill="#555" font-size="7.5" font-family="sans-serif">long wick</text>
+        <text x="70" y="70" fill="#444" font-size="7" font-family="sans-serif">sellers</text>
+        <text x="65" y="79" fill="#444" font-size="7" font-family="sans-serif">rejected ↓</text>
+        <text x="100" y="101" text-anchor="middle" fill="#22a085" font-size="7.5" font-family="sans-serif">bullish reversal signal</text>
       </svg>
     </div>
     <div class="options" id="opts-4">
-      <button class="option-btn" onclick="answer(4,0)"><span class="option-letter">A</span>The stock is overextended and a sharp reversal is imminent — short the breakout</button>
-      <button class="option-btn" onclick="answer(4,1)"><span class="option-letter">B</span>Multiple stacked FVGs show institutional aggression — strong bullish trend. Entries on pullbacks to either FVG have high probability of continuation</button>
-      <button class="option-btn" onclick="answer(4,2)"><span class="option-letter">C</span>Two FVGs cancel each other out — the signal is invalid</button>
-      <button class="option-btn" onclick="answer(4,3)"><span class="option-letter">D</span>Wait for both FVGs to fully fill before taking any position</button>
+      <button class="option-btn" onclick="answer(4,0)"><span class="option-letter">A</span>A candle with a large body and no wicks</button>
+      <button class="option-btn" onclick="answer(4,1)"><span class="option-letter">B</span>A small body at the top with a long lower wick, signaling potential bullish reversal</button>
+      <button class="option-btn" onclick="answer(4,2)"><span class="option-letter">C</span>Two consecutive bearish candles of equal size</button>
+      <button class="option-btn" onclick="answer(4,3)"><span class="option-letter">D</span>A candle that opens and closes at exactly the same price</button>
     </div>
     <div class="explanation" id="exp-4"></div>
   </div>
@@ -386,51 +346,35 @@
       <div class="q-left">
         <div class="q-top-row">
           <div class="q-number">06</div>
-          <div class="question-text">Analyze this 4-candle sequence and choose the correct entry action:</div>
-          <div class="q-difficulty diff-hard">Hard</div>
+          <div class="question-text">A "Doji" candlestick has a very small or non-existent body. What does this typically signal?</div>
+          <div class="q-difficulty diff-medium">Medium</div>
         </div>
       </div>
-      <!-- 4-candle FVG pullback scenario -->
-      <svg class="q-chart" viewBox="0 0 210 108" xmlns="http://www.w3.org/2000/svg">
-        <rect width="210" height="108" fill="#060606" rx="5"/>
-        <!-- C1: big green 9:30 -->
-        <line x1="22" y1="16" x2="22" y2="26" stroke="#22a085" stroke-width="1.5"/>
-        <rect x="15" y="26" width="14" height="38" fill="#22a085" rx="1"/>
-        <line x1="22" y1="64" x2="22" y2="72" stroke="#22a085" stroke-width="1.5"/>
-        <text x="22" y="84" text-anchor="middle" fill="#555" font-size="6" font-family="sans-serif">C1</text>
-        <!-- C2: doji -->
-        <line x1="46" y1="22" x2="46" y2="28" stroke="#aaa" stroke-width="1.2"/>
-        <rect x="40" y="28" width="12" height="6" fill="#aaa" rx="1"/>
-        <line x1="46" y1="34" x2="46" y2="40" stroke="#aaa" stroke-width="1.2"/>
-        <text x="46" y="84" text-anchor="middle" fill="#555" font-size="6" font-family="sans-serif">C2</text>
-        <!-- C3: green break -->
-        <line x1="68" y1="12" x2="68" y2="20" stroke="#22a085" stroke-width="1.5"/>
-        <rect x="61" y="20" width="14" height="28" fill="#22a085" rx="1"/>
-        <line x1="68" y1="48" x2="68" y2="56" stroke="#22a085" stroke-width="1.5"/>
-        <text x="68" y="84" text-anchor="middle" fill="#555" font-size="6" font-family="sans-serif">C3</text>
-        <!-- FVG zone between C1 high and C3 low -->
-        <line x1="14" y1="26" x2="200" y2="26" stroke="rgba(201,168,76,.35)" stroke-width=".7" stroke-dasharray="3,2"/>
-        <line x1="60" y1="48" x2="200" y2="48" stroke="rgba(201,168,76,.35)" stroke-width=".7" stroke-dasharray="3,2"/>
-        <rect x="88" y="26" width="60" height="22" fill="rgba(201,168,76,.12)" stroke="rgba(201,168,76,.4)" stroke-width=".7" stroke-dasharray="2,2" rx="1"/>
-        <text x="118" y="40" text-anchor="middle" fill="#c9a84c" font-size="7" font-family="Barlow Condensed,sans-serif">FVG</text>
-        <!-- C4: red pullback into FVG with lower wick -->
-        <line x1="162" y1="18" x2="162" y2="28" stroke="#e84040" stroke-width="1.5"/>
-        <rect x="155" y="28" width="14" height="20" fill="#e84040" rx="1"/>
-        <line x1="162" y1="48" x2="162" y2="58" stroke="#e84040" stroke-width="1.5"/><!-- wick into FVG showing buy-->
-        <text x="162" y="84" text-anchor="middle" fill="#e84040" font-size="6" font-family="sans-serif">C4</text>
-        <text x="162" y="92" text-anchor="middle" fill="#22a085" font-size="6" font-family="sans-serif">wick → buy</text>
-        <text x="105" y="101" text-anchor="middle" fill="#22a085" font-size="7.5" font-family="sans-serif">C4 wick into FVG = confirmation signal</text>
+      <!-- Doji candle -->
+      <svg class="q-chart" viewBox="0 0 200 108" xmlns="http://www.w3.org/2000/svg">
+        <rect width="200" height="108" fill="#060606" rx="5"/>
+        <text x="100" y="10" text-anchor="middle" fill="#c9a84c" font-size="8" font-family="Barlow Condensed,sans-serif" letter-spacing="1">DOJI</text>
+        <!-- Doji: upper wick + line body + lower wick -->
+        <line x1="100" y1="16" x2="100" y2="52" stroke="#aaa" stroke-width="1.5"/><!-- upper wick -->
+        <line x1="90" y1="52" x2="110" y2="52" stroke="#aaa" stroke-width="2.5"/><!-- tiny body (just a line) -->
+        <line x1="100" y1="54" x2="100" y2="90" stroke="#aaa" stroke-width="1.5"/><!-- lower wick -->
+        <!-- Equal arrows -->
+        <line x1="120" y1="16" x2="120" y2="52" stroke="#c9a84c" stroke-width="1" marker-end="url(#arr2)" marker-start="url(#arr3)"/>
+        <line x1="120" y1="54" x2="120" y2="90" stroke="#c9a84c" stroke-width="1" marker-end="url(#arr2)" marker-start="url(#arr3)"/>
+        <text x="130" y="36" fill="#c9a84c" font-size="7" font-family="sans-serif">buyers</text>
+        <text x="130" y="72" fill="#c9a84c" font-size="7" font-family="sans-serif">sellers</text>
+        <text x="100" y="101" text-anchor="middle" fill="#888" font-size="7.5" font-family="sans-serif">indecision — equal battle</text>
+        <defs>
+          <marker id="arr2" markerWidth="5" markerHeight="5" refX="2.5" refY="2.5" orient="auto"><path d="M0,0 L5,2.5 L0,5 Z" fill="#c9a84c"/></marker>
+          <marker id="arr3" markerWidth="5" markerHeight="5" refX="2.5" refY="2.5" orient="auto-start-reverse"><path d="M0,0 L5,2.5 L0,5 Z" fill="#c9a84c"/></marker>
+        </defs>
       </svg>
     </div>
-    <div class="scenario-box">
-      <div class="scenario-label">📋 Scenario</div>
-      <div class="scenario-text"><span class="bull">C1 (9:30)</span>: Big green, $1.20 range. <span class="bull">C2 (9:35)</span>: Doji, volume drops 60%. <span class="bull">C3 (9:40)</span>: Green, breaks C1 high — creates <span class="fvg">bullish FVG</span>. <strong>C4 (9:45)</strong>: Red candle pulls back 50% into FVG, closes mid-FVG with a lower wick showing buyers stepping in.</div>
-    </div>
     <div class="options" id="opts-5">
-      <button class="option-btn" onclick="answer(5,0)"><span class="option-letter">A</span>Short — the red candle confirms bearish reversal</button>
-      <button class="option-btn" onclick="answer(5,1)"><span class="option-letter">B</span>Wait — do not trade until price returns to the opening gap price</button>
-      <button class="option-btn" onclick="answer(5,2)"><span class="option-letter">C</span>Enter long at the close of C4 or the first green candle in/above the FVG — stop below FVG low, target prior high + extension</button>
-      <button class="option-btn" onclick="answer(5,3)"><span class="option-letter">D</span>Enter long only after price has reclaimed the C3 high</button>
+      <button class="option-btn" onclick="answer(5,0)"><span class="option-letter">A</span>Strong bullish momentum is about to continue</button>
+      <button class="option-btn" onclick="answer(5,1)"><span class="option-letter">B</span>Indecision in the market — buyers and sellers are equally matched</button>
+      <button class="option-btn" onclick="answer(5,2)"><span class="option-letter">C</span>A guaranteed reversal in the next candle</button>
+      <button class="option-btn" onclick="answer(5,3)"><span class="option-letter">D</span>The stock has halted trading</button>
     </div>
     <div class="explanation" id="exp-5"></div>
   </div>
@@ -441,41 +385,33 @@
       <div class="q-left">
         <div class="q-top-row">
           <div class="q-number">07</div>
-          <div class="question-text">You are long at $22.40. Price runs to $24.10. A shooting star candle prints at a prior resistance ($24.05). Next candle opens flat. What is the correct decision?</div>
-          <div class="q-difficulty diff-hard">Hard</div>
+          <div class="question-text">What is a "Bullish Engulfing" candlestick pattern?</div>
+          <div class="q-difficulty diff-medium">Medium</div>
         </div>
       </div>
-      <!-- Shooting star at resistance -->
-      <svg class="q-chart" viewBox="0 0 210 108" xmlns="http://www.w3.org/2000/svg">
-        <rect width="210" height="108" fill="#060606" rx="5"/>
-        <!-- Resistance line -->
-        <line x1="0" y1="22" x2="210" y2="22" stroke="rgba(204,31,31,.55)" stroke-width="1" stroke-dasharray="5,3"/>
-        <text x="4" y="19" fill="rgba(204,31,31,.7)" font-size="6.5" font-family="sans-serif">RESISTANCE $24.05</text>
-        <!-- Entry level -->
-        <line x1="0" y1="80" x2="210" y2="80" stroke="rgba(201,168,76,.4)" stroke-width=".8" stroke-dasharray="3,2"/>
-        <text x="4" y="78" fill="rgba(201,168,76,.6)" font-size="6" font-family="sans-serif">ENTRY $22.40</text>
-        <!-- Run up candles -->
-        <rect x="10" y="58" width="11" height="18" fill="#22a085" rx="1"/>
-        <rect x="25" y="44" width="11" height="18" fill="#22a085" rx="1"/>
-        <rect x="40" y="34" width="11" height="16" fill="#22a085" rx="1"/>
-        <!-- Shooting star at resistance -->
-        <line x1="62" y1="10" x2="62" y2="22" stroke="#e84040" stroke-width="1.5"/><!-- LONG upper wick -->
-        <rect x="55" y="32" width="14" height="8" fill="#e84040" rx="1"/><!-- tiny body -->
-        <line x1="62" y1="40" x2="62" y2="46" stroke="#e84040" stroke-width="1.2"/>
-        <text x="62" y="59" text-anchor="middle" fill="#e84040" font-size="7" font-family="Barlow Condensed,sans-serif">SHOOTING</text>
-        <text x="62" y="68" text-anchor="middle" fill="#e84040" font-size="7" font-family="Barlow Condensed,sans-serif">STAR ⚠</text>
-        <!-- Partial exit indicator -->
-        <line x1="100" y1="36" x2="190" y2="36" stroke="#c9a84c" stroke-width=".8" stroke-dasharray="3,2"/>
-        <text x="105" y="32" fill="#c9a84c" font-size="6.5" font-family="sans-serif">take partial profit here</text>
-        <text x="105" y="48" fill="#555" font-size="6.5" font-family="sans-serif">move stop to breakeven</text>
-        <text x="105" y="101" text-anchor="middle" fill="#c9a84c" font-size="7.5" font-family="sans-serif">partial exit + stop to breakeven</text>
+      <!-- Bullish Engulfing: small red then big green covering it -->
+      <svg class="q-chart" viewBox="0 0 200 108" xmlns="http://www.w3.org/2000/svg">
+        <rect width="200" height="108" fill="#060606" rx="5"/>
+        <text x="100" y="10" text-anchor="middle" fill="#22a085" font-size="8" font-family="Barlow Condensed,sans-serif" letter-spacing="1">BULLISH ENGULFING</text>
+        <!-- Small bear candle x=68 -->
+        <line x1="68" y1="28" x2="68" y2="38" stroke="#e84040" stroke-width="1.5"/>
+        <rect x="61" y="38" width="14" height="26" fill="#e84040" rx="1"/>
+        <line x1="68" y1="64" x2="68" y2="74" stroke="#e84040" stroke-width="1.5"/>
+        <!-- Large bull candle x=100 that covers the bear -->
+        <line x1="100" y1="24" x2="100" y2="34" stroke="#22a085" stroke-width="1.5"/>
+        <rect x="88" y="34" width="24" height="42" fill="#22a085" rx="1"/>
+        <line x1="100" y1="76" x2="100" y2="86" stroke="#22a085" stroke-width="1.5"/>
+        <!-- Engulf lines showing it covers the prior candle -->
+        <line x1="58" y1="36" x2="88" y2="36" stroke="rgba(201,168,76,.5)" stroke-width=".8" stroke-dasharray="3,2"/>
+        <line x1="58" y1="66" x2="88" y2="76" stroke="rgba(201,168,76,.5)" stroke-width=".8" stroke-dasharray="3,2"/>
+        <text x="100" y="101" text-anchor="middle" fill="#22a085" font-size="7.5" font-family="sans-serif">green body swallows red — buyers win</text>
       </svg>
     </div>
     <div class="options" id="opts-6">
-      <button class="option-btn" onclick="answer(6,0)"><span class="option-letter">A</span>Hold the full position — one shooting star doesn't confirm a reversal</button>
-      <button class="option-btn" onclick="answer(6,1)"><span class="option-letter">B</span>Take partial profit (half the position) at resistance, move stop to breakeven on the remainder — protect the gain</button>
-      <button class="option-btn" onclick="answer(6,2)"><span class="option-letter">C</span>Immediately short the stock to profit from the reversal</button>
-      <button class="option-btn" onclick="answer(6,3)"><span class="option-letter">D</span>Add to the position — the shooting star is just a pause before continuation</button>
+      <button class="option-btn" onclick="answer(6,0)"><span class="option-letter">A</span>Two green candles in a row of the same size</button>
+      <button class="option-btn" onclick="answer(6,1)"><span class="option-letter">B</span>A large bearish candle that completely covers the previous candle's body</button>
+      <button class="option-btn" onclick="answer(6,2)"><span class="option-letter">C</span>A large bullish candle whose body completely covers the prior bearish candle's body, signaling a shift to buyers</button>
+      <button class="option-btn" onclick="answer(6,3)"><span class="option-letter">D</span>A gap-up open followed by a sell-off</button>
     </div>
     <div class="explanation" id="exp-6"></div>
   </div>
@@ -486,49 +422,40 @@
       <div class="q-left">
         <div class="q-top-row">
           <div class="q-number">08</div>
-          <div class="question-text">What is "market structure" and why does it determine the direction of your positions?</div>
-          <div class="q-difficulty diff-hard">Hard</div>
+          <div class="question-text">In pattern breakout trading, what is the "APEX" point?</div>
+          <div class="q-difficulty diff-medium">Medium</div>
         </div>
       </div>
-      <!-- HH/HL uptrend morphing to LH/LL downtrend -->
-      <svg class="q-chart" viewBox="0 0 210 108" xmlns="http://www.w3.org/2000/svg">
-        <rect width="210" height="108" fill="#060606" rx="5"/>
-        <text x="38" y="10" text-anchor="middle" fill="#22a085" font-size="7" font-family="sans-serif">UPTREND</text>
-        <text x="172" y="10" text-anchor="middle" fill="#e84040" font-size="7" font-family="sans-serif">DOWNTREND</text>
-        <line x1="105" y1="6" x2="105" y2="102" stroke="#1e1e1e" stroke-width="1"/>
-        <!-- Uptrend: HH and HL pattern with candles -->
-        <rect x="8" y="62" width="9" height="20" fill="#22a085" rx="1"/><!-- HL1 -->
-        <rect x="20" y="44" width="9" height="22" fill="#22a085" rx="1"/><!-- HH1 -->
-        <rect x="32" y="52" width="9" height="14" fill="#e84040" rx="1"/><!-- pullback HL -->
-        <rect x="44" y="34" width="9" height="22" fill="#22a085" rx="1"/><!-- HH2 -->
-        <rect x="56" y="42" width="9" height="14" fill="#e84040" rx="1"/><!-- pullback HL -->
-        <rect x="68" y="24" width="9" height="22" fill="#22a085" rx="1"/><!-- HH3 -->
-        <!-- HH labels -->
-        <text x="25" y="43" fill="#22a085" font-size="6" font-family="sans-serif">HH</text>
-        <text x="49" y="33" fill="#22a085" font-size="6" font-family="sans-serif">HH</text>
-        <text x="73" y="23" fill="#22a085" font-size="6" font-family="sans-serif">HH</text>
-        <text x="37" y="51" fill="#22a085" font-size="6" font-family="sans-serif">HL</text>
-        <text x="61" y="41" fill="#22a085" font-size="6" font-family="sans-serif">HL</text>
-        <text x="8" y="61" fill="#22a085" font-size="6" font-family="sans-serif">HL</text>
-        <!-- Downtrend: LH/LL -->
-        <rect x="112" y="26" width="9" height="22" fill="#e84040" rx="1"/><!-- start high -->
-        <rect x="124" y="44" width="9" height="16" fill="#22a085" rx="1"/><!-- small bounce LH -->
-        <rect x="136" y="36" width="9" height="22" fill="#e84040" rx="1"/><!-- LH -->
-        <rect x="148" y="54" width="9" height="14" fill="#22a085" rx="1"/><!-- bounce -->
-        <rect x="160" y="46" width="9" height="26" fill="#e84040" rx="1"/><!-- LL -->
-        <rect x="172" y="64" width="9" height="12" fill="#22a085" rx="1"/><!-- small bounce -->
-        <rect x="184" y="56" width="9" height="30" fill="#e84040" rx="1"/><!-- LL2 -->
-        <text x="134" y="34" fill="#e84040" font-size="6" font-family="sans-serif">LH</text>
-        <text x="158" y="44" fill="#e84040" font-size="6" font-family="sans-serif">LL</text>
-        <text x="184" y="54" fill="#e84040" font-size="6" font-family="sans-serif">LL</text>
-        <text x="105" y="101" text-anchor="middle" fill="#888" font-size="7.5" font-family="sans-serif">structure = your directional bias</text>
+      <!-- Triangle converging to apex -->
+      <svg class="q-chart" viewBox="0 0 200 108" xmlns="http://www.w3.org/2000/svg">
+        <rect width="200" height="108" fill="#060606" rx="5"/>
+        <!-- Upper trendline (descending) -->
+        <line x1="10" y1="22" x2="152" y2="48" stroke="rgba(204,31,31,.6)" stroke-width="1.2" stroke-dasharray="4,2"/>
+        <!-- Lower trendline (ascending) -->
+        <line x1="10" y1="80" x2="152" y2="54" stroke="rgba(30,126,52,.6)" stroke-width="1.2" stroke-dasharray="4,2"/>
+        <!-- APEX point -->
+        <circle cx="152" cy="51" r="4" fill="#c9a84c"/>
+        <text x="160" y="46" fill="#c9a84c" font-size="8" font-family="Barlow Condensed,sans-serif" letter-spacing="1">APEX</text>
+        <!-- Candles inside triangle -->
+        <rect x="14" y="50" width="8" height="22" fill="#22a085" rx="1" opacity=".8"/>
+        <rect x="26" y="48" width="8" height="18" fill="#e84040" rx="1" opacity=".8"/>
+        <rect x="38" y="50" width="8" height="16" fill="#22a085" rx="1" opacity=".8"/>
+        <rect x="50" y="51" width="8" height="14" fill="#e84040" rx="1" opacity=".8"/>
+        <rect x="62" y="51" width="8" height="12" fill="#22a085" rx="1" opacity=".8"/>
+        <rect x="74" y="51" width="8" height="10" fill="#e84040" rx="1" opacity=".8"/>
+        <rect x="86" y="51" width="8" height="8" fill="#22a085" rx="1" opacity=".8"/>
+        <rect x="98" y="51" width="8" height="7" fill="#e84040" rx="1" opacity=".8"/>
+        <!-- Breakout arrow -->
+        <line x1="158" y1="48" x2="185" y2="22" stroke="#22a085" stroke-width="2"/>
+        <polygon points="185,22 178,28 182,18" fill="#22a085"/>
+        <text x="100" y="101" text-anchor="middle" fill="#c9a84c" font-size="7.5" font-family="sans-serif">range tightens → forced breakout</text>
       </svg>
     </div>
     <div class="options" id="opts-7">
-      <button class="option-btn" onclick="answer(7,0)"><span class="option-letter">A</span>The legal framework governing stock exchanges — it determines which orders get filled first</button>
-      <button class="option-btn" onclick="answer(7,1)"><span class="option-letter">B</span>The pattern of higher highs/higher lows (uptrend) or lower highs/lower lows (downtrend) — defines directional bias and where you should be positioned</button>
-      <button class="option-btn" onclick="answer(7,2)"><span class="option-letter">C</span>How many market makers are active in a given stock</button>
-      <button class="option-btn" onclick="answer(7,3)"><span class="option-letter">D</span>The relationship between a stock's price and its moving average</button>
+      <button class="option-btn" onclick="answer(7,0)"><span class="option-letter">A</span>The lowest point in a downtrend</button>
+      <button class="option-btn" onclick="answer(7,1)"><span class="option-letter">B</span>The point of maximum volume on the chart</button>
+      <button class="option-btn" onclick="answer(7,2)"><span class="option-letter">C</span>The tightest point of a consolidation pattern where price is forced to either break out or break down</button>
+      <button class="option-btn" onclick="answer(7,3)"><span class="option-letter">D</span>The high of the previous day</button>
     </div>
     <div class="explanation" id="exp-7"></div>
   </div>
@@ -539,40 +466,40 @@
       <div class="q-left">
         <div class="q-top-row">
           <div class="q-number">09</div>
-          <div class="question-text">Analyze this scenario and decide the correct position:</div>
-          <div class="q-difficulty diff-hard">Hard</div>
+          <div class="question-text">When setting a stop-loss, where do most pattern traders place it?</div>
+          <div class="q-difficulty diff-medium">Medium</div>
         </div>
       </div>
-      <!-- Bearish engulfing structure break -->
-      <svg class="q-chart" viewBox="0 0 210 108" xmlns="http://www.w3.org/2000/svg">
-        <rect width="210" height="108" fill="#060606" rx="5"/>
-        <!-- Uptrend candles -->
-        <rect x="8" y="70" width="9" height="18" fill="#22a085" rx="1"/>
-        <rect x="20" y="58" width="9" height="16" fill="#22a085" rx="1"/>
-        <rect x="32" y="46" width="9" height="16" fill="#22a085" rx="1"/>
-        <rect x="44" y="36" width="9" height="14" fill="#22a085" rx="1"/>
-        <!-- Prior swing low line -->
-        <line x1="0" y1="74" x2="210" y2="74" stroke="rgba(30,126,52,.5)" stroke-width=".8" stroke-dasharray="3,2"/>
-        <text x="4" y="72" fill="rgba(30,126,52,.6)" font-size="6" font-family="sans-serif">swing low</text>
-        <!-- HUGE bearish engulfing -->
-        <line x1="66" y1="24" x2="66" y2="30" stroke="#e84040" stroke-width="1.5"/>
-        <rect x="57" y="30" width="18" height="52" fill="#e84040" rx="1"/><!-- covers all prior candles -->
-        <line x1="66" y1="82" x2="66" y2="90" stroke="#e84040" stroke-width="1.5"/>
-        <!-- Bearish FVG left behind -->
-        <rect x="78" y="36" width="50" height="16" fill="rgba(204,31,31,.15)" stroke="rgba(204,31,31,.5)" stroke-width=".7" stroke-dasharray="2,2" rx="1"/>
-        <text x="103" y="47" text-anchor="middle" fill="#e84040" font-size="7" font-family="Barlow Condensed,sans-serif">BEARISH FVG</text>
-        <text x="66" y="100" text-anchor="middle" fill="#e84040" font-size="7" font-family="sans-serif">3× volume — structure BREAK</text>
+      <!-- Stop loss placement diagram -->
+      <svg class="q-chart" viewBox="0 0 200 108" xmlns="http://www.w3.org/2000/svg">
+        <rect width="200" height="108" fill="#060606" rx="5"/>
+        <!-- Prior candle -->
+        <line x1="68" y1="22" x2="68" y2="34" stroke="#22a085" stroke-width="1.5"/>
+        <rect x="60" y="34" width="16" height="30" fill="#22a085" rx="1"/>
+        <line x1="68" y1="64" x2="68" y2="74" stroke="#22a085" stroke-width="1.5"/>
+        <!-- Entry candle -->
+        <line x1="92" y1="18" x2="92" y2="30" stroke="#22a085" stroke-width="1.5"/>
+        <rect x="84" y="30" width="16" height="26" fill="#22a085" rx="1"/>
+        <line x1="92" y1="56" x2="92" y2="66" stroke="#22a085" stroke-width="1.5"/>
+        <!-- Entry arrow -->
+        <text x="92" y="14" text-anchor="middle" fill="#22a085" font-size="7" font-family="Barlow Condensed,sans-serif">ENTRY ↑</text>
+        <!-- Stop line below prior candle low -->
+        <line x1="40" y1="78" x2="180" y2="78" stroke="#e84040" stroke-width="1.2" stroke-dasharray="4,2"/>
+        <text x="160" y="75" fill="#e84040" font-size="7" font-family="sans-serif">STOP</text>
+        <!-- Prior candle low label -->
+        <line x1="40" y1="74" x2="40" y2="78" stroke="#555" stroke-width="1"/>
+        <text x="42" y="72" fill="#555" font-size="7" font-family="sans-serif">prior candle low</text>
+        <!-- bracket showing stop zone -->
+        <line x1="118" y1="64" x2="118" y2="78" stroke="#e84040" stroke-width=".8"/>
+        <text x="120" y="72" fill="#e84040" font-size="7.5" font-family="sans-serif">below this</text>
+        <text x="100" y="101" text-anchor="middle" fill="#555" font-size="7.5" font-family="sans-serif">stop = below prior 5-min candle low</text>
       </svg>
     </div>
-    <div class="scenario-box">
-      <div class="scenario-label">📋 Scenario</div>
-      <div class="scenario-text">Clean uptrend (HH/HL) all morning. At 11:15 AM: <span class="bear">large bearish engulfing candle</span> wipes out 2 prior green candles. Volume is <strong>3×</strong> average. Close breaks BELOW the prior swing low. A <span class="fvg">bearish FVG</span> is left behind. Next candle opens flat.</div>
-    </div>
     <div class="options" id="opts-8">
-      <button class="option-btn" onclick="answer(8,0)"><span class="option-letter">A</span>Stay long — uptrend is still intact, this is just a normal pullback</button>
-      <button class="option-btn" onclick="answer(8,1)"><span class="option-letter">B</span>Exit the long. Structure break + high-volume engulfing + breach of swing low = structural shift. Look for a short on a bounce into the bearish FVG</button>
-      <button class="option-btn" onclick="answer(8,2)"><span class="option-letter">C</span>Average down — the uptrend gives you confidence to buy more at a discount</button>
-      <button class="option-btn" onclick="answer(8,3)"><span class="option-letter">D</span>Set a limit buy at this morning's open price and wait for it to fill</button>
+      <button class="option-btn" onclick="answer(8,0)"><span class="option-letter">A</span>At a fixed dollar amount below entry regardless of chart structure</button>
+      <button class="option-btn" onclick="answer(8,1)"><span class="option-letter">B</span>Below the low of the previous 5-minute candle</button>
+      <button class="option-btn" onclick="answer(8,2)"><span class="option-letter">C</span>At the opening price of the trading day</button>
+      <button class="option-btn" onclick="answer(8,3)"><span class="option-letter">D</span>Wherever the moving average is located</button>
     </div>
     <div class="explanation" id="exp-8"></div>
   </div>
@@ -583,43 +510,40 @@
       <div class="q-left">
         <div class="q-top-row">
           <div class="q-number">10</div>
-          <div class="question-text">When a bearish FVG forms on the 5-min chart, where is the highest-probability short entry and where is the stop?</div>
-          <div class="q-difficulty diff-hard">Hard</div>
+          <div class="question-text">Why is trading during the first 30–90 minutes after the open (9:30–11:00 AM EST) considered the most favorable time?</div>
+          <div class="q-difficulty diff-medium">Medium</div>
         </div>
       </div>
-      <!-- Bearish FVG with bounce into it = short entry -->
-      <svg class="q-chart" viewBox="0 0 210 108" xmlns="http://www.w3.org/2000/svg">
-        <rect width="210" height="108" fill="#060606" rx="5"/>
-        <!-- Bearish move creating FVG -->
-        <rect x="8" y="14" width="9" height="20" fill="#e84040" rx="1"/>
-        <rect x="20" y="22" width="9" height="28" fill="#e84040" rx="1"/>
-        <rect x="32" y="36" width="9" height="30" fill="#e84040" rx="1"/><!-- big bearish candle -->
-        <!-- Bearish FVG zone -->
-        <rect x="8" y="16" width="60" height="14" fill="rgba(204,31,31,.18)" stroke="rgba(204,31,31,.55)" stroke-width=".8" stroke-dasharray="2,2" rx="1"/>
-        <text x="38" y="26" text-anchor="middle" fill="#e84040" font-size="7" font-family="Barlow Condensed,sans-serif">BEARISH FVG</text>
-        <!-- FVG top = stop line -->
-        <line x1="0" y1="16" x2="210" y2="16" stroke="rgba(204,31,31,.4)" stroke-width=".8" stroke-dasharray="3,2"/>
-        <text x="140" y="14" fill="rgba(204,31,31,.7)" font-size="6.5" font-family="sans-serif">STOP above here</text>
-        <!-- FVG bottom line -->
-        <line x1="0" y1="30" x2="210" y2="30" stroke="rgba(204,31,31,.3)" stroke-width=".7" stroke-dasharray="3,2"/>
-        <!-- Price falls then bounces UP into FVG = short entry -->
-        <rect x="50" y="58" width="9" height="18" fill="#e84040" rx="1"/>
-        <rect x="64" y="70" width="9" height="16" fill="#22a085" rx="1"/><!-- bounce up -->
-        <rect x="78" y="54" width="9" height="18" fill="#22a085" rx="1"/><!-- bounce into FVG -->
-        <line x1="82" y1="22" x2="82" y2="54" stroke="rgba(201,168,76,.5)" stroke-width=".8" stroke-dasharray="2,2"/>
-        <!-- SHORT arrow from FVG zone -->
-        <line x1="96" y1="24" x2="96" y2="50" stroke="#e84040" stroke-width="1.5"/>
-        <polygon points="96,52 91,44 101,44" fill="#e84040"/>
-        <text x="108" y="22" fill="#e84040" font-size="7.5" font-family="Barlow Condensed,sans-serif">SHORT HERE</text>
-        <text x="108" y="31" fill="#555" font-size="6.5" font-family="sans-serif">bounce into FVG</text>
-        <text x="105" y="101" text-anchor="middle" fill="#e84040" font-size="7.5" font-family="sans-serif">wait for bounce INTO zone → short</text>
+      <!-- Volume bars declining through day -->
+      <svg class="q-chart" viewBox="0 0 200 108" xmlns="http://www.w3.org/2000/svg">
+        <rect width="200" height="108" fill="#060606" rx="5"/>
+        <text x="100" y="10" text-anchor="middle" fill="#c9a84c" font-size="7.5" font-family="Barlow Condensed,sans-serif" letter-spacing="1">VOLUME THROUGH DAY</text>
+        <!-- x-axis -->
+        <line x1="16" y1="88" x2="188" y2="88" stroke="#222" stroke-width="1"/>
+        <!-- Volume bars (declining) -->
+        <rect x="20" y="24" width="18" height="64" fill="#22a085" rx="1" opacity=".9"/>
+        <rect x="42" y="36" width="18" height="52" fill="#22a085" rx="1" opacity=".8"/>
+        <rect x="64" y="50" width="18" height="38" fill="#22a085" rx="1" opacity=".65"/>
+        <rect x="86" y="60" width="18" height="28" fill="#888" rx="1" opacity=".5"/>
+        <rect x="108" y="64" width="18" height="24" fill="#888" rx="1" opacity=".4"/>
+        <rect x="130" y="68" width="18" height="20" fill="#888" rx="1" opacity=".35"/>
+        <rect x="152" y="72" width="18" height="16" fill="#555" rx="1" opacity=".35"/>
+        <!-- Time labels -->
+        <text x="29" y="100" text-anchor="middle" fill="#22a085" font-size="6.5" font-family="sans-serif">9:30</text>
+        <text x="51" y="100" text-anchor="middle" fill="#22a085" font-size="6.5" font-family="sans-serif">9:45</text>
+        <text x="73" y="100" text-anchor="middle" fill="#22a085" font-size="6.5" font-family="sans-serif">10:15</text>
+        <text x="95" y="100" text-anchor="middle" fill="#777" font-size="6.5" font-family="sans-serif">11 AM</text>
+        <text x="161" y="100" text-anchor="middle" fill="#555" font-size="6.5" font-family="sans-serif">close</text>
+        <!-- Peak bracket -->
+        <line x1="20" y1="20" x2="82" y2="20" stroke="rgba(201,168,76,.5)" stroke-width=".8" stroke-dasharray="2,2"/>
+        <text x="51" y="17" text-anchor="middle" fill="#c9a84c" font-size="6.5" font-family="sans-serif">PRIME TIME</text>
       </svg>
     </div>
     <div class="options" id="opts-9">
-      <button class="option-btn" onclick="answer(9,0)"><span class="option-letter">A</span>Short immediately after the gap forms; stop above the high of the move</button>
-      <button class="option-btn" onclick="answer(9,1)"><span class="option-letter">B</span>Short when price bounces back UP into the FVG zone (acts as resistance). Stop just above the FVG high — where the gap would be invalidated</button>
-      <button class="option-btn" onclick="answer(9,2)"><span class="option-letter">C</span>Short only after price has moved down 5% from the FVG formation</button>
-      <button class="option-btn" onclick="answer(9,3)"><span class="option-letter">D</span>Short on any red candle that appears within 3 candles of FVG formation</button>
+      <button class="option-btn" onclick="answer(9,0)"><span class="option-letter">A</span>Spreads are widest, creating the most profit opportunities</button>
+      <button class="option-btn" onclick="answer(9,1)"><span class="option-letter">B</span>Volume and volatility are at their highest, providing the cleanest momentum moves</button>
+      <button class="option-btn" onclick="answer(9,2)"><span class="option-letter">C</span>Institutional traders take a break, leaving retail traders in control</button>
+      <button class="option-btn" onclick="answer(9,3)"><span class="option-letter">D</span>News releases are only permitted before 11:00 AM</button>
     </div>
     <div class="explanation" id="exp-9"></div>
   </div>
@@ -630,54 +554,42 @@
       <div class="q-left">
         <div class="q-top-row">
           <div class="q-number">11</div>
-          <div class="question-text">Complex scenario — choose the best action:</div>
-          <div class="q-difficulty diff-elite">Elite</div>
+          <div class="question-text">A stock is consolidating tightly after a strong gap-up open. The range is narrowing. What is the correct action?</div>
+          <div class="q-difficulty diff-medium">Medium</div>
         </div>
       </div>
-      <!-- Multi-confluence setup: gap-up, stacked FVGs, bull flag, hammer at FVG -->
-      <svg class="q-chart" viewBox="0 0 210 108" xmlns="http://www.w3.org/2000/svg">
-        <rect width="210" height="108" fill="#060606" rx="5"/>
-        <!-- Gap up morning run -->
-        <rect x="8" y="62" width="9" height="20" fill="#22a085" rx="1"/>
-        <rect x="20" y="44" width="9" height="22" fill="#22a085" rx="1"/>
-        <rect x="32" y="28" width="9" height="20" fill="#22a085" rx="1"/>
-        <!-- FVG 1 -->
-        <rect x="8" y="52" width="36" height="10" fill="rgba(201,168,76,.15)" stroke="rgba(201,168,76,.4)" stroke-width=".7" stroke-dasharray="2,2" rx="1"/>
-        <text x="26" y="60" text-anchor="middle" fill="#c9a84c" font-size="6" font-family="sans-serif">FVG1</text>
-        <!-- FVG 2 (higher) -->
-        <rect x="20" y="32" width="30" height="10" fill="rgba(201,168,76,.2)" stroke="rgba(201,168,76,.5)" stroke-width=".7" stroke-dasharray="2,2" rx="1"/>
-        <text x="35" y="40" text-anchor="middle" fill="#c9a84c" font-size="6" font-family="sans-serif">FVG2</text>
-        <!-- Bull flag consolidation -->
-        <rect x="48" y="24" width="8" height="6" fill="#e84040" rx="1" opacity=".7"/>
-        <rect x="60" y="24" width="8" height="6" fill="#22a085" rx="1" opacity=".7"/>
-        <rect x="72" y="25" width="8" height="5" fill="#e84040" rx="1" opacity=".7"/>
-        <rect x="84" y="25" width="8" height="5" fill="#22a085" rx="1" opacity=".7"/>
-        <!-- Breakout -->
-        <rect x="96" y="16" width="9" height="12" fill="#22a085" rx="1"/>
-        <!-- Pullback to FVG2 now -->
-        <rect x="110" y="24" width="8" height="10" fill="#e84040" rx="1"/>
-        <rect x="122" y="28" width="8" height="12" fill="#e84040" rx="1"/>
-        <!-- Hammer at FVG 2 -->
-        <line x1="136" y1="26" x2="136" y2="30" stroke="#22a085" stroke-width="1.5"/>
-        <rect x="130" y="30" width="12" height="6" fill="#22a085" rx="1"/>
-        <line x1="136" y1="36" x2="136" y2="44" stroke="#22a085" stroke-width="1.5"/><!-- wick into FVG2 -->
-        <text x="136" y="56" text-anchor="middle" fill="#22a085" font-size="6" font-family="sans-serif">hammer</text>
-        <text x="136" y="64" text-anchor="middle" fill="#22a085" font-size="6" font-family="sans-serif">at FVG2 ✓</text>
-        <!-- SPY up label -->
-        <text x="170" y="22" fill="#22a085" font-size="6.5" font-family="sans-serif">SPY ↑ green</text>
-        <text x="170" y="31" fill="#555" font-size="6" font-family="sans-serif">declining vol</text>
-        <text x="105" y="101" text-anchor="middle" fill="#c9a84c" font-size="7.5" font-family="sans-serif">max confluence = high-conviction long</text>
+      <!-- Consolidation then breakout -->
+      <svg class="q-chart" viewBox="0 0 200 108" xmlns="http://www.w3.org/2000/svg">
+        <rect width="200" height="108" fill="#060606" rx="5"/>
+        <!-- Strong initial move -->
+        <line x1="16" y1="68" x2="16" y2="78" stroke="#22a085" stroke-width="1.5"/>
+        <rect x="10" y="50" width="12" height="18" fill="#22a085" rx="1"/>
+        <line x1="16" y1="78" x2="16" y2="84" stroke="#22a085" stroke-width="1.5"/>
+        <line x1="32" y1="52" x2="32" y2="62" stroke="#22a085" stroke-width="1.5"/>
+        <rect x="26" y="32" width="12" height="20" fill="#22a085" rx="1"/>
+        <line x1="32" y1="62" x2="32" y2="72" stroke="#22a085" stroke-width="1.5"/>
+        <!-- Consolidation candles (tight) -->
+        <rect x="50" y="29" width="10" height="7" fill="#e84040" rx="1" opacity=".8"/>
+        <rect x="64" y="30" width="10" height="6" fill="#22a085" rx="1" opacity=".8"/>
+        <rect x="78" y="31" width="10" height="5" fill="#e84040" rx="1" opacity=".8"/>
+        <rect x="92" y="31" width="10" height="5" fill="#22a085" rx="1" opacity=".8"/>
+        <rect x="106" y="32" width="10" height="4" fill="#e84040" rx="1" opacity=".8"/>
+        <!-- Consolidation zone lines -->
+        <line x1="48" y1="29" x2="118" y2="29" stroke="rgba(201,168,76,.4)" stroke-width=".8" stroke-dasharray="3,2"/>
+        <line x1="48" y1="37" x2="118" y2="37" stroke="rgba(201,168,76,.4)" stroke-width=".8" stroke-dasharray="3,2"/>
+        <text x="83" y="46" text-anchor="middle" fill="#c9a84c" font-size="7" font-family="sans-serif">CONSOLIDATION</text>
+        <!-- Breakout arrow -->
+        <line x1="126" y1="29" x2="126" y2="10" stroke="#22a085" stroke-width="2"/>
+        <polygon points="126,8 121,16 131,16" fill="#22a085"/>
+        <text x="156" y="16" fill="#22a085" font-size="7.5" font-family="Barlow Condensed,sans-serif">WAIT FOR BREAK</text>
+        <text x="100" y="101" text-anchor="middle" fill="#555" font-size="7.5" font-family="sans-serif">never buy consolidation — wait for breakout</text>
       </svg>
     </div>
-    <div class="scenario-box">
-      <div class="scenario-label">📋 Multi-Factor Scenario</div>
-      <div class="scenario-text">10:20 AM. Stock gapped $2 on earnings. Two <span class="fvg">stacked bullish FVGs</span> from the morning run. Bull flag breakout at 10:10. Price now pulling back to top of <strong>FVG #2</strong>. A <span class="bull">bullish hammer</span> is forming right at FVG #2's top edge. SPY is green and trending up. Pullback volume is declining.</div>
-    </div>
     <div class="options" id="opts-10">
-      <button class="option-btn" onclick="answer(10,0)"><span class="option-letter">A</span>Sell the position — any pullback after a gap-up is distribution</button>
-      <button class="option-btn" onclick="answer(10,1)"><span class="option-letter">B</span>High-probability long entry: enter on the hammer at FVG #2 top. Multiple confluences align — FVG support + flag retest + SPY tailwind + declining pullback volume + hammer. Stop below FVG #2 bottom</button>
-      <button class="option-btn" onclick="answer(10,2)"><span class="option-letter">C</span>Wait for price to fall into FVG #1 — always wait for the lowest FVG</button>
-      <button class="option-btn" onclick="answer(10,3)"><span class="option-letter">D</span>Enter short since the breakout failed and price is pulling back</button>
+      <button class="option-btn" onclick="answer(10,0)"><span class="option-letter">A</span>Buy immediately while the stock is in consolidation to get the best price</button>
+      <button class="option-btn" onclick="answer(10,1)"><span class="option-letter">B</span>Short the stock since consolidation means the rally is over</button>
+      <button class="option-btn" onclick="answer(10,2)"><span class="option-letter">C</span>Wait for a confirmed breakout above the consolidation high before entering long</button>
+      <button class="option-btn" onclick="answer(10,3)"><span class="option-letter">D</span>Wait for the stock to return to its opening price before buying</button>
     </div>
     <div class="explanation" id="exp-10"></div>
   </div>
@@ -688,49 +600,38 @@
       <div class="q-left">
         <div class="q-top-row">
           <div class="q-number">12</div>
-          <div class="question-text">You're short at $31.50, stop at $32.10. Price drops to $29.90 — nearly 3:1 R. The next candle prints a long lower wick at a key prior support level. What do you do?</div>
-          <div class="q-difficulty diff-elite">Elite</div>
+          <div class="question-text">You can lose 40% of your trades and still be profitable. What principle makes this possible?</div>
+          <div class="q-difficulty diff-medium">Medium</div>
         </div>
       </div>
-      <!-- Short trade at 3:1, hammer at support -->
-      <svg class="q-chart" viewBox="0 0 210 108" xmlns="http://www.w3.org/2000/svg">
-        <rect width="210" height="108" fill="#060606" rx="5"/>
+      <!-- Risk/Reward diagram -->
+      <svg class="q-chart" viewBox="0 0 200 108" xmlns="http://www.w3.org/2000/svg">
+        <rect width="200" height="108" fill="#060606" rx="5"/>
+        <!-- Target line top -->
+        <line x1="14" y1="18" x2="160" y2="18" stroke="#22a085" stroke-width="1.2" stroke-dasharray="4,2"/>
+        <text x="164" y="21" fill="#22a085" font-size="7.5" font-family="sans-serif">+2R TARGET</text>
+        <!-- Entry line mid -->
+        <line x1="14" y1="54" x2="160" y2="54" stroke="#c9a84c" stroke-width="1.5"/>
+        <text x="164" y="57" fill="#c9a84c" font-size="7.5" font-family="sans-serif">ENTRY</text>
         <!-- Stop line -->
-        <line x1="0" y1="14" x2="210" y2="14" stroke="rgba(204,31,31,.4)" stroke-width=".8" stroke-dasharray="3,2"/>
-        <text x="4" y="12" fill="rgba(204,31,31,.6)" font-size="6.5" font-family="sans-serif">$32.10 STOP</text>
-        <!-- Entry line -->
-        <line x1="0" y1="30" x2="210" y2="30" stroke="rgba(201,168,76,.45)" stroke-width="1"/>
-        <text x="4" y="28" fill="#c9a84c" font-size="6.5" font-family="sans-serif">$31.50 ENTRY SHORT</text>
-        <!-- Red falling candles -->
-        <rect x="8" y="32" width="9" height="14" fill="#e84040" rx="1"/>
-        <rect x="20" y="40" width="9" height="16" fill="#e84040" rx="1"/>
-        <rect x="32" y="50" width="9" height="18" fill="#e84040" rx="1"/>
-        <rect x="44" y="62" width="9" height="16" fill="#e84040" rx="1"/>
-        <!-- Support line -->
-        <line x1="0" y1="82" x2="210" y2="82" stroke="rgba(30,126,52,.5)" stroke-width=".9" stroke-dasharray="4,2"/>
-        <text x="4" y="80" fill="rgba(30,126,52,.7)" font-size="6.5" font-family="sans-serif">$29.90 SUPPORT (3R)</text>
-        <!-- Hammer at support = buyers defending -->
-        <line x1="62" y1="64" x2="62" y2="70" stroke="#22a085" stroke-width="1.5"/>
-        <rect x="55" y="70" width="14" height="7" fill="#22a085" rx="1"/>
-        <line x1="62" y1="77" x2="62" y2="88" stroke="#22a085" stroke-width="1.5"/><!-- long lower wick at support -->
-        <text x="62" y="101" text-anchor="middle" fill="#22a085" font-size="6.5" font-family="sans-serif">hammer at support!</text>
-        <!-- Take profit arrow -->
-        <line x1="100" y1="78" x2="100" y2="60" stroke="#c9a84c" stroke-width="1.2"/>
-        <polygon points="100,58 95,66 105,66" fill="#c9a84c"/>
-        <text x="105" y="58" fill="#c9a84c" font-size="7" font-family="Barlow Condensed,sans-serif">TAKE PROFIT</text>
-        <text x="105" y="67" fill="#555" font-size="6.5" font-family="sans-serif">never give back 3R</text>
-        <!-- R labels -->
-        <line x1="150" y1="14" x2="150" y2="30" stroke="rgba(204,31,31,.4)" stroke-width=".8"/>
-        <text x="160" y="24" fill="rgba(204,31,31,.6)" font-size="6.5" font-family="sans-serif">−1R risk</text>
-        <line x1="150" y1="30" x2="150" y2="82" stroke="rgba(30,126,52,.4)" stroke-width=".8"/>
-        <text x="160" y="60" fill="rgba(30,126,52,.7)" font-size="6.5" font-family="sans-serif">+3R gain</text>
+        <line x1="14" y1="72" x2="160" y2="72" stroke="#e84040" stroke-width="1.2" stroke-dasharray="4,2"/>
+        <text x="164" y="75" fill="#e84040" font-size="7.5" font-family="sans-serif">-1R STOP</text>
+        <!-- Bracket showing reward zone -->
+        <line x1="12" y1="18" x2="12" y2="54" stroke="#22a085" stroke-width="1"/>
+        <text x="2" y="38" fill="#22a085" font-size="8" font-family="Barlow Condensed,sans-serif">2R</text>
+        <!-- Bracket showing risk zone -->
+        <line x1="12" y1="54" x2="12" y2="72" stroke="#e84040" stroke-width="1"/>
+        <text x="2" y="64" fill="#e84040" font-size="8" font-family="Barlow Condensed,sans-serif">1R</text>
+        <!-- Win/loss stats -->
+        <text x="100" y="90" text-anchor="middle" fill="#555" font-size="7.5" font-family="sans-serif">60% wins × $200 = $1200</text>
+        <text x="100" y="101" text-anchor="middle" fill="#555" font-size="7.5" font-family="sans-serif">40% losses × $100 = $400 → still +$800</text>
       </svg>
     </div>
     <div class="options" id="opts-11">
-      <button class="option-btn" onclick="answer(11,0)"><span class="option-letter">A</span>Hold the full short — the downtrend will definitely continue through support</button>
-      <button class="option-btn" onclick="answer(11,1)"><span class="option-letter">B</span>Take partial or full profit at support. The hammer wick signals buyers defending. Don't give back a 3:1 gain. Move stop to breakeven on any remainder</button>
-      <button class="option-btn" onclick="answer(11,2)"><span class="option-letter">C</span>Add to the short — the hammer is irrelevant if you're confident in the thesis</button>
-      <button class="option-btn" onclick="answer(11,3)"><span class="option-letter">D</span>Exit and immediately go long on the hammer reversal with full position</button>
+      <button class="option-btn" onclick="answer(11,0)"><span class="option-letter">A</span>Trading more frequently to make up for losses with volume</button>
+      <button class="option-btn" onclick="answer(11,1)"><span class="option-letter">B</span>Using a Risk/Reward ratio where winners are significantly larger than losers</button>
+      <button class="option-btn" onclick="answer(11,2)"><span class="option-letter">C</span>Only trading stocks priced under $10</button>
+      <button class="option-btn" onclick="answer(11,3)"><span class="option-letter">D</span>Averaging down on losing trades to reduce cost basis</button>
     </div>
     <div class="explanation" id="exp-11"></div>
   </div>
@@ -741,42 +642,38 @@
       <div class="q-left">
         <div class="q-top-row">
           <div class="q-number">13</div>
-          <div class="question-text">Which candle structure found at the top of a bullish FVG provides the STRONGEST confirmation for a long entry?</div>
-          <div class="q-difficulty diff-elite">Elite</div>
+          <div class="question-text">A stock in an uptrend prints a long upper wick on a candle near prior resistance. What should this tell you?</div>
+          <div class="q-difficulty diff-hard">Hard</div>
         </div>
       </div>
-      <!-- FVG with wick-into-zone then close above = ideal -->
-      <svg class="q-chart" viewBox="0 0 210 108" xmlns="http://www.w3.org/2000/svg">
-        <rect width="210" height="108" fill="#060606" rx="5"/>
-        <!-- FVG zone -->
-        <line x1="0" y1="30" x2="210" y2="30" stroke="rgba(201,168,76,.45)" stroke-width=".8" stroke-dasharray="3,2"/>
-        <line x1="0" y1="50" x2="210" y2="50" stroke="rgba(201,168,76,.45)" stroke-width=".8" stroke-dasharray="3,2"/>
-        <rect x="0" y="30" width="210" height="20" fill="rgba(201,168,76,.1)"/>
-        <text x="105" y="43" text-anchor="middle" fill="#c9a84c" font-size="7" font-family="Barlow Condensed,sans-serif">FVG ZONE</text>
-        <!-- Wrong: red candle closes below FVG -->
-        <text x="30" y="14" text-anchor="middle" fill="#e84040" font-size="7" font-family="sans-serif">✗ WRONG</text>
-        <rect x="19" y="50" width="12" height="28" fill="#e84040" rx="1"/><!-- closes well below FVG -->
-        <line x1="25" y1="36" x2="25" y2="50" stroke="#e84040" stroke-width="1.2"/>
-        <!-- Wrong: doji inside FVG -->
-        <text x="72" y="14" text-anchor="middle" fill="#888" font-size="7" font-family="sans-serif">✗ WEAK</text>
-        <line x1="72" y1="32" x2="72" y2="38" stroke="#aaa" stroke-width="1.2"/>
-        <line x1="65" y1="38" x2="79" y2="38" stroke="#aaa" stroke-width="2"/>
-        <line x1="72" y1="40" x2="72" y2="46" stroke="#aaa" stroke-width="1.2"/>
-        <!-- CORRECT: wick into FVG, close ABOVE FVG top -->
-        <text x="150" y="14" text-anchor="middle" fill="#22a085" font-size="7" font-family="sans-serif">✓ IDEAL</text>
-        <line x1="150" y1="18" x2="150" y2="28" stroke="#22a085" stroke-width="1.5"/><!-- body above FVG -->
-        <rect x="143" y="18" width="14" height="12" fill="#22a085" rx="1"/><!-- body above FVG top -->
-        <line x1="150" y1="30" x2="150" y2="46" stroke="#22a085" stroke-width="1.5"/><!-- wick WICKS into FVG -->
-        <text x="150" y="62" text-anchor="middle" fill="#22a085" font-size="6.5" font-family="sans-serif">wick into FVG</text>
-        <text x="150" y="71" text-anchor="middle" fill="#22a085" font-size="6.5" font-family="sans-serif">close above = ✓</text>
-        <text x="105" y="101" text-anchor="middle" fill="#22a085" font-size="7.5" font-family="sans-serif">wick into FVG + close above = confirmed</text>
+      <!-- Uptrend then wick rejection at resistance -->
+      <svg class="q-chart" viewBox="0 0 200 108" xmlns="http://www.w3.org/2000/svg">
+        <rect width="200" height="108" fill="#060606" rx="5"/>
+        <!-- Resistance line -->
+        <line x1="0" y1="22" x2="200" y2="22" stroke="rgba(204,31,31,.6)" stroke-width="1" stroke-dasharray="5,3"/>
+        <text x="4" y="19" fill="rgba(204,31,31,.7)" font-size="6.5" font-family="sans-serif">RESISTANCE</text>
+        <!-- Uptrend candles -->
+        <rect x="16" y="72" width="11" height="18" fill="#22a085" rx="1"/>
+        <rect x="31" y="62" width="11" height="18" fill="#22a085" rx="1"/>
+        <rect x="46" y="52" width="11" height="16" fill="#22a085" rx="1"/>
+        <rect x="61" y="44" width="11" height="16" fill="#22a085" rx="1"/>
+        <!-- Wick rejection candle: body near top (price tried to break resistance but rejected) -->
+        <line x1="84" y1="10" x2="84" y2="22" stroke="#e84040" stroke-width="1.5"/><!-- long upper wick into resistance -->
+        <rect x="77" y="36" width="14" height="12" fill="#e84040" rx="1"/>           <!-- small body (sellers won) -->
+        <line x1="84" y1="48" x2="84" y2="56" stroke="#e84040" stroke-width="1.5"/>
+        <!-- Warning arrow -->
+        <line x1="110" y1="18" x2="96" y2="18" stroke="#c9a84c" stroke-width="1.2"/>
+        <polygon points="96,18 101,14 101,22" fill="#c9a84c"/>
+        <text x="112" y="16" fill="#c9a84c" font-size="7" font-family="sans-serif">REJECTION!</text>
+        <text x="112" y="25" fill="#666" font-size="6.5" font-family="sans-serif">sellers stepped in</text>
+        <text x="100" y="101" text-anchor="middle" fill="#e84040" font-size="7.5" font-family="sans-serif">long wick at resistance = warning ⚠</text>
       </svg>
     </div>
     <div class="options" id="opts-12">
-      <button class="option-btn" onclick="answer(12,0)"><span class="option-letter">A</span>A large red candle that closes below the FVG entirely</button>
-      <button class="option-btn" onclick="answer(12,1)"><span class="option-letter">B</span>Three consecutive doji candles inside the FVG zone</button>
-      <button class="option-btn" onclick="answer(12,2)"><span class="option-letter">C</span>A bullish engulfing or pin bar that wicks INTO the FVG but closes back ABOVE the FVG top — rejection from inside the gap</button>
-      <button class="option-btn" onclick="answer(12,3)"><span class="option-letter">D</span>Any green candle that appears within 5 candles of the FVG formation</button>
+      <button class="option-btn" onclick="answer(12,0)"><span class="option-letter">A</span>The uptrend is strongly confirmed — add to your position</button>
+      <button class="option-btn" onclick="answer(12,1)"><span class="option-letter">B</span>Sellers rejected the higher prices; the long wick near resistance is a warning — tighten stop or reduce size</button>
+      <button class="option-btn" onclick="answer(12,2)"><span class="option-letter">C</span>Volume is low — ignore the candle entirely</button>
+      <button class="option-btn" onclick="answer(12,3)"><span class="option-letter">D</span>This is always a signal to short the stock immediately</button>
     </div>
     <div class="explanation" id="exp-12"></div>
   </div>
@@ -787,53 +684,44 @@
       <div class="q-left">
         <div class="q-top-row">
           <div class="q-number">14</div>
-          <div class="question-text">Elite scenario — complete full situational read:</div>
-          <div class="q-difficulty diff-elite">Elite</div>
+          <div class="question-text">During a Reversal Trade setup, what TWO conditions are most important before entering a long position?</div>
+          <div class="q-difficulty diff-hard">Hard</div>
         </div>
       </div>
-      <!-- Triple top + FVG + shooting star -->
-      <svg class="q-chart" viewBox="0 0 210 108" xmlns="http://www.w3.org/2000/svg">
-        <rect width="210" height="108" fill="#060606" rx="5"/>
-        <!-- Bearish FVG above resistance -->
-        <line x1="0" y1="16" x2="210" y2="16" stroke="rgba(204,31,31,.3)" stroke-width=".7" stroke-dasharray="3,2"/>
-        <line x1="0" y1="26" x2="210" y2="26" stroke="rgba(204,31,31,.3)" stroke-width=".7" stroke-dasharray="3,2"/>
-        <rect x="0" y="16" width="210" height="10" fill="rgba(204,31,31,.1)"/>
-        <text x="105" y="24" text-anchor="middle" fill="#e84040" font-size="6.5" font-family="Barlow Condensed,sans-serif">BEARISH FVG ZONE</text>
-        <!-- Resistance line double top -->
-        <line x1="0" y1="30" x2="210" y2="30" stroke="rgba(204,31,31,.6)" stroke-width="1" stroke-dasharray="4,2"/>
-        <text x="4" y="28" fill="rgba(204,31,31,.75)" font-size="6.5" font-family="sans-serif">RESISTANCE (double top)</text>
-        <!-- Two prior peaks -->
-        <line x1="28" y1="14" x2="28" y2="24" stroke="#e84040" stroke-width="1.2"/>
-        <rect x="21" y="24" width="14" height="16" fill="#e84040" rx="1"/>
-        <line x1="28" y1="40" x2="28" y2="48" stroke="#e84040" stroke-width="1.2"/>
-        <line x1="60" y1="14" x2="60" y2="22" stroke="#e84040" stroke-width="1.2"/>
-        <rect x="53" y="22" width="14" height="14" fill="#e84040" rx="1"/>
-        <line x1="60" y1="36" x2="60" y2="44" stroke="#e84040" stroke-width="1.2"/>
-        <text x="28" y="58" text-anchor="middle" fill="#e84040" font-size="6" font-family="sans-serif">top #1</text>
-        <text x="60" y="58" text-anchor="middle" fill="#e84040" font-size="6" font-family="sans-serif">top #2</text>
-        <!-- Third attempt with shooting star -->
-        <line x1="96" y1="10" x2="96" y2="18" stroke="#e84040" stroke-width="1.5"/><!-- wick into bearish FVG -->
-        <rect x="89" y="28" width="14" height="8" fill="#e84040" rx="1"/><!-- tiny body below resistance -->
-        <line x1="96" y1="36" x2="96" y2="42" stroke="#e84040" stroke-width="1.2"/>
-        <text x="96" y="55" text-anchor="middle" fill="#e84040" font-size="7" font-family="Barlow Condensed,sans-serif">SHOOTING</text>
-        <text x="96" y="63" text-anchor="middle" fill="#e84040" font-size="7" font-family="Barlow Condensed,sans-serif">STAR #3</text>
-        <!-- Short arrow -->
-        <line x1="130" y1="28" x2="130" y2="70" stroke="#e84040" stroke-width="1.8"/>
-        <polygon points="130,72 125,62 135,62" fill="#e84040"/>
-        <text x="155" y="30" fill="#e84040" font-size="7" font-family="Barlow Condensed,sans-serif">SHORT ↓</text>
-        <text x="155" y="39" fill="#555" font-size="6" font-family="sans-serif">stop above FVG</text>
-        <text x="105" y="101" text-anchor="middle" fill="#e84040" font-size="7.5" font-family="sans-serif">triple top + FVG wick rejection = short</text>
+      <!-- Sell-off then reversal snap -->
+      <svg class="q-chart" viewBox="0 0 200 108" xmlns="http://www.w3.org/2000/svg">
+        <rect width="200" height="108" fill="#060606" rx="5"/>
+        <!-- Sharp sell-off (big red candles) -->
+        <line x1="20" y1="14" x2="20" y2="20" stroke="#e84040" stroke-width="1.5"/>
+        <rect x="13" y="20" width="14" height="30" fill="#e84040" rx="1"/>
+        <line x1="20" y1="50" x2="20" y2="58" stroke="#e84040" stroke-width="1.5"/>
+        <line x1="38" y1="28" x2="38" y2="34" stroke="#e84040" stroke-width="1.5"/>
+        <rect x="31" y="34" width="14" height="28" fill="#e84040" rx="1"/>
+        <line x1="38" y1="62" x2="38" y2="70" stroke="#e84040" stroke-width="1.5"/>
+        <line x1="56" y1="42" x2="56" y2="48" stroke="#e84040" stroke-width="1.5"/>
+        <rect x="49" y="48" width="14" height="26" fill="#e84040" rx="1"/>
+        <line x1="56" y1="74" x2="56" y2="82" stroke="#e84040" stroke-width="1.5"/>
+        <!-- Exhaustion / hammer -->
+        <line x1="74" y1="56" x2="74" y2="62" stroke="#aaa" stroke-width="1.5"/>
+        <rect x="67" y="62" width="14" height="8" fill="#aaa" rx="1"/>
+        <line x1="74" y1="70" x2="74" y2="88" stroke="#aaa" stroke-width="1.5"/><!-- long lower wick = exhaustion -->
+        <text x="82" y="88" fill="#c9a84c" font-size="6.5" font-family="sans-serif">exhaustion</text>
+        <!-- Snap back (green candles) -->
+        <line x1="96" y1="50" x2="96" y2="58" stroke="#22a085" stroke-width="1.5"/>
+        <rect x="89" y="42" width="14" height="16" fill="#22a085" rx="1"/>
+        <line x1="96" y1="78" x2="96" y2="84" stroke="#22a085" stroke-width="1.5"/>
+        <line x1="114" y1="32" x2="114" y2="40" stroke="#22a085" stroke-width="1.5"/>
+        <rect x="107" y="24" width="14" height="16" fill="#22a085" rx="1"/>
+        <line x1="114" y1="56" x2="114" y2="62" stroke="#22a085" stroke-width="1.5"/>
+        <!-- Rubber band label -->
+        <text x="100" y="101" text-anchor="middle" fill="#22a085" font-size="7.5" font-family="sans-serif">sell-off exhaustion → snap back reversal</text>
       </svg>
     </div>
-    <div class="scenario-box">
-      <div class="scenario-label">📋 Elite Scenario</div>
-      <div class="scenario-text">1:45 PM. Double top at resistance. <span class="fvg">Bearish FVG just above</span> the resistance level. Low afternoon volume. SPY flat to slightly red. Third push to resistance: <span class="bear">shooting star forms</span> — wick pokes INTO the bearish FVG but closes back below resistance. Next candle opens flat.</div>
-    </div>
     <div class="options" id="opts-13">
-      <button class="option-btn" onclick="answer(13,0)"><span class="option-letter">A</span>Go long — the third push with low volume is a breakout waiting to happen</button>
-      <button class="option-btn" onclick="answer(13,1)"><span class="option-letter">B</span>Short: shooting star wicks into bearish FVG then closes back below = rejection confirmed. Triple top + FVG rejection + flat/red market + declining volume = high-confidence short. Stop above FVG high</button>
-      <button class="option-btn" onclick="answer(13,2)"><span class="option-letter">C</span>Do nothing — low afternoon volume means no trades after 12 PM</button>
-      <button class="option-btn" onclick="answer(13,3)"><span class="option-letter">D</span>Enter long if price holds flat for 3 more candles — the consolidation will resolve upward</button>
+      <button class="option-btn" onclick="answer(13,0)"><span class="option-letter">A</span>The stock must be up 50% on the day and must gap above VWAP</button>
+      <button class="option-btn" onclick="answer(13,1)"><span class="option-letter">B</span>A clear sell-off on heavy volume followed by a confirmed momentum shift — the "rubber band snap" from sellers to buyers</button>
+      <button class="option-btn" onclick="answer(13,2)"><span class="option-letter">C</span>The stock must be on the NYSE and trading under $20</button>
+      <button class="option-btn" onclick="answer(13,3)"><span class="option-letter">D</span>Two consecutive doji candles followed by any green candle</button>
     </div>
     <div class="explanation" id="exp-13"></div>
   </div>
@@ -844,72 +732,54 @@
       <div class="q-left">
         <div class="q-top-row">
           <div class="q-number">15</div>
-          <div class="question-text">Final mastery — multi-timeframe + FVG + candle structure:</div>
-          <div class="q-difficulty diff-elite">Elite</div>
+          <div class="question-text">Stock XYZ surges on a headline, forms 3 strong green 5-min candles, then consolidates in a tight bull flag. On the 5th candle the range compresses to under $0.10. What is the correct strategy?</div>
+          <div class="q-difficulty diff-hard">Hard</div>
         </div>
       </div>
-      <!-- 15-min bearish structure + 5-min FVG rejection + bearish engulfing -->
-      <svg class="q-chart" viewBox="0 0 210 108" xmlns="http://www.w3.org/2000/svg">
-        <rect width="210" height="108" fill="#060606" rx="5"/>
-        <!-- 15-min bearish context (left half) -->
-        <text x="38" y="10" text-anchor="middle" fill="#e84040" font-size="7" font-family="sans-serif">15-MIN: BEARISH</text>
-        <rect x="8" y="18" width="9" height="16" fill="#e84040" rx="1"/>
-        <rect x="20" y="28" width="9" height="16" fill="#e84040" rx="1"/><!-- LH -->
-        <rect x="32" y="36" width="9" height="20" fill="#e84040" rx="1"/><!-- LL -->
-        <rect x="44" y="48" width="9" height="14" fill="#e84040" rx="1"/><!-- LL2 -->
-        <!-- LH / LL labels -->
-        <text x="25" y="26" fill="#e84040" font-size="5.5" font-family="sans-serif">LH</text>
-        <text x="37" y="34" fill="#e84040" font-size="5.5" font-family="sans-serif">LL</text>
-        <text x="49" y="46" fill="#e84040" font-size="5.5" font-family="sans-serif">LL</text>
-        <!-- Separator -->
-        <line x1="72" y1="6" x2="72" y2="102" stroke="#1e1e1e" stroke-width="1"/>
-        <!-- 5-min: rally into bearish FVG -->
-        <text x="138" y="10" text-anchor="middle" fill="#c9a84c" font-size="7" font-family="sans-serif">5-MIN: FVG REJECT</text>
-        <!-- Bearish FVG zone -->
-        <line x1="72" y1="28" x2="210" y2="28" stroke="rgba(204,31,31,.4)" stroke-width=".7" stroke-dasharray="3,2"/>
-        <line x1="72" y1="44" x2="210" y2="44" stroke="rgba(204,31,31,.4)" stroke-width=".7" stroke-dasharray="3,2"/>
-        <rect x="72" y="28" width="138" height="16" fill="rgba(204,31,31,.12)"/>
-        <text x="148" y="39" text-anchor="middle" fill="#e84040" font-size="7" font-family="Barlow Condensed,sans-serif">BEARISH FVG</text>
-        <!-- 5-min rally candles (bear trap) -->
-        <rect x="78" y="58" width="9" height="18" fill="#22a085" rx="1"/>
-        <rect x="90" y="46" width="9" height="16" fill="#22a085" rx="1"/><!-- enters FVG -->
-        <rect x="102" y="38" width="9" height="12" fill="#22a085" rx="1"/><!-- inside FVG = bear trap -->
-        <!-- HIGH VOLUME bearish engulfing closes BELOW FVG -->
-        <line x1="122" y1="24" x2="122" y2="30" stroke="#e84040" stroke-width="1.5"/>
-        <rect x="113" y="30" width="18" height="38" fill="#e84040" rx="1"/><!-- huge red candle -->
-        <line x1="122" y1="68" x2="122" y2="74" stroke="#e84040" stroke-width="1.5"/>
-        <text x="122" y="84" text-anchor="middle" fill="#e84040" font-size="6" font-family="sans-serif">HIGH VOL</text>
-        <text x="122" y="92" text-anchor="middle" fill="#e84040" font-size="6" font-family="sans-serif">BEARISH ENG.</text>
-        <!-- SPY red label -->
-        <text x="162" y="60" fill="#e84040" font-size="6.5" font-family="sans-serif">SPY ↓ red</text>
-        <!-- Short arrow -->
-        <line x1="158" y1="44" x2="158" y2="68" stroke="#e84040" stroke-width="1.5"/>
-        <polygon points="158,70 153,62 163,62" fill="#e84040"/>
-        <text x="168" y="52" fill="#e84040" font-size="7" font-family="Barlow Condensed,sans-serif">SHORT</text>
-        <text x="105" y="101" text-anchor="middle" fill="#e84040" font-size="7.5" font-family="sans-serif">15-min bias + FVG reject + engulf = short</text>
+      <!-- Bull flag with compression -->
+      <svg class="q-chart" viewBox="0 0 200 108" xmlns="http://www.w3.org/2000/svg">
+        <rect width="200" height="108" fill="#060606" rx="5"/>
+        <!-- Flagpole: 3 big green candles -->
+        <line x1="14" y1="50" x2="14" y2="62" stroke="#22a085" stroke-width="1.5"/>
+        <rect x="7" y="34" width="14" height="16" fill="#22a085" rx="1"/>
+        <line x1="14" y1="68" x2="14" y2="76" stroke="#22a085" stroke-width="1.5"/>
+        <line x1="30" y1="28" x2="30" y2="36" stroke="#22a085" stroke-width="1.5"/>
+        <rect x="23" y="16" width="14" height="20" fill="#22a085" rx="1"/>
+        <line x1="30" y1="58" x2="30" y2="64" stroke="#22a085" stroke-width="1.5"/>
+        <!-- Flag: tight compression candles -->
+        <rect x="50" y="13" width="9" height="6" fill="#e84040" rx="1" opacity=".8"/>
+        <rect x="63" y="14" width="9" height="5" fill="#22a085" rx="1" opacity=".8"/>
+        <rect x="76" y="15" width="9" height="4" fill="#e84040" rx="1" opacity=".75"/>
+        <rect x="89" y="16" width="9" height="3" fill="#22a085" rx="1" opacity=".75"/>
+        <rect x="102" y="16" width="9" height="2" fill="#e84040" rx="1" opacity=".7"/>
+        <!-- Compression lines converging -->
+        <line x1="48" y1="12" x2="112" y2="16" stroke="rgba(201,168,76,.5)" stroke-width=".8" stroke-dasharray="3,2"/>
+        <line x1="48" y1="20" x2="112" y2="18" stroke="rgba(201,168,76,.5)" stroke-width=".8" stroke-dasharray="3,2"/>
+        <text x="80" y="28" text-anchor="middle" fill="#c9a84c" font-size="6.5" font-family="sans-serif">flag compression</text>
+        <!-- Breakout -->
+        <line x1="118" y1="16" x2="118" y2="4" stroke="#22a085" stroke-width="2"/>
+        <polygon points="118,3 113,10 123,10" fill="#22a085"/>
+        <text x="140" y="10" fill="#22a085" font-size="7" font-family="Barlow Condensed,sans-serif">BREAKOUT</text>
+        <!-- Stop line below flag -->
+        <line x1="48" y1="22" x2="118" y2="22" stroke="#e84040" stroke-width=".8" stroke-dasharray="3,2"/>
+        <text x="60" y="30" fill="#e84040" font-size="6.5" font-family="sans-serif">stop below flag low</text>
+        <text x="100" y="101" text-anchor="middle" fill="#22a085" font-size="7.5" font-family="sans-serif">wait for breakout above flag high</text>
       </svg>
     </div>
-    <div class="scenario-box">
-      <div class="scenario-label">📋 Final Scenario — Multi-Timeframe</div>
-      <div class="scenario-text"><strong>15-min chart</strong>: bearish structure break (LH/LL). <strong>5-min today</strong>: price rallies into a <span class="fvg">bearish FVG from yesterday's selloff</span>. Inside FVG: <span class="bull">two bullish candles form</span> (bear trap), then a <span class="bear">high-volume bearish engulfing candle</span> closes back BELOW the FVG. <strong>SPY turns red at the same moment.</strong></div>
-    </div>
     <div class="options" id="opts-14">
-      <button class="option-btn" onclick="answer(14,0)"><span class="option-letter">A</span>Go long — the two bullish candles inside the FVG confirm buyers are in control</button>
-      <button class="option-btn" onclick="answer(14,1)"><span class="option-letter">B</span>Short on the bearish engulfing candle's close. 15-min bearish structure + high-volume FVG rejection + bearish engulfing + SPY red = institutional distribution. Stop above FVG high, target the morning low</button>
-      <button class="option-btn" onclick="answer(14,2)"><span class="option-letter">C</span>Wait for a full FVG fill on the 15-min chart before any position</button>
-      <button class="option-btn" onclick="answer(14,3)"><span class="option-letter">D</span>Go long because the two bullish candles inside the FVG override the 15-min structure</button>
+      <button class="option-btn" onclick="answer(14,0)"><span class="option-letter">A</span>Sell immediately — the consolidation means the move is done</button>
+      <button class="option-btn" onclick="answer(14,1)"><span class="option-letter">B</span>Buy during the consolidation to maximize profit if it continues</button>
+      <button class="option-btn" onclick="answer(14,2)"><span class="option-letter">C</span>Wait for the breakout above the flag's high — stop below flag low. This is a bull flag continuation with a defined risk</button>
+      <button class="option-btn" onclick="answer(14,3)"><span class="option-letter">D</span>Average down by buying every candle during the consolidation</button>
     </div>
     <div class="explanation" id="exp-14"></div>
   </div>
 
   <!-- ── SCORE CARD ── -->
   <div id="score-card">
-    <div class="score-ring">
-      <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" fill="none" stroke="#222" stroke-width="6"/><circle cx="50" cy="50" r="44" fill="none" stroke="#cc1f1f" stroke-width="6" stroke-dasharray="276.5" id="score-arc" stroke-dashoffset="276.5" stroke-linecap="round" style="transition:stroke-dashoffset 1.2s ease;"/></svg>
-      <div class="score-ring-inner">
-        <div class="score-number" id="final-score">0</div>
-        <div class="score-denom">out of 15</div>
-      </div>
+    <div class="score-circle">
+      <div class="score-number" id="final-score">0</div>
+      <div class="score-denom">out of 15</div>
     </div>
     <h2 id="grade-title">Results</h2>
     <p id="grade-msg"></p>
@@ -917,28 +787,28 @@
       <div class="grade-item grade-correct" id="correct-count">✓ 0 Correct</div>
       <div class="grade-item grade-wrong" id="wrong-count">✗ 0 Incorrect</div>
     </div>
-    <button class="restart-btn" onclick="restart()">↺ Retake Mastery Quiz</button>
+    <button class="restart-btn" onclick="restart()">↺ Restart Quiz</button>
   </div>
 </main>
 
 <script>
-const ANSWERS=[1,1,2,0,1,2,1,1,1,1,1,1,2,1,1];
-const EXP=[
-  {c:"Correct! FVG = 3-candle imbalance where the rapid middle candle leaves a gap between C1's high and C3's low — a zone institutions transacted one-sidedly.",w:"Incorrect. An FVG is a technical 3-candle structure. C1 high to C3 low — if no wick overlap, it's a Fair Value Gap.",k:"<strong>FVG Structure:</strong> C1 High vs C3 Low. No overlap = FVG. This zone acts as a magnet for price to return to."},
-  {c:"Correct! Bullish FVG zone = C1's HIGH (lower boundary) to C3's LOW (upper boundary). The untested price range between those two points is where you watch for a long entry.",w:"Incorrect. Bullish FVG: lower boundary = C1 HIGH, upper boundary = C3 LOW. Price returns to this zone from above.",k:"<strong>Bullish FVG Entry Zone:</strong> C1 High → C3 Low. Price re-enters from above = potential demand zone."},
-  {c:"Correct! FVGs are probability zones, not guaranteed bounces. Enter when price is IN the zone AND a confirmation candle appears. Stop below the FVG bottom.",w:"Incorrect. Never blindly buy a FVG touch. Wait for a confirmation candle inside the zone (hammer, engulfing, wick rejection) THEN enter.",k:"<strong>FVG Entry Protocol:</strong> (1) Price enters zone. (2) Confirmation candle. (3) Enter. Stop below FVG bottom."},
-  {c:"Correct! A filled/mitigated FVG means price has traded through the entire zone, balancing the prior imbalance. It loses its significance as a key level.",w:"Incorrect. 'Filled' = price has traded through the full gap zone. The imbalance is resolved and the zone is no longer a reliable area of interest.",k:"<strong>FVG Lifecycle:</strong> Created → Retested (entry opportunity) → Filled (invalidated). Only trade unfilled FVGs."},
-  {c:"Correct! Stacked FVGs = institutional aggression. Each gap is a separate demand zone. Use the nearest unfilled FVG on pullbacks for entries.",w:"Incorrect. Stacked FVGs = buyers so aggressive they didn't let prior gaps fill. This is STRONG bullish structure — use each FVG as a support zone.",k:"<strong>Stacked FVGs:</strong> Highest probability entry = nearest unfilled FVG on pullback. Multiple unmitigated gaps = buyers are in firm control."},
-  {c:"Correct! C4 entering the FVG with a lower wick (showing buyers stepping in at that zone) is your confirmation. Enter long on C4's close or next green candle. Stop below FVG low.",w:"Incorrect. C4 pulling back into the FVG with a lower wick = buyers defending the zone. Enter on C4 close or first green candle. Stop below FVG low.",k:"<strong>FVG Pullback Entry:</strong> Entry = confirmation candle close inside/above FVG. Stop = below FVG bottom. Target = prior high and extension."},
-  {c:"Correct! Shooting star at prior resistance = sellers aggressively defended. Take partial profit here + move stop to breakeven. Never let a big winner become a loser.",w:"Incorrect. Shooting star at resistance = sellers are in control. The professional move: partial exit + stop to breakeven. Protect the 3:1 potential gain.",k:"<strong>Exit Management:</strong> Shooting star at resistance = partial exit + stop to breakeven. Lock in profit, keep exposure for potential continuation."},
-  {c:"Correct! Market structure = the sequence of swing highs and lows that defines trend. HH/HL = uptrend (long bias). LH/LL = downtrend (short bias). Trade WITH structure.",w:"Incorrect. Market structure = HH/HL (uptrend) or LH/LL (downtrend). This defines your directional bias. All entries should align with the prevailing structure.",k:"<strong>Structure Rule:</strong> Only take longs in HH/HL uptrend. Only take shorts in LH/LL downtrend. Structure break = reset your bias immediately."},
-  {c:"Correct! High-volume bearish engulfing + structure break below swing low = structural shift. Exit the long. The bearish FVG becomes your short entry zone on a bounce.",w:"Incorrect. A 3× volume bearish engulfing that breaks the prior swing low is NOT a pullback — it's a structural shift. Exit immediately. Plan a short on the FVG bounce.",k:"<strong>Structure Break Protocol:</strong> Exit long on structure break → Wait for FVG bounce → Short the rejection with stop above FVG high."},
-  {c:"Correct! The highest-probability short is the RETEST of the FVG — when price bounces back up into it. The zone acts as overhead resistance. Stop above FVG high = defined risk.",w:"Incorrect. Best short entry = when price bounces back UP into the bearish FVG from below (resistance test). This gives a tight stop and maximum reward.",k:"<strong>Bearish FVG Short:</strong> Wait for bounce INTO zone → Enter short → Stop above FVG high → Target origin of gap and below."},
-  {c:"Correct! Maximum confluence: FVG support + bull flag retest + hammer + declining pullback volume + SPY green = highest-conviction long. Multiple factors confirming = elite setup.",w:"Incorrect. This is MAXIMUM CONFLUENCE. FVG support, bull flag retest, hammer rejection, declining volume, bullish market all align. Enter on hammer confirmation, stop below FVG bottom.",k:"<strong>Confluence Trading:</strong> FVG + pattern retest + reversal candle + declining volume + market direction = elite entry. More factors = higher probability."},
-  {c:"Correct! At 3:1 R, a hammer at key support warns of buyers defending. Take profit. Never let a 3:1 winner collapse. If holding partial, stop moves to breakeven immediately.",w:"Incorrect. You have a 3:1 gain. Hammer at prior support = buyers defending. Take profit or at minimum move stop to breakeven. Never give back a large winner.",k:"<strong>Exit Discipline:</strong> At 2–3:1 R, take profit at logical support/resistance levels. Hammer at support = high-probability bounce. Lock in the gain."},
-  {c:"Correct! The ideal FVG confirmation: candle wicks INTO the zone (FVG tested) but closes ABOVE the FVG top (buyers rejected the drawdown). This shows the zone worked.",w:"Incorrect. The strongest FVG long signal = wick INTO the gap + close ABOVE the FVG top. The wick shows the zone was tested; the close above shows buyers overwhelmed sellers.",k:"<strong>FVG Confirmation Candle:</strong> Wick into FVG + close above FVG top = high-probability long. The zone was tested and held."},
-  {c:"Correct! Triple top + shooting star that wicks into bearish FVG but closes back below = FVG rejection confirmed. Low volume + flat/red SPY removes all bullish arguments. Short with stop above FVG high.",w:"Incorrect. Read the full stack: triple top → third rejection → shooting star wicking into bearish FVG → close back below = confirmed FVG rejection. Low volume + red SPY = short.",k:"<strong>Triple Top + FVG Rejection:</strong> The most reliable short setup. Triple rejection + wick into FVG that fails to close above = sellers are in full control."},
-  {c:"Correct! The definitive short. 15-min bearish structure sets the bias. 5-min rally into bearish FVG = institutional distribution opportunity. High-volume bearish engulfing closing below FVG = distribution confirmed. Two bullish candles inside were the bear trap. SPY red = no bullish catalyst. Short on engulfing close.",w:"Incorrect. Multi-timeframe read: 15-min bearish structure (bias = short). 5-min rally into FVG = distribution zone. Two green candles inside = bear trap. High-volume engulfing below FVG + SPY red = institutional selling confirmed.",k:"<strong>Multi-TF FVG Short:</strong> Higher TF structure = bias. Lower TF FVG rejection = entry. High-volume engulfing = distribution. Bear trap → distribution → continuation lower."}
+const ANSWERS=[1,1,2,1,1,1,2,2,1,1,2,1,1,1,2];
+const EXPLANATIONS=[
+  {c:"Correct! A green/bullish candle = close is HIGHER than the open. Buyers controlled the period and pushed price up.",w:"Not quite. Green = close above open. Buyers won that period."},
+  {c:"Correct! The upper wick shows the highest price reached before sellers pushed it back down to the closing price.",w:"The upper wick = the HIGHEST price touched during that candle's period."},
+  {c:"Exactly! Volatility = the size and speed of price moves. Without it, there's no opportunity. We hunt volatile stocks with catalysts.",w:"Volatility = magnitude and speed of price movement. Flat stocks = no profit opportunity for day traders."},
+  {c:"Correct! Catalysts (earnings, press releases, FDA decisions) cause abnormal moves — that's where opportunity lives.",w:"A catalyst is the NEWS driver (earnings, PR, news event) that causes a stock to move far beyond normal."},
+  {c:"Correct! Hammer: small body at the TOP, long lower wick. Sellers drove price down but buyers rejected it back up — bullish signal.",w:"Hammer = small body at top + long lower wick. Sellers were overwhelmed; buyers snapped it back up."},
+  {c:"Correct! Doji = open ≈ close. Neither buyers nor sellers won — pure indecision. In a trend, it warns of potential reversal.",w:"Doji = indecision. Open and close are nearly identical — buyers and sellers are equally matched."},
+  {c:"Correct! Bullish Engulfing: the GREEN candle's body completely swallows the prior RED candle's body. Buyers took over.",w:"Bullish Engulfing = large green body that fully covers the prior red body. Buyers overwhelmed sellers."},
+  {c:"Correct! The APEX is where the pattern squeezes tightest. Price MUST resolve there — it's your trigger zone.",w:"APEX = the tightest convergence point of the pattern. Price is coiling and must break out or break down."},
+  {c:"Correct! Default stop = just below the prior 5-minute candle's low. This uses chart structure, not an arbitrary number.",w:"Standard stop = below the prior 5-min candle's low. It respects chart structure."},
+  {c:"Correct! 9:30–11 AM = peak volume and volatility. The cleanest momentum moves happen here. Patterns are most reliable.",w:"The first 90 min has the highest VOLUME and VOLATILITY — the prime window for momentum trading."},
+  {c:"Correct! Never buy consolidation blindly. Wait for the confirmed BREAKOUT above the consolidation high with momentum.",w:"Wait for a BREAKOUT above the consolidation range. Buying during consolidation ties up capital with no edge."},
+  {c:"Exactly! Risk/Reward is the key. Risk $1 to make $2–3. Even winning only 60% of trades makes you profitable.",w:"Risk/Reward ratio: winners must be larger than losers. Win 60% × $200 vs lose 40% × $100 = profitable."},
+  {c:"Correct! Long upper wick at resistance = sellers aggressively rejected higher prices. Protect profits — don't add here.",w:"Long upper wick at resistance = sellers defended that level hard. Warning sign — tighten your stop."},
+  {c:"Correct! Reversal needs: (1) heavy-volume sell-off (exhaustion), and (2) momentum snap back to buyers — the rubber band.",w:"Reversal requirements: heavy-volume selloff exhaustion + a clear snap back from sellers to buyers."},
+  {c:"Correct! Bull Flag: flagpole (big move), flag (tight consolidation), breakout above flag high. Stop below flag low = defined risk.",w:"Bull Flag = flagpole + consolidation + breakout. Wait for the break above flag high with stop below flag low."}
 ];
 let answered=new Array(15).fill(false),correct=0,wrong=0;
 function answer(q,c){
@@ -955,9 +825,10 @@ function answer(q,c){
   });
   card.classList.add(ok?'answered-correct':'answered-wrong');
   exp.classList.add('show',ok?'exp-correct':'exp-wrong');
-  exp.innerHTML=`<div class="exp-label">${ok?'✓ Correct':'✗ Incorrect'}</div><p>${ok?EXP[q].c:EXP[q].w}</p>${EXP[q].k?`<div class="exp-key">${EXP[q].k}</div>`:''}`;
+  exp.innerHTML=`<div class="exp-label">${ok?'✓ Correct':'✗ Incorrect'}</div><p>${ok?EXPLANATIONS[q].c:EXPLANATIONS[q].w}</p>`;
   if(ok)correct++;else wrong++;
-  updateProgress();checkDone();
+  updateProgress();
+  checkDone();
 }
 function updateProgress(){
   const t=answered.filter(Boolean).length;
@@ -974,27 +845,24 @@ function checkDone(){
     document.getElementById('wrong-count').textContent='✗ '+wrong+' Incorrect';
     const pct=correct/15;
     const passed=pct>=0.70;
-    const circ=276.5;
-    setTimeout(()=>{document.getElementById('score-arc').style.strokeDashoffset=circ-(correct/15)*circ;},200);
-    let title,msg,arcColor;
-    if(correct>=14){title='PASS — Master Trader';arcColor='#c9a84c';msg='Elite performance. Near-perfect. You have mastered FVG structure, multi-timeframe analysis, and precision entry/exit discipline.';}
-    else if(correct>=11){title='PASS — Advanced Trader';arcColor='#1e7e34';msg='You passed with '+correct+'/15 ('+Math.round(pct*100)+'%). Strong command of FVG concepts. Review the missed scenarios — that precision separates consistent traders.';}
-    else if(correct===10){title='FAIL — Very Close';arcColor='#cc1f1f';msg='10/15 (67%) — one question short of 70%. Review the FVG entry/exit scenarios you missed and retake.';}
-    else{title='FAIL — Keep Studying';arcColor='#9e1515';msg='You scored '+correct+'/15 ('+Math.round(pct*100)+'%). Need 11+ to pass. Focus on FVG identification, market structure, and scenario reading before retrying.';}
-    sc.style.borderColor=passed?'#1e7e34':'#9e1515';
-    document.getElementById('final-score').style.color=passed?'#4caf75':'#ff4444';
-    document.getElementById('score-arc').style.stroke=arcColor;
+    let title,msg;
+    if(correct>=14){title='PASS — Excellent!';msg='Outstanding score. Near-perfect. You are ready for the Mastery Quiz.';}
+    else if(correct>=11){title='PASS — Solid Work';msg='You passed with '+correct+'/15 ('+Math.round(pct*100)+'%). Review any missed questions before the Mastery Quiz.';}
+    else if(correct===10){title='FAIL — Close!';msg='10/15 (67%) — just below the 70% pass mark. Review the missed questions and retake.';}
+    else{title='FAIL — Keep Studying';msg='You scored '+correct+'/15 ('+Math.round(pct*100)+'%). You need 11+ to pass. Review candlestick patterns and strategy, then retry.';}
+    sc.style.borderColor=passed?'var(--green)':'var(--red2)';
+    document.getElementById('final-score').style.color=passed?'#4caf75':'var(--red)';
     const badge=document.createElement('div');
+    badge.id='pass-badge';
     badge.style.cssText='display:inline-block;margin-bottom:14px;padding:7px 26px;border-radius:5px;font-family:"Barlow Condensed",sans-serif;font-size:1.05rem;letter-spacing:3px;text-transform:uppercase;font-weight:700;'+(passed?'background:rgba(30,126,52,.2);color:#4caf75;border:2px solid #1e7e34;':'background:rgba(204,31,31,.2);color:#ff6060;border:2px solid #cc1f1f;');
     badge.textContent=passed?'✓ PASSED':'✗ FAILED';
-    badge.id='pass-badge';
     const h2=document.getElementById('grade-title');
     const old=document.getElementById('pass-badge');
     if(old)old.replaceWith(badge);else h2.parentNode.insertBefore(badge,h2);
     document.getElementById('grade-title').textContent=title;
     document.getElementById('grade-msg').textContent=msg;
     const note=document.getElementById('pass-note')||document.createElement('p');
-    note.id='pass-note';note.style.cssText='margin-top:8px;font-size:.76rem;color:#555;letter-spacing:1px;';
+    note.id='pass-note';note.style.cssText='margin-top:8px;font-size:.78rem;color:var(--muted);letter-spacing:1px;';
     note.textContent='Pass mark: 11/15 (70%)  ·  Your score: '+correct+'/15 ('+Math.round(pct*100)+'%)';
     document.getElementById('grade-msg').after(note);
     sc.scrollIntoView({behavior:'smooth',block:'start'});
@@ -1006,10 +874,10 @@ function restart(){
     document.getElementById('qcard-'+i).className='question-card';
     const opts=document.getElementById('opts-'+i);
     Array.from(opts.children).forEach((b,ci)=>{b.disabled=false;b.className='option-btn';b.onclick=()=>answer(i,ci);});
-    const exp=document.getElementById('exp-'+i);exp.className='explanation';exp.innerHTML='';
+    const exp=document.getElementById('exp-'+i);
+    exp.className='explanation';exp.innerHTML='';
   }
   document.getElementById('score-card').style.display='none';
-  document.getElementById('score-arc').style.strokeDashoffset=276.5;
   updateProgress();window.scrollTo({top:0,behavior:'smooth'});
 }
 </script>
