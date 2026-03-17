@@ -1,0 +1,2385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MIGA Trading Academy — Mastery Quiz</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;600;700&family=Barlow+Condensed:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --red:#cc1f1f;--red2:#9e1515;--red3:#ff4444;
+    --green:#1e7e34;--green3:#4caf75;
+    --dark:#0d0d0d;--dark2:#141414;--dark3:#1c1c1c;--dark4:#282828;--dark5:#323232;
+    --light:#e8e8e8;--muted:#777;--gold:#c9a84c;--gold2:#a08030;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--dark);color:var(--light);font-family:'Barlow',sans-serif;min-height:100vh;overflow-x:hidden;}
+  body::before{content:'';position:fixed;inset:0;background-image:repeating-linear-gradient(135deg,transparent,transparent 60px,rgba(204,31,31,.02) 60px,rgba(204,31,31,.02) 61px);pointer-events:none;z-index:0;}
+
+  header{position:relative;z-index:1;background:var(--dark2);border-bottom:3px solid var(--red);}
+  .header-top{padding:20px 36px;display:flex;align-items:center;gap:18px;}
+  .logo-badge{width:60px;height:60px;background:var(--red);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:26px;color:#fff;box-shadow:0 0 28px rgba(204,31,31,.5);flex-shrink:0;}
+  .header-text h1{font-family:'Bebas Neue',sans-serif;font-size:1.9rem;letter-spacing:3px;}
+  .header-text p{font-size:.78rem;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-top:2px;}
+  .quiz-level{margin-left:auto;background:rgba(204,31,31,.2);border:1px solid var(--red);color:var(--red3);padding:5px 16px;border-radius:4px;font-family:'Barlow Condensed',sans-serif;font-size:.8rem;letter-spacing:3px;text-transform:uppercase;animation:pulse-border 2s ease-in-out infinite;}
+  @keyframes pulse-border{0%,100%{box-shadow:0 0 0 0 rgba(204,31,31,0);}50%{box-shadow:0 0 10px 3px rgba(204,31,31,.25);}}
+  .header-warning{background:rgba(204,31,31,.07);border-top:1px solid rgba(204,31,31,.2);padding:9px 36px;font-size:.74rem;color:var(--muted);letter-spacing:1px;text-transform:uppercase;display:flex;align-items:center;gap:9px;}
+  .warn-dot{width:7px;height:7px;background:var(--red);border-radius:50%;animation:blink 1.2s ease-in-out infinite;flex-shrink:0;}
+  @keyframes blink{0%,100%{opacity:1;}50%{opacity:.2;}}
+
+  main{position:relative;z-index:1;max-width:880px;margin:0 auto;padding:36px 20px 80px;}
+
+  .intro{background:var(--dark2);border:1px solid var(--dark4);border-left:4px solid var(--red);border-radius:8px;padding:24px 28px;margin-bottom:36px;position:relative;overflow:hidden;}
+  .intro::after{content:'FVG';position:absolute;right:-8px;top:50%;transform:translateY(-50%) rotate(90deg);font-family:'Bebas Neue',sans-serif;font-size:5rem;color:rgba(204,31,31,.04);pointer-events:none;letter-spacing:6px;}
+  .intro h2{font-family:'Bebas Neue',sans-serif;font-size:1.55rem;letter-spacing:2px;margin-bottom:8px;}
+  .intro p{color:#999;line-height:1.73;font-size:.91rem;}
+  .meta-row{display:flex;gap:12px;margin-top:14px;flex-wrap:wrap;}
+  .meta-pill{background:var(--dark4);padding:5px 12px;border-radius:20px;font-size:.72rem;color:var(--muted);letter-spacing:1px;text-transform:uppercase;}
+  .meta-pill span{color:var(--light);font-weight:700;}
+  .meta-pill.hot{background:rgba(204,31,31,.15);color:var(--red3);border:1px solid rgba(204,31,31,.3);}
+
+  .progress-container{margin-bottom:26px;position:sticky;top:0;background:var(--dark);padding:13px 0 7px;z-index:10;}
+  .progress-label{display:flex;justify-content:space-between;font-size:.72rem;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:7px;}
+  .progress-bar{height:3px;background:var(--dark4);border-radius:2px;overflow:hidden;}
+  .progress-fill{height:100%;background:linear-gradient(90deg,var(--red2),var(--red3),var(--gold));transition:width .5s ease;width:0%;}
+
+  /* ── QUESTION CARD ── */
+  .question-card{background:var(--dark2);border:1px solid var(--dark4);border-radius:10px;margin-bottom:24px;overflow:hidden;transition:border-color .3s,box-shadow .3s;}
+  .question-card.answered-correct{border-color:var(--green);box-shadow:0 0 18px rgba(30,126,52,.1);}
+  .question-card.answered-wrong{border-color:var(--red2);box-shadow:0 0 18px rgba(204,31,31,.1);}
+
+  .question-header{padding:18px 22px 14px;border-bottom:1px solid var(--dark4);display:flex;align-items:flex-start;gap:14px;}
+  .question-header.with-chart{align-items:center;}
+  .q-left{flex:1;min-width:0;display:flex;flex-direction:column;gap:7px;}
+  .q-top-row{display:flex;align-items:flex-start;gap:10px;}
+  .q-number{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;color:var(--red);min-width:34px;flex-shrink:0;line-height:1.3;}
+  .question-text{font-size:.98rem;color:#ddd;line-height:1.6;flex:1;}
+  .q-difficulty{flex-shrink:0;padding:3px 9px;border-radius:3px;font-size:.63rem;letter-spacing:2px;text-transform:uppercase;font-weight:700;font-family:'Barlow Condensed',sans-serif;margin-top:2px;}
+  .diff-medium{background:rgba(201,168,76,.2);color:var(--gold);border:1px solid rgba(201,168,76,.4);}
+  .diff-hard{background:rgba(204,31,31,.2);color:#ff7070;border:1px solid rgba(204,31,31,.4);}
+  .diff-elite{background:rgba(180,0,0,.3);color:#ff3333;border:1px solid rgba(255,50,50,.5);box-shadow:0 0 8px rgba(255,0,0,.12);}
+
+  /* ── CHART PANEL ── */
+  .q-chart{flex-shrink:0;width:210px;border-radius:6px;display:block;border:1px solid #1a1a1a;}
+  @media(max-width:640px){
+    .question-header.with-chart{flex-direction:column;}
+    .q-chart{width:100%;max-width:290px;}
+  }
+
+  /* ── SCENARIO BOX ── */
+  .scenario-box{margin:10px 22px 0;padding:14px 18px;background:#0a0a0a;border:1px solid var(--dark4);border-left:3px solid var(--gold);border-radius:0 7px 7px 0;}
+  .scenario-label{font-family:'Barlow Condensed',sans-serif;font-size:.64rem;color:var(--gold2);text-transform:uppercase;letter-spacing:3px;font-weight:700;margin-bottom:6px;}
+  .scenario-text{font-size:.86rem;color:#bbb;line-height:1.7;}
+  .scenario-text strong{color:#e0e0e0;}
+  .bull{color:#26a69a;font-weight:700;}
+  .bear{color:#ef5350;font-weight:700;}
+  .fvg{color:var(--gold);font-weight:700;background:rgba(201,168,76,.1);padding:0 4px;border-radius:2px;}
+
+  /* ── OPTIONS ── */
+  .options{padding:14px 22px 18px;display:flex;flex-direction:column;gap:9px;}
+  .option-btn{background:var(--dark3);border:1px solid var(--dark5);color:var(--light);padding:12px 16px;border-radius:7px;cursor:pointer;text-align:left;font-family:'Barlow',sans-serif;font-size:.9rem;line-height:1.5;transition:all .2s;display:flex;align-items:flex-start;gap:11px;}
+  .option-btn:hover:not(:disabled){background:var(--dark4);border-color:var(--red);transform:translateX(3px);}
+  .option-btn:disabled{cursor:default;}
+  .option-letter{font-family:'Barlow Condensed',sans-serif;font-size:.8rem;font-weight:700;color:var(--red);min-width:20px;flex-shrink:0;margin-top:1px;}
+  .option-btn.correct{background:rgba(30,126,52,.14);border-color:var(--green);color:#7ed99a;}
+  .option-btn.wrong{background:rgba(204,31,31,.12);border-color:var(--red2);color:#ff8888;}
+  .option-btn.correct .option-letter{color:#4caf75;}
+  .option-btn.wrong .option-letter{color:#ff6b6b;}
+
+  /* ── EXPLANATION ── */
+  .explanation{margin:0 22px 18px;padding:13px 16px;background:var(--dark3);border-radius:7px;display:none;}
+  .explanation.show{display:block;animation:fadeSlide .35s ease;}
+  .exp-label{font-size:.64rem;text-transform:uppercase;letter-spacing:2px;font-weight:700;font-family:'Barlow Condensed',sans-serif;margin-bottom:6px;}
+  .exp-correct .exp-label{color:var(--green3);}
+  .exp-wrong .exp-label{color:var(--red3);}
+  .explanation p{font-size:.85rem;color:#bbb;line-height:1.68;}
+  .exp-key{margin-top:9px;padding:9px 13px;background:var(--dark4);border-left:3px solid var(--gold);border-radius:0 5px 5px 0;font-size:.8rem;color:#ccc;line-height:1.65;}
+  .exp-key strong{color:var(--gold);}
+  @keyframes fadeSlide{from{opacity:0;transform:translateY(-6px);}to{opacity:1;transform:translateY(0);}}
+
+  /* ── SCORE CARD ── */
+  #score-card{display:none;background:var(--dark2);border:1px solid var(--dark4);border-radius:12px;padding:44px 36px;text-align:center;position:relative;overflow:hidden;margin-top:10px;}
+  #score-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--red2),var(--red3),var(--gold));}
+  .score-ring{width:130px;height:130px;position:relative;margin:0 auto 24px;}
+  .score-ring svg{position:absolute;top:0;left:0;width:100%;height:100%;transform:rotate(-90deg);}
+  .score-ring-inner{position:absolute;inset:11px;background:var(--dark3);border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+  .score-number{font-family:'Bebas Neue',sans-serif;font-size:2.8rem;line-height:1;color:var(--red3);}
+  .score-denom{font-size:.7rem;color:var(--muted);letter-spacing:2px;text-transform:uppercase;}
+  #score-card h2{font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:3px;margin-bottom:10px;}
+  #score-card p{color:#999;font-size:.91rem;line-height:1.72;max-width:460px;margin:0 auto;}
+  .grade-bar{display:flex;gap:10px;justify-content:center;margin:22px 0 0;flex-wrap:wrap;}
+  .grade-item{padding:7px 18px;border-radius:5px;font-size:.78rem;font-family:'Barlow Condensed',sans-serif;letter-spacing:1px;text-transform:uppercase;}
+  .grade-correct{background:rgba(30,126,52,.18);color:#4caf75;border:1px solid rgba(30,126,52,.4);}
+  .grade-wrong{background:rgba(204,31,31,.14);color:#ff6b6b;border:1px solid rgba(204,31,31,.3);}
+  .restart-btn{margin-top:28px;background:var(--red);color:#fff;border:none;padding:13px 36px;border-radius:6px;font-family:'Barlow Condensed',sans-serif;font-size:.95rem;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:background .2s;}
+  .restart-btn:hover{background:var(--red2);}
+
+  
+
+
+  /* ── LUXALGO INSPIRED CHART STYLES ── */
+  .beautiful-candle-up { fill: #00ff88; stroke: #00ff88; filter: drop-shadow(0 0 2px rgba(0,255,136,0.3)); stroke-width: 1; }
+  .beautiful-candle-down { fill: #ff3366; stroke: #ff3366; filter: drop-shadow(0 0 2px rgba(255,51,102,0.3)); stroke-width: 1; }
+  .beautiful-wick { stroke: #8a9bb1; stroke-width: 1; opacity: 0.8; }
+  .lux-bg { fill: #0d131a; rx: 5; }
+  .lux-grid { stroke: #1a2433; stroke-width: 0.5; stroke-dasharray: 2,2; }
+  .lux-zone-red { fill: rgba(255, 51, 102, 0.15); stroke: #ff3366; stroke-width: 0.8; }
+  .lux-zone-green { fill: rgba(0, 255, 136, 0.15); stroke: #00ff88; stroke-width: 0.8; }
+  .lux-zone-blue { fill: rgba(0, 150, 255, 0.15); stroke: #0096ff; stroke-width: 0.8; }
+  .lux-zone-yellow { fill: rgba(201, 168, 76, 0.15); stroke: #c9a84c; stroke-width: 0.8; }
+  .lux-line-red { stroke: #ff3366; stroke-width: 1; stroke-dasharray: 3,2; }
+  .lux-line-green { stroke: #00ff88; stroke-width: 1; stroke-dasharray: 3,2; }
+  .lux-line-white { stroke: #ffffff; stroke-width: 1; stroke-dasharray: 4,4; }
+  .lux-text { font-family: 'Barlow', sans-serif; font-size: 6px; fill: #8a9bb1; }
+  .lux-text-red { font-family: 'Barlow', sans-serif; font-size: 6px; fill: #ff3366; font-weight: bold; }
+  .lux-text-green { font-family: 'Barlow', sans-serif; font-size: 6px; fill: #00ff88; font-weight: bold; }
+  .lux-signal-bg-down { fill: rgba(255, 51, 102, 0.2); stroke: #ff3366; stroke-width: 0.8; rx: 2; }
+  .lux-signal-bg-up { fill: rgba(0, 255, 136, 0.2); stroke: #00ff88; stroke-width: 0.8; rx: 2; }
+  .lux-signal-arrow-down { fill: #ff3366; }
+  .lux-signal-arrow-up { fill: #00ff88; }
+  
+  .chart-container { margin-top: 15px; border-radius: 8px; overflow: hidden; border: 1px solid #1a2433; background: #0d131a; padding: 10px; text-align: center; }
+  .q-chart { width: 100%; height: auto; max-width: 600px; display: inline-block; }
+
+</style>
+</head>
+<body>
+<header>
+  <div class="header-top">
+    <img src="logo.jpg" class="logo-badge" alt="MTA Logo" style="object-fit:contain; background:transparent; padding:4px;" />
+    <div class="header-text">
+      <h1>MIGA Trading Academy</h1>
+      <p>Advanced Trading Education</p>
+    </div>
+    <div class="quiz-level">Quiz 2 · Mastery</div>
+  </div>
+  <div class="header-warning">
+    <div class="warn-dot"></div>
+    Advanced — Fair Value Gaps · Entry &amp; Exit Precision · Multi-Timeframe Structure
+  </div>
+</header>
+<main>
+  <div class="intro">
+    <h2>Mastery Options & ICT Quiz</h2>
+    <p>Every question includes a live chart visual. You'll be tested on FVG identification, precise entries and exits, multi-timeframe structure, and full scenario-based trade decisions. Pass mark is 70% (11/15).</p>
+    <div class="meta-row">
+      <div class="meta-pill"><span>15</span> Questions</div>
+      <div class="meta-pill">Pass: <span>11/15 (70%)</span></div>
+      <div class="meta-pill hot">⚠ FVG · Entries · Exits · Structure</div>
+    </div>
+  </div>
+
+  <div class="progress-container">
+    <div class="progress-label"><span>Mastery Progress</span><span id="progress-text">0 / 15 answered</span></div>
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+  </div>
+
+  
+  
+  
+  
+  <!-- ═══════════════ Q1 ═══════════════ -->
+  <div class="question-card" id="qcard-0">
+    <div class="question-header">
+      <div class="q-left">
+        <div class="q-top-row">
+          <div class="q-number">01</div>
+          <div class="question-text">What does the acronym AMD stand for in the Power of 3 concept?</div>
+          <div class="q-difficulty diff-medium">Medium</div>
+        </div>
+      </div>
+    </div>
+    <div class="options" id="opts-0">
+      <button class="option-btn" onclick="answer(0,0)"><span class="option-letter">A</span>Average, Moving, Direction.</button>
+      <button class="option-btn" onclick="answer(0,1)"><span class="option-letter">B</span>Accumulation, Manipulation, Distribution.</button>
+      <button class="option-btn" onclick="answer(0,2)"><span class="option-letter">C</span>Algorithmic Market Delivery.</button>
+      <button class="option-btn" onclick="answer(0,3)"><span class="option-letter">D</span>Asymmetric Market Distribution.</button>
+    </div>
+    <div class="explanation" id="exp-0"></div>
+    <div id="chart-0" style="display:none">
+      
+      <svg class="q-chart" viewBox="0 0 300 120" xmlns="http://www.w3.org/2000/svg">
+        <rect width="300" height="120" class="lux-bg"/>
+        <line x1="0" y1="20" x2="300" y2="20" class="lux-grid"/><line x1="0" y1="40" x2="300" y2="40" class="lux-grid"/><line x1="0" y1="60" x2="300" y2="60" class="lux-grid"/><line x1="0" y1="80" x2="300" y2="80" class="lux-grid"/><line x1="0" y1="100" x2="300" y2="100" class="lux-grid"/>
+        
+        <line x1="11.5" y1="53.21974174678788" x2="11.5" y2="61.43179966418608" class="beautiful-wick"/>
+        <rect x="10" y="56.30841471469904" width="3" height="3.6915852853009596" class="beautiful-candle-up"/>
+    
+        <line x1="17.5" y1="52.993732460978435" x2="17.5" y2="59.68726852966493" class="beautiful-wick"/>
+        <rect x="16" y="56.00867275333174" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="23.5" y1="53.13936989166728" x2="23.5" y2="57.06614407740478" class="beautiful-wick"/>
+        <rect x="22" y="55.634186581061435" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="29.5" y1="52.97617325021018" x2="29.5" y2="59.19105248063399" class="beautiful-wick"/>
+        <rect x="28" y="55.09329729267296" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="35.5" y1="51.82734677790806" x2="35.5" y2="57.77137294355771" class="beautiful-wick"/>
+        <rect x="34" y="55.09329729267296" width="3" height="1" class="beautiful-candle-down"/>
+    
+        <line x1="41.5" y1="49.3260476058946" x2="41.5" y2="58.929828488207136" class="beautiful-wick"/>
+        <rect x="40" y="52.878673361278516" width="3" height="2.590495165722487" class="beautiful-candle-up"/>
+    
+        <line x1="47.5" y1="50.598310306301876" x2="47.5" y2="55.41596440008619" class="beautiful-wick"/>
+        <rect x="46" y="51.885539646690106" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="53.5" y1="48.53645458297243" x2="53.5" y2="54.677190403396416" class="beautiful-wick"/>
+        <rect x="52" y="51.85335755692648" width="3" height="1" class="beautiful-candle-up"/>
+    
+        
+        <line x1="65.0" y1="55" x2="65.0" y2="70" class="beautiful-wick"/>
+        <rect x="60" y="60" width="10" height="5" class="beautiful-candle-down"/>
+    
+        <line x1="85.0" y1="50" x2="85.0" y2="68" class="beautiful-wick"/>
+        <rect x="80" y="58" width="10" height="4" class="beautiful-candle-up"/>
+    
+        <line x1="105.0" y1="55" x2="105.0" y2="65" class="beautiful-wick"/>
+        <rect x="100" y="58" width="10" height="4" class="beautiful-candle-down"/>
+    
+        <line x1="125.0" y1="58" x2="125.0" y2="66" class="beautiful-wick"/>
+        <rect x="120" y="60" width="10" height="2" class="beautiful-candle-up"/>
+    
+        <line x1="145.0" y1="35" x2="145.0" y2="65" class="beautiful-wick"/>
+        <rect x="140" y="40" width="10" height="20" class="beautiful-candle-up"/>
+    
+        <line x1="165.0" y1="30" x2="165.0" y2="70" class="beautiful-wick"/>
+        <rect x="160" y="40" width="10" height="25" class="beautiful-candle-down"/>
+    
+        <line x1="185.0" y1="60" x2="185.0" y2="95" class="beautiful-wick"/>
+        <rect x="180" y="65" width="10" height="25" class="beautiful-candle-down"/>
+    
+        <line x1="205.0" y1="85" x2="205.0" y2="115" class="beautiful-wick"/>
+        <rect x="200" y="90" width="10" height="20" class="beautiful-candle-down"/>
+    
+        
+        <line x1="221.5" y1="104.83886239075018" x2="221.5" y2="111.28786644279072" class="beautiful-wick"/>
+        <rect x="220" y="107.23131103602428" width="3" height="2.7686889639757197" class="beautiful-candle-up"/>
+    
+        <line x1="227.5" y1="104.66321103676327" x2="227.5" y2="109.81721357933486" class="beautiful-wick"/>
+        <rect x="226" y="107.0065045649988" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="233.5" y1="104.72909547619997" x2="233.5" y2="108.0448187810475" class="beautiful-wick"/>
+        <rect x="232" y="106.72563993579608" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="239.5" y1="104.57522360786287" x2="239.5" y2="109.43021720217779" class="beautiful-wick"/>
+        <rect x="238" y="106.31997296950472" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="245.5" y1="103.80933929299479" x2="245.5" y2="108.47001267295522" class="beautiful-wick"/>
+        <rect x="244" y="106.31997296950472" width="3" height="1" class="beautiful-candle-down"/>
+    
+        <line x1="251.5" y1="101.9572545173696" x2="251.5" y2="109.24231636938818" class="beautiful-wick"/>
+        <rect x="250" y="104.65900502095889" width="3" height="1.9428713742918688" class="beautiful-candle-up"/>
+    
+        <line x1="257.5" y1="102.72266850809208" x2="257.5" y2="106.68386571349734" class="beautiful-wick"/>
+        <rect x="256" y="103.91415473501758" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="263.5" y1="101.34541618505884" x2="263.5" y2="106.10858857282179" class="beautiful-wick"/>
+        <rect x="262" y="103.89001816769486" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="269.5" y1="101.7397003172565" x2="269.5" y2="105.6839246161685" class="beautiful-wick"/>
+        <rect x="268" y="103.89001816769486" width="3" height="1" class="beautiful-candle-down"/>
+    
+        <line x1="275.5" y1="100.10117133766943" x2="275.5" y2="106.81388147250684" class="beautiful-wick"/>
+        <rect x="274" y="101.22359269450568" width="3" height="2.706481550070592" class="beautiful-candle-up"/>
+    
+        <line x1="281.5" y1="99.63127312737251" x2="281.5" y2="106.03568645270464" class="beautiful-wick"/>
+        <rect x="280" y="101.22359269450568" width="3" height="2.03458920862046" class="beautiful-candle-down"/>
+    
+        <line x1="287.5" y1="102.05210048311832" x2="287.5" y2="106.10307428104127" class="beautiful-wick"/>
+        <rect x="286" y="103.25818190312614" width="3" height="1" class="beautiful-candle-down"/>
+    
+        <rect x="55" y="50" width="70" height="25" class="lux-zone-yellow"/>
+        <text x="90" y="45" text-anchor="middle" class="lux-text" style="fill:#c9a84c;">ACCUMULATION</text>
+        <circle cx="150" cy="35" r="8" fill="rgba(255,51,102,0.2)" stroke="#ff3366"/>
+        <text x="150" y="20" text-anchor="middle" class="lux-text-red">MANIPULATION</text>
+        <rect x="160" y="70" width="70" height="40" class="lux-zone-red"/>
+        <text x="195" y="65" text-anchor="middle" class="lux-text-red">DISTRIBUTION</text>
+      </svg>
+        
+    </div>
+  </div>
+
+  <!-- ═══════════════ Q2 ═══════════════ -->
+  <div class="question-card" id="qcard-1">
+    <div class="question-header">
+      <div class="q-left">
+        <div class="q-top-row">
+          <div class="q-number">02</div>
+          <div class="question-text">What defines a valid Breaker Block?</div>
+          <div class="q-difficulty diff-hard">Hard</div>
+        </div>
+      </div>
+    </div>
+    <div class="options" id="opts-1">
+      <button class="option-btn" onclick="answer(1,0)"><span class="option-letter">A</span>A structural point that breaks the current trend line.</button>
+      <button class="option-btn" onclick="answer(1,1)"><span class="option-letter">B</span>A sequence of three identically sized candles.</button>
+      <button class="option-btn" onclick="answer(1,2)"><span class="option-letter">C</span>An Order Block that was violated or broken, which now acts as support or resistance.</button>
+      <button class="option-btn" onclick="answer(1,3)"><span class="option-letter">D</span>The exact price where market makers break up large equity block trades.</button>
+    </div>
+    <div class="explanation" id="exp-1"></div>
+    <div id="chart-1" style="display:none">
+      
+      <svg class="q-chart" viewBox="0 0 300 120" xmlns="http://www.w3.org/2000/svg">
+        <rect width="300" height="120" class="lux-bg"/>
+        <line x1="0" y1="20" x2="300" y2="20" class="lux-grid"/><line x1="0" y1="40" x2="300" y2="40" class="lux-grid"/><line x1="0" y1="60" x2="300" y2="60" class="lux-grid"/><line x1="0" y1="80" x2="300" y2="80" class="lux-grid"/><line x1="0" y1="100" x2="300" y2="100" class="lux-grid"/>
+        
+        <line x1="11.5" y1="33.83886239075017" x2="11.5" y2="41.28786644279072" class="beautiful-wick"/>
+        <rect x="10" y="36.23131103602428" width="3" height="3.7686889639757197" class="beautiful-candle-up"/>
+    
+        <line x1="17.5" y1="32.66321103676327" x2="17.5" y2="38.81721357933487" class="beautiful-wick"/>
+        <rect x="16" y="35.00650456499881" width="3" height="1.2248064710254738" class="beautiful-candle-up"/>
+    
+        <line x1="23.5" y1="31.72909547619998" x2="23.5" y2="36.0448187810475" class="beautiful-wick"/>
+        <rect x="22" y="33.72563993579608" width="3" height="1.2808646292027248" class="beautiful-candle-up"/>
+    
+        <line x1="29.5" y1="30.575223607862874" x2="29.5" y2="36.430217202177786" class="beautiful-wick"/>
+        <rect x="28" y="32.319972969504725" width="3" height="1.4056669662913563" class="beautiful-candle-up"/>
+    
+        <line x1="35.5" y1="29.091242718740826" x2="35.5" y2="34.18810924720919" class="beautiful-wick"/>
+        <rect x="34" y="31.60187639525076" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="41.5" y1="25.95725451736962" x2="41.5" y2="34.24231636938818" class="beautiful-wick"/>
+        <rect x="40" y="28.659005020958897" width="3" height="2.9428713742918617" class="beautiful-candle-up"/>
+    
+        <line x1="47.5" y1="25.722668508092102" x2="47.5" y2="30.683865713497347" class="beautiful-wick"/>
+        <rect x="46" y="26.91415473501759" width="3" height="1.7448502859413075" class="beautiful-candle-up"/>
+    
+        <line x1="53.5" y1="23.345416185058838" x2="53.5" y2="29.108588572821795" class="beautiful-wick"/>
+        <rect x="52" y="25.89001816769487" width="3" height="1.0241365673227207" class="beautiful-candle-up"/>
+    
+        <line x1="59.5" y1="22.779756394137927" x2="59.5" y2="27.643868539287087" class="beautiful-wick"/>
+        <rect x="58" y="24.93007424457628" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="65.5" y1="20.10117133766944" x2="65.5" y2="27.813881472506836" class="beautiful-wick"/>
+        <rect x="64" y="21.22359269450569" width="3" height="3.7064815500705883" class="beautiful-candle-up"/>
+    
+        
+        <line x1="74.0" y1="35" x2="74.0" y2="65" class="beautiful-wick"/>
+        <rect x="70" y="40" width="8" height="20" class="beautiful-candle-up"/>
+    
+        <line x1="89.0" y1="35" x2="89.0" y2="65" class="beautiful-wick"/>
+        <rect x="85" y="40" width="8" height="20" class="beautiful-candle-down"/>
+    
+        <line x1="104.0" y1="55" x2="104.0" y2="85" class="beautiful-wick"/>
+        <rect x="100" y="60" width="8" height="20" class="beautiful-candle-down"/>
+    
+        <line x1="119.0" y1="75" x2="119.0" y2="100" class="beautiful-wick"/>
+        <rect x="115" y="80" width="8" height="15" class="beautiful-candle-down"/>
+    
+        <line x1="134.0" y1="55" x2="134.0" y2="100" class="beautiful-wick"/>
+        <rect x="130" y="60" width="8" height="35" class="beautiful-candle-up"/>
+    
+        <line x1="149.0" y1="25" x2="149.0" y2="65" class="beautiful-wick"/>
+        <rect x="145" y="30" width="8" height="30" class="beautiful-candle-up"/>
+    
+        <line x1="164.0" y1="25" x2="164.0" y2="55" class="beautiful-wick"/>
+        <rect x="160" y="30" width="8" height="20" class="beautiful-candle-down"/>
+    
+        <line x1="179.0" y1="40" x2="179.0" y2="55" class="beautiful-wick"/>
+        <rect x="175" y="45" width="8" height="5" class="beautiful-candle-up"/>
+    
+        <line x1="194.0" y1="15" x2="194.0" y2="50" class="beautiful-wick"/>
+        <rect x="190" y="20" width="8" height="25" class="beautiful-candle-up"/>
+    
+        <line x1="209.0" y1="5" x2="209.0" y2="25" class="beautiful-wick"/>
+        <rect x="205" y="10" width="8" height="10" class="beautiful-candle-up"/>
+    
+        
+        <line x1="221.5" y1="7.607551354725894" x2="221.5" y2="11.287866442790722" class="beautiful-wick"/>
+        <rect x="220" y="10" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="227.5" y1="7.6567064717644655" x2="227.5" y2="12.585902543310588" class="beautiful-wick"/>
+        <rect x="226" y="10" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="233.5" y1="8.003455540403898" x2="233.5" y2="11.038314216048695" class="beautiful-wick"/>
+        <rect x="232" y="10" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="239.5" y1="8.255250638358147" x2="239.5" y2="12.704577266381706" class="beautiful-wick"/>
+        <rect x="238" y="10" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="245.5" y1="7.489366323490068" x2="245.5" y2="12.150039703450503" class="beautiful-wick"/>
+        <rect x="244" y="10" width="3" height="1" class="beautiful-candle-down"/>
+    
+        <line x1="251.5" y1="7.2982494964107225" x2="251.5" y2="12.922343399883456" class="beautiful-wick"/>
+        <rect x="250" y="10" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="257.5" y1="8.808513773074514" x2="257.5" y2="12.02486069253845" class="beautiful-wick"/>
+        <rect x="256" y="10" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="263.5" y1="7.455398017363969" x2="263.5" y2="12.194433837804205" class="beautiful-wick"/>
+        <rect x="262" y="10" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="269.5" y1="7.849682149561648" x2="269.5" y2="11.793906448473628" class="beautiful-wick"/>
+        <rect x="268" y="10" width="3" height="1" class="beautiful-candle-down"/>
+    
+        <line x1="275.5" y1="8.87757864316375" x2="275.5" y2="12.923863304811968" class="beautiful-wick"/>
+        <rect x="274" y="10" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="281.5" y1="8.40768043286682" x2="281.5" y2="14.812093758198966" class="beautiful-wick"/>
+        <rect x="280" y="10" width="3" height="2.0345892086204636" class="beautiful-candle-down"/>
+    
+        <line x1="287.5" y1="10.828507788612647" x2="287.5" y2="14.879481586535595" class="beautiful-wick"/>
+        <rect x="286" y="12.034589208620464" width="3" height="1" class="beautiful-candle-down"/>
+    
+        
+        <rect x="70" y="40" width="160" height="20" class="lux-zone-red"/>
+        <text x="100" y="35" text-anchor="middle" class="lux-text-red">OLD BEARISH OB</text>
+        <text x="185" y="32" text-anchor="middle" class="lux-text-green">BULLISH BREAKER</text>
+        
+        <!-- Signal Box -->
+        <rect x="180" y="65" width="18" height="10" class="lux-signal-bg-up"/>
+        <polygon points="189,67 185,73 193,73" class="lux-signal-arrow-up"/>
+      </svg>
+        
+    </div>
+  </div>
+
+  <!-- ═══════════════ Q3 ═══════════════ -->
+  <div class="question-card" id="qcard-2">
+    <div class="question-header">
+      <div class="q-left">
+        <div class="q-top-row">
+          <div class="q-number">03</div>
+          <div class="question-text">In options trading, what happens to Gamma as an option tracking the underlying price approaches Expiration?</div>
+          <div class="q-difficulty diff-hard">Hard</div>
+        </div>
+      </div>
+    </div>
+    <div class="options" id="opts-2">
+      <button class="option-btn" onclick="answer(2,0)"><span class="option-letter">A</span>Gamma becomes exactly 1.0 for all options regardless of strike.</button>
+      <button class="option-btn" onclick="answer(2,1)"><span class="option-letter">B</span>Gamma decreases for At-The-Money (ATM) options and increases for Out-Of-The-Money (OTM) options.</button>
+      <button class="option-btn" onclick="answer(2,2)"><span class="option-letter">C</span>Gamma increases significantly for At-The-Money (ATM) options, creating massive 'Gamma Risk'.</button>
+      <button class="option-btn" onclick="answer(2,3)"><span class="option-letter">D</span>Gamma ceases to exist once there are fewer than 5 days to expiration (0DTE).</button>
+    </div>
+    <div class="explanation" id="exp-2"></div>
+    <div id="chart-2" style="display:none">
+      
+      <svg class="q-chart" viewBox="0 0 300 120" xmlns="http://www.w3.org/2000/svg">
+        <rect width="300" height="120" class="lux-bg"/>
+        <line x1="0" y1="20" x2="300" y2="20" class="lux-grid"/><line x1="0" y1="40" x2="300" y2="40" class="lux-grid"/><line x1="0" y1="60" x2="300" y2="60" class="lux-grid"/><line x1="0" y1="80" x2="300" y2="80" class="lux-grid"/><line x1="0" y1="100" x2="300" y2="100" class="lux-grid"/>
+        <rect x="40" y="20" width="220" height="50" class="lux-zone-red" rx="5"/>
+        <text x="150" y="35" text-anchor="middle" class="lux-text-red" font-size="10">GAMMA RISK BANDS (0 DTE)</text>
+        <line x1="150" y1="40" x2="150" y2="70" class="lux-line-white"/>
+        
+        <line x1="22.0" y1="53.83886239075017" x2="22.0" y2="61.28786644279072" class="beautiful-wick"/>
+        <rect x="20" y="56.23131103602428" width="4" height="3.7686889639757197" class="beautiful-candle-up"/>
+    
+        <line x1="28.0" y1="52.66321103676327" x2="28.0" y2="58.81721357933487" class="beautiful-wick"/>
+        <rect x="26" y="55.00650456499881" width="4" height="1.2248064710254738" class="beautiful-candle-up"/>
+    
+        <line x1="34.0" y1="51.72909547619998" x2="34.0" y2="56.0448187810475" class="beautiful-wick"/>
+        <rect x="32" y="53.72563993579608" width="4" height="1.2808646292027248" class="beautiful-candle-up"/>
+    
+        <line x1="40.0" y1="50.575223607862874" x2="40.0" y2="56.430217202177786" class="beautiful-wick"/>
+        <rect x="38" y="52.319972969504725" width="4" height="1.4056669662913563" class="beautiful-candle-up"/>
+    
+        <line x1="46.0" y1="49.09124271874082" x2="46.0" y2="54.18810924720919" class="beautiful-wick"/>
+        <rect x="44" y="51.601876395250756" width="4" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="52.0" y1="45.95725451736962" x2="52.0" y2="54.24231636938818" class="beautiful-wick"/>
+        <rect x="50" y="48.659005020958894" width="4" height="2.9428713742918617" class="beautiful-candle-up"/>
+    
+        <line x1="58.0" y1="45.722668508092106" x2="58.0" y2="50.68386571349734" class="beautiful-wick"/>
+        <rect x="56" y="46.91415473501759" width="4" height="1.744850285941304" class="beautiful-candle-up"/>
+    
+        <line x1="64.0" y1="43.34541618505884" x2="64.0" y2="49.108588572821795" class="beautiful-wick"/>
+        <rect x="62" y="45.89001816769487" width="4" height="1.0241365673227207" class="beautiful-candle-up"/>
+    
+        
+        <line x1="75.0" y1="55" x2="75.0" y2="75" class="beautiful-wick"/>
+        <rect x="70" y="60" width="10" height="10" class="beautiful-candle-up"/>
+    
+        <line x1="95.0" y1="40" x2="95.0" y2="65" class="beautiful-wick"/>
+        <rect x="90" y="45" width="10" height="15" class="beautiful-candle-up"/>
+    
+        <line x1="115.0" y1="25" x2="115.0" y2="50" class="beautiful-wick"/>
+        <rect x="110" y="30" width="10" height="15" class="beautiful-candle-up"/>
+    
+        <line x1="135.0" y1="15" x2="135.0" y2="35" class="beautiful-wick"/>
+        <rect x="130" y="20" width="10" height="10" class="beautiful-candle-up"/>
+    
+        <line x1="155.0" y1="15" x2="155.0" y2="55" class="beautiful-wick"/>
+        <rect x="150" y="20" width="10" height="30" class="beautiful-candle-down"/>
+    
+        <line x1="175.0" y1="45" x2="175.0" y2="65" class="beautiful-wick"/>
+        <rect x="170" y="50" width="10" height="10" class="beautiful-candle-down"/>
+    
+        <line x1="195.0" y1="25" x2="195.0" y2="65" class="beautiful-wick"/>
+        <rect x="190" y="30" width="10" height="30" class="beautiful-candle-up"/>
+    
+        <line x1="215.0" y1="25" x2="215.0" y2="75" class="beautiful-wick"/>
+        <rect x="210" y="30" width="10" height="40" class="beautiful-candle-down"/>
+    
+        
+        <line x1="232.0" y1="65.33886239075018" x2="232.0" y2="71.28786644279072" class="beautiful-wick"/>
+        <rect x="230" y="67.73131103602428" width="4" height="2.2686889639757197" class="beautiful-candle-up"/>
+    
+        <line x1="238.0" y1="65.38801750778875" x2="238.0" y2="70.5924071083094" class="beautiful-wick"/>
+        <rect x="236" y="67.73131103602428" width="4" height="1" class="beautiful-candle-down"/>
+    
+        <line x1="244.0" y1="66.0099601054027" x2="244.0" y2="69.26395415184477" class="beautiful-wick"/>
+        <rect x="242" y="68.0065045649988" width="4" height="1" class="beautiful-candle-down"/>
+    
+        <line x1="250.0" y1="66.48089057415423" x2="250.0" y2="71.02455023588642" class="beautiful-wick"/>
+        <rect x="248" y="68.22563993579608" width="4" height="1" class="beautiful-candle-down"/>
+    
+        <line x1="256.0" y1="65.80933929299479" x2="256.0" y2="70.97001267295522" class="beautiful-wick"/>
+        <rect x="254" y="68.31997296950472" width="4" height="1" class="beautiful-candle-down"/>
+    
+        <line x1="262.0" y1="64.9572545173696" x2="262.0" y2="71.74231636938818" class="beautiful-wick"/>
+        <rect x="260" y="67.65900502095889" width="4" height="1.4428713742918688" class="beautiful-candle-up"/>
+    
+        <line x1="268.0" y1="66.22266850809208" x2="268.0" y2="69.68386571349734" class="beautiful-wick"/>
+        <rect x="266" y="67.41415473501758" width="4" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="274.0" y1="64.86955275238154" x2="274.0" y2="70.08445200549907" class="beautiful-wick"/>
+        <rect x="272" y="67.41415473501758" width="4" height="1" class="beautiful-candle-down"/>
+    
+        <line x1="280.0" y1="65.7397003172565" x2="280.0" y2="70.1839246161685" class="beautiful-wick"/>
+        <rect x="278" y="67.89001816769486" width="4" height="1" class="beautiful-candle-down"/>
+    
+        <line x1="286.0" y1="65.10117133766943" x2="286.0" y2="71.31388147250684" class="beautiful-wick"/>
+        <rect x="284" y="66.22359269450568" width="4" height="2.206481550070592" class="beautiful-candle-up"/>
+    
+        <line x1="292.0" y1="64.63127312737251" x2="292.0" y2="71.53568645270464" class="beautiful-wick"/>
+        <rect x="290" y="66.22359269450568" width="4" height="2.53458920862046" class="beautiful-candle-down"/>
+    
+        <line x1="298.0" y1="67.55210048311832" x2="298.0" y2="72.10307428104127" class="beautiful-wick"/>
+        <rect x="296" y="68.75818190312614" width="4" height="1" class="beautiful-candle-down"/>
+    
+        <text x="150" y="100" text-anchor="middle" class="lux-text-green">Near Expiration: ATM Options are volatile!</text>
+      </svg>
+        
+    </div>
+  </div>
+
+  <!-- ═══════════════ Q4 ═══════════════ -->
+  <div class="question-card" id="qcard-3">
+    <div class="question-header">
+      <div class="q-left">
+        <div class="q-top-row">
+          <div class="q-number">04</div>
+          <div class="question-text">What is a Judas Swing?</div>
+          <div class="q-difficulty diff-medium">Medium</div>
+        </div>
+      </div>
+    </div>
+    <div class="options" id="opts-3">
+      <button class="option-btn" onclick="answer(3,0)"><span class="option-letter">A</span>A wild swing in IV prior to a company split.</button>
+      <button class="option-btn" onclick="answer(3,1)"><span class="option-letter">B</span>A false breakout initially moving opposite to the real daily trend, designed to stop out retail traders.</button>
+      <button class="option-btn" onclick="answer(3,2)"><span class="option-letter">C</span>An options strategy combining far OTM calls with near OTM puts.</button>
+      <button class="option-btn" onclick="answer(3,3)"><span class="option-letter">D</span>When the market consolidates into a completely flat range.</button>
+    </div>
+    <div class="explanation" id="exp-3"></div>
+    <div id="chart-3" style="display:none">
+      
+      <svg class="q-chart" viewBox="0 0 300 120" xmlns="http://www.w3.org/2000/svg">
+        <rect width="300" height="120" class="lux-bg"/>
+        <line x1="0" y1="20" x2="300" y2="20" class="lux-grid"/><line x1="0" y1="40" x2="300" y2="40" class="lux-grid"/><line x1="0" y1="60" x2="300" y2="60" class="lux-grid"/><line x1="0" y1="80" x2="300" y2="80" class="lux-grid"/><line x1="0" y1="100" x2="300" y2="100" class="lux-grid"/>
+        
+        <line x1="11.5" y1="54.83886239075017" x2="11.5" y2="61.28786644279072" class="beautiful-wick"/>
+        <rect x="10" y="57.23131103602428" width="3" height="2.7686889639757197" class="beautiful-candle-up"/>
+    
+        <line x1="17.5" y1="54.66321103676327" x2="17.5" y2="59.81721357933487" class="beautiful-wick"/>
+        <rect x="16" y="57.00650456499881" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="23.5" y1="54.72909547619998" x2="23.5" y2="58.0448187810475" class="beautiful-wick"/>
+        <rect x="22" y="56.72563993579608" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="29.5" y1="54.575223607862874" x2="29.5" y2="59.430217202177786" class="beautiful-wick"/>
+        <rect x="28" y="56.319972969504725" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="35.5" y1="53.80933929299479" x2="35.5" y2="58.47001267295522" class="beautiful-wick"/>
+        <rect x="34" y="56.319972969504725" width="3" height="1" class="beautiful-candle-down"/>
+    
+        <line x1="41.5" y1="51.95725451736962" x2="41.5" y2="59.24231636938818" class="beautiful-wick"/>
+        <rect x="40" y="54.659005020958894" width="3" height="1.9428713742918617" class="beautiful-candle-up"/>
+    
+        <line x1="47.5" y1="52.722668508092106" x2="47.5" y2="56.68386571349734" class="beautiful-wick"/>
+        <rect x="46" y="53.91415473501759" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="53.5" y1="51.34541618505884" x2="53.5" y2="56.108588572821795" class="beautiful-wick"/>
+        <rect x="52" y="53.89001816769487" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="59.5" y1="51.73970031725652" x2="59.5" y2="55.68392461616849" class="beautiful-wick"/>
+        <rect x="58" y="53.89001816769487" width="3" height="1" class="beautiful-candle-down"/>
+    
+        <line x1="65.5" y1="50.101171337669435" x2="65.5" y2="56.813881472506836" class="beautiful-wick"/>
+        <rect x="64" y="51.22359269450568" width="3" height="2.706481550070592" class="beautiful-candle-up"/>
+    
+        <line x1="71.5" y1="49.6312731273725" x2="71.5" y2="56.035686452704645" class="beautiful-wick"/>
+        <rect x="70" y="51.22359269450568" width="3" height="2.03458920862046" class="beautiful-candle-down"/>
+    
+        <line x1="77.5" y1="52.05210048311832" x2="77.5" y2="56.10307428104128" class="beautiful-wick"/>
+        <rect x="76" y="53.25818190312614" width="3" height="1" class="beautiful-candle-down"/>
+    
+        <line x1="83.5" y1="50.52612375386012" x2="83.5" y2="56.2564640062708" class="beautiful-wick"/>
+        <rect x="82" y="53.391698272447584" width="3" height="1" class="beautiful-candle-down"/>
+    
+        <line x1="89.5" y1="49.21705757280658" x2="89.5" y2="56.47173291003446" class="beautiful-wick"/>
+        <rect x="88" y="51.462552898989145" width="3" height="2.435407749796127" class="beautiful-candle-up"/>
+    
+        <line x1="95.5" y1="49.80000292153486" x2="95.5" y2="55.913815221568434" class="beautiful-wick"/>
+        <rect x="94" y="51.462552898989145" width="3" height="2.3934794838754456" class="beautiful-candle-down"/>
+    
+        
+        <line x1="105.0" y1="55" x2="105.0" y2="70" class="beautiful-wick"/>
+        <rect x="100" y="60" width="10" height="5" class="beautiful-candle-down"/>
+    
+        <line x1="125.0" y1="50" x2="125.0" y2="70" class="beautiful-wick"/>
+        <rect x="120" y="60" width="10" height="5" class="beautiful-candle-up"/>
+    
+        <line x1="145.0" y1="50" x2="145.0" y2="65" class="beautiful-wick"/>
+        <rect x="140" y="60" width="10" height="2" class="beautiful-candle-down"/>
+    
+        <line x1="165.0" y1="35" x2="165.0" y2="65" class="beautiful-wick"/>
+        <rect x="160" y="40" width="10" height="22" class="beautiful-candle-up"/>
+    
+        <line x1="185.0" y1="35" x2="185.0" y2="75" class="beautiful-wick"/>
+        <rect x="180" y="40" width="10" height="30" class="beautiful-candle-down"/>
+    
+        <line x1="205.0" y1="65" x2="205.0" y2="95" class="beautiful-wick"/>
+        <rect x="200" y="70" width="10" height="20" class="beautiful-candle-down"/>
+    
+        <line x1="225.0" y1="85" x2="225.0" y2="115" class="beautiful-wick"/>
+        <rect x="220" y="90" width="10" height="20" class="beautiful-candle-down"/>
+    
+        
+        <line x1="201.5" y1="104.83886239075018" x2="201.5" y2="111.28786644279072" class="beautiful-wick"/>
+        <rect x="200" y="107.23131103602428" width="3" height="2.7686889639757197" class="beautiful-candle-up"/>
+    
+        <line x1="207.5" y1="104.66321103676327" x2="207.5" y2="109.81721357933486" class="beautiful-wick"/>
+        <rect x="206" y="107.0065045649988" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="213.5" y1="104.72909547619997" x2="213.5" y2="108.0448187810475" class="beautiful-wick"/>
+        <rect x="212" y="106.72563993579608" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="219.5" y1="104.57522360786287" x2="219.5" y2="109.43021720217779" class="beautiful-wick"/>
+        <rect x="218" y="106.31997296950472" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="225.5" y1="103.80933929299479" x2="225.5" y2="108.47001267295522" class="beautiful-wick"/>
+        <rect x="224" y="106.31997296950472" width="3" height="1" class="beautiful-candle-down"/>
+    
+        <line x1="231.5" y1="101.9572545173696" x2="231.5" y2="109.24231636938818" class="beautiful-wick"/>
+        <rect x="230" y="104.65900502095889" width="3" height="1.9428713742918688" class="beautiful-candle-up"/>
+    
+        <line x1="237.5" y1="102.72266850809208" x2="237.5" y2="106.68386571349734" class="beautiful-wick"/>
+        <rect x="236" y="103.91415473501758" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="243.5" y1="101.34541618505884" x2="243.5" y2="106.10858857282179" class="beautiful-wick"/>
+        <rect x="242" y="103.89001816769486" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="249.5" y1="101.7397003172565" x2="249.5" y2="105.6839246161685" class="beautiful-wick"/>
+        <rect x="248" y="103.89001816769486" width="3" height="1" class="beautiful-candle-down"/>
+    
+        <line x1="255.5" y1="100.10117133766943" x2="255.5" y2="106.81388147250684" class="beautiful-wick"/>
+        <rect x="254" y="101.22359269450568" width="3" height="2.706481550070592" class="beautiful-candle-up"/>
+    
+        <line x1="261.5" y1="99.63127312737251" x2="261.5" y2="106.03568645270464" class="beautiful-wick"/>
+        <rect x="260" y="101.22359269450568" width="3" height="2.03458920862046" class="beautiful-candle-down"/>
+    
+        <line x1="267.5" y1="102.05210048311832" x2="267.5" y2="106.10307428104127" class="beautiful-wick"/>
+        <rect x="266" y="103.25818190312614" width="3" height="1" class="beautiful-candle-down"/>
+    
+        <line x1="273.5" y1="100.52612375386012" x2="273.5" y2="106.25646400627079" class="beautiful-wick"/>
+        <rect x="272" y="103.39169827244758" width="3" height="1" class="beautiful-candle-down"/>
+    
+        <line x1="279.5" y1="99.21705757280658" x2="279.5" y2="106.47173291003446" class="beautiful-wick"/>
+        <rect x="278" y="101.46255289898914" width="3" height="2.435407749796127" class="beautiful-candle-up"/>
+    
+        <line x1="285.5" y1="99.80000292153487" x2="285.5" y2="105.91381522156844" class="beautiful-wick"/>
+        <rect x="284" y="101.46255289898914" width="3" height="2.3934794838754527" class="beautiful-candle-down"/>
+    
+        
+        <circle cx="163" cy="40" r="10" class="lux-zone-red"/>
+        <text x="163" y="25" text-anchor="middle" class="lux-text-red">JUDAS SWING</text>
+        
+        <text x="215" y="60" text-anchor="middle" class="lux-text-red">TRUE DIRECTION</text>
+        <line x1="185" y1="65" x2="250" y2="105" stroke="#ff3366" stroke-width="2" stroke-dasharray="3,3"/>
+      </svg>
+        
+    </div>
+  </div>
+
+  <!-- ═══════════════ Q5 ═══════════════ -->
+  <div class="question-card" id="qcard-4">
+    <div class="question-header">
+      <div class="q-left">
+        <div class="q-top-row">
+          <div class="q-number">05</div>
+          <div class="question-text">How does Implied Volatility (IV) Rank typically impact option strategy selection?</div>
+          <div class="q-difficulty diff-medium">Medium</div>
+        </div>
+      </div>
+    </div>
+    <div class="options" id="opts-4">
+      <button class="option-btn" onclick="answer(4,0)"><span class="option-letter">A</span>IV Rank doesn't matter; historical volatility is the only metric that dictates option pricing.</button>
+      <button class="option-btn" onclick="answer(4,1)"><span class="option-letter">B</span>High IV Rank favors options buying strategies (debit), while low IV Rank favors options selling (credit).</button>
+      <button class="option-btn" onclick="answer(4,2)"><span class="option-letter">C</span>High IV Rank favors options selling/premium collection (credit), while low IV Rank favors options buying (debit)</button>
+      <button class="option-btn" onclick="answer(4,3)"><span class="option-letter">D</span>It strictly determines if the trader should buy a Call or a Put.</button>
+    </div>
+    <div class="explanation" id="exp-4"></div>
+    <div id="chart-4" style="display:none">
+      
+      <svg class="q-chart" viewBox="0 0 300 120" xmlns="http://www.w3.org/2000/svg">
+        <rect width="300" height="120" class="lux-bg"/>
+        <line x1="0" y1="20" x2="300" y2="20" class="lux-grid"/><line x1="0" y1="40" x2="300" y2="40" class="lux-grid"/><line x1="0" y1="60" x2="300" y2="60" class="lux-grid"/><line x1="0" y1="80" x2="300" y2="80" class="lux-grid"/><line x1="0" y1="100" x2="300" y2="100" class="lux-grid"/>
+        <rect x="25" y="20" width="115" height="80" class="lux-zone-red"/>
+        <rect x="160" y="20" width="115" height="80" class="lux-zone-green"/>
+        
+        <text x="82" y="40" text-anchor="middle" class="lux-text-red" font-size="8">HIGH IV RANK</text>
+        
+        <line x1="32.5" y1="30.26677659508954" x2="32.5" y2="52.58326543534897" class="beautiful-wick"/>
+        <rect x="30" y="38.92524414409712" width="5" height="11.074755855902879" class="beautiful-candle-up"/>
+    
+        <line x1="39.5" y1="29.63790385469979" x2="39.5" y2="48.64770813230536" class="beautiful-wick"/>
+        <rect x="37" y="38.026018259995226" width="5" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="46.5" y1="30.421565215405764" x2="46.5" y2="39.23674644826305" class="beautiful-wick"/>
+        <rect x="44" y="36.90255974318433" width="5" height="1.1234585168108993" class="beautiful-candle-up"/>
+    
+        <line x1="53.5" y1="30.183770388988698" x2="53.5" y2="47.27773470828371" class="beautiful-wick"/>
+        <rect x="51" y="35.27989187801889" width="5" height="1.6226678651654396" class="beautiful-candle-up"/>
+    
+        <line x1="60.5" y1="25.97140665721426" x2="60.5" y2="42.182255108377596" class="beautiful-wick"/>
+        <rect x="58" y="35.27989187801889" width="5" height="1.127613702984135" class="beautiful-candle-down"/>
+    
+        <line x1="67.5" y1="18.276392314094544" x2="67.5" y2="46.42992543875884" class="beautiful-wick"/>
+        <rect x="65" y="28.63602008383557" width="5" height="7.7714854971674505" class="beautiful-candle-up"/>
+    
+        <line x1="74.5" y1="23.603444691980172" x2="74.5" y2="35.27275389279705" class="beautiful-wick"/>
+        <rect x="72" y="25.656618940070345" width="5" height="2.9794011437652266" class="beautiful-candle-up"/>
+    
+        <line x1="81.5" y1="16.064761766281293" x2="81.5" y2="33.226005047993475" class="beautiful-wick"/>
+        <rect x="79" y="25.56007267077947" width="5" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="88.5" y1="18.233324493368535" x2="88.5" y2="30.866474022062302" class="beautiful-wick"/>
+        <rect x="86" y="25.56007267077947" width="5" height="1" class="beautiful-candle-down"/>
+    
+        <line x1="95.5" y1="13.221053315423369" x2="95.5" y2="37.08123673192318" class="beautiful-wick"/>
+        <rect x="93" y="14.894370778022743" width="5" height="10.82592620028236" class="beautiful-candle-up"/>
+    
+        <line x1="102.5" y1="10.63661315879026" x2="102.5" y2="33.80900263518636" class="beautiful-wick"/>
+        <rect x="100" y="14.894370778022743" width="5" height="8.138356834481854" class="beautiful-candle-down"/>
+    
+        <line x1="109.5" y1="20.899279802461606" x2="109.5" y2="33.97936113705567" class="beautiful-wick"/>
+        <rect x="107" y="23.032727612504598" width="5" height="1" class="beautiful-candle-down"/>
+    
+        <line x1="116.5" y1="12.306133237559312" x2="116.5" y2="34.063611061311455" class="beautiful-wick"/>
+        <rect x="114" y="23.566793089790348" width="5" height="2.02504950535074" class="beautiful-candle-down"/>
+    
+        <line x1="123.5" y1="7.99998730195251" x2="123.5" y2="35.247590032011644" class="beautiful-wick"/>
+        <rect x="121" y="15.85021159595659" width="5" height="9.741630999184498" class="beautiful-candle-up"/>
+    
+        <line x1="130.5" y1="11.206186719958051" x2="130.5" y2="32.24193514432952" class="beautiful-wick"/>
+        <rect x="128" y="15.85021159595659" width="5" height="9.573917935501786" class="beautiful-candle-down"/>
+    
+        
+        <text x="217" y="40" text-anchor="middle" class="lux-text-green" font-size="8">LOW IV RANK</text>
+        
+        <line x1="167.5" y1="56.45798303471247" x2="167.5" y2="61.14393322139536" class="beautiful-wick"/>
+        <rect x="165" y="58.15420735734952" width="5" height="1.8457926426504798" class="beautiful-candle-up"/>
+    
+        <line x1="174.5" y1="56.3326896125481" x2="174.5" y2="59.94715862900482" class="beautiful-wick"/>
+        <rect x="172" y="58.00433637666587" width="5" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="181.5" y1="56.31882106073267" x2="181.5" y2="59.02349348469021" class="beautiful-wick"/>
+        <rect x="179" y="57.81709329053072" width="5" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="188.5" y1="56.17427396551555" x2="188.5" y2="59.66938192372157" class="beautiful-wick"/>
+        <rect x="186" y="57.54664864633648" width="5" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="195.5" y1="55.791331808081516" x2="195.5" y2="59.168652402352734" class="beautiful-wick"/>
+        <rect x="193" y="57.54664864633648" width="5" height="1" class="beautiful-candle-down"/>
+    
+        <line x1="202.5" y1="54.58846142884462" x2="202.5" y2="59.55480425056921" class="beautiful-wick"/>
+        <rect x="200" y="56.43933668063926" width="5" height="1.2952475828612435" class="beautiful-candle-up"/>
+    
+        <line x1="209.5" y1="54.84702670988231" x2="209.5" y2="57.951767026908485" class="beautiful-wick"/>
+        <rect x="207" y="55.94276982334505" width="5" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="216.5" y1="54.15437778714522" x2="216.5" y2="57.53998674224716" class="beautiful-wick"/>
+        <rect x="214" y="55.92667877846324" width="5" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="223.5" y1="54.35151985324406" x2="223.5" y2="57.33030801551362" class="beautiful-wick"/>
+        <rect x="221" y="55.92667877846324" width="5" height="1" class="beautiful-candle-down"/>
+    
+        <line x1="230.5" y1="53.087851117918994" x2="230.5" y2="57.89528644368279" class="beautiful-wick"/>
+        <rect x="228" y="54.14906179633712" width="5" height="1.8043210333803898" class="beautiful-candle-up"/>
+    
+        <line x1="237.5" y1="52.852902012770535" x2="237.5" y2="57.39420687687335" class="beautiful-wick"/>
+        <rect x="235" y="54.14906179633712" width="5" height="1.356392805746978" class="beautiful-candle-down"/>
+    
+        <line x1="244.5" y1="54.40241389208019" x2="244.5" y2="57.4501535192619" class="beautiful-wick"/>
+        <rect x="242" y="55.5054546020841" width="5" height="1" class="beautiful-candle-down"/>
+    
+        <line x1="251.5" y1="53.661678255671326" x2="251.5" y2="57.611225444599604" class="beautiful-wick"/>
+        <rect x="249" y="55.59446551496506" width="5" height="1" class="beautiful-candle-down"/>
+    
+        <line x1="258.5" y1="52.68562093623481" x2="258.5" y2="57.71885989648144" class="beautiful-wick"/>
+        <rect x="256" y="54.308368599326094" width="5" height="1.6236051665307514" class="beautiful-candle-up"/>
+    
+        <line x1="265.5" y1="52.977093610598956" x2="265.5" y2="57.43291300792831" class="beautiful-wick"/>
+        <rect x="263" y="54.308368599326094" width="5" height="1.595652989250297" class="beautiful-candle-down"/>
+    
+      </svg>
+        
+    </div>
+  </div>
+
+  <!-- ═══════════════ Q6 ═══════════════ -->
+  <div class="question-card" id="qcard-5">
+    <div class="question-header">
+      <div class="q-left">
+        <div class="q-top-row">
+          <div class="q-number">06</div>
+          <div class="question-text">What is a Mitigation Block?</div>
+          <div class="q-difficulty diff-hard">Hard</div>
+        </div>
+      </div>
+    </div>
+    <div class="options" id="opts-5">
+      <button class="option-btn" onclick="answer(5,0)"><span class="option-letter">A</span>An Order Block whose resulting move successfully displaced but FAILED to break structural highs/lows before retracing.</button>
+      <button class="option-btn" onclick="answer(5,1)"><span class="option-letter">B</span>An Order Block that was fully swept by stop losses.</button>
+      <button class="option-btn" onclick="answer(5,2)"><span class="option-letter">C</span>An alternative name for a Fair Value Gap.</button>
+      <button class="option-btn" onclick="answer(5,3)"><span class="option-letter">D</span>The exact price where the Daily Open overlaps with the Asian Session High.</button>
+    </div>
+    <div class="explanation" id="exp-5"></div>
+    <div id="chart-5" style="display:none">
+      
+      <svg class="q-chart" viewBox="0 0 300 120" xmlns="http://www.w3.org/2000/svg">
+        <rect width="300" height="120" class="lux-bg"/>
+        <line x1="0" y1="20" x2="300" y2="20" class="lux-grid"/><line x1="0" y1="40" x2="300" y2="40" class="lux-grid"/><line x1="0" y1="60" x2="300" y2="60" class="lux-grid"/><line x1="0" y1="80" x2="300" y2="80" class="lux-grid"/><line x1="0" y1="100" x2="300" y2="100" class="lux-grid"/>
+        
+        <line x1="11.5" y1="61.21974174678788" x2="11.5" y2="71.43179966418609" class="beautiful-wick"/>
+        <rect x="10" y="64.30841471469904" width="3" height="5.69158528530096" class="beautiful-candle-up"/>
+    
+        <line x1="17.5" y1="58.993732460978435" x2="17.5" y2="67.68726852966492" class="beautiful-wick"/>
+        <rect x="16" y="62.00867275333174" width="3" height="2.299741961367303" class="beautiful-candle-up"/>
+    
+        <line x1="23.5" y1="57.13936989166728" x2="23.5" y2="63.06614407740478" class="beautiful-wick"/>
+        <rect x="22" y="59.634186581061435" width="3" height="2.374486172270302" class="beautiful-candle-up"/>
+    
+        <line x1="29.5" y1="54.97617325021018" x2="29.5" y2="63.19105248063399" class="beautiful-wick"/>
+        <rect x="28" y="57.09329729267296" width="3" height="2.5408892883884775" class="beautiful-candle-up"/>
+    
+        <line x1="35.5" y1="52.20321801223611" x2="35.5" y2="59.39550170922966" class="beautiful-wick"/>
+        <rect x="34" y="55.469168527001" width="3" height="1.624128765671955" class="beautiful-candle-up"/>
+    
+        <line x1="41.5" y1="47.3260476058946" x2="41.5" y2="58.929828488207136" class="beautiful-wick"/>
+        <rect x="40" y="50.878673361278516" width="3" height="4.590495165722487" class="beautiful-candle-up"/>
+    
+        <line x1="47.5" y1="46.598310306301876" x2="47.5" y2="53.41596440008619" class="beautiful-wick"/>
+        <rect x="46" y="47.885539646690106" width="3" height="2.99313371458841" class="beautiful-candle-up"/>
+    
+        <line x1="53.5" y1="42.53645458297243" x2="53.5" y2="50.677190403396416" class="beautiful-wick"/>
+        <rect x="52" y="45.85335755692648" width="3" height="2.032182089763623" class="beautiful-candle-up"/>
+    
+        
+        <line x1="64.0" y1="45" x2="64.0" y2="75" class="beautiful-wick"/>
+        <rect x="60" y="50" width="8" height="20" class="beautiful-candle-up"/>
+    
+        <line x1="79.0" y1="15" x2="79.0" y2="55" class="beautiful-wick"/>
+        <rect x="75" y="20" width="8" height="30" class="beautiful-candle-up"/>
+    
+        <line x1="94.0" y1="15" x2="94.0" y2="45" class="beautiful-wick"/>
+        <rect x="90" y="20" width="8" height="20" class="beautiful-candle-down"/>
+    
+        <line x1="109.0" y1="25" x2="109.0" y2="45" class="beautiful-wick"/>
+        <rect x="105" y="30" width="8" height="10" class="beautiful-candle-up"/>
+    
+        <line x1="124.0" y1="25" x2="124.0" y2="65" class="beautiful-wick"/>
+        <rect x="120" y="30" width="8" height="30" class="beautiful-candle-down"/>
+    
+        <line x1="139.0" y1="55" x2="139.0" y2="95" class="beautiful-wick"/>
+        <rect x="135" y="60" width="8" height="30" class="beautiful-candle-down"/>
+    
+        <line x1="154.0" y1="55" x2="154.0" y2="95" class="beautiful-wick"/>
+        <rect x="150" y="60" width="8" height="30" class="beautiful-candle-up"/>
+    
+        <line x1="169.0" y1="55" x2="169.0" y2="90" class="beautiful-wick"/>
+        <rect x="165" y="60" width="8" height="25" class="beautiful-candle-down"/>
+    
+        <line x1="184.0" y1="80" x2="184.0" y2="115" class="beautiful-wick"/>
+        <rect x="180" y="85" width="8" height="25" class="beautiful-candle-down"/>
+    
+        
+        <line x1="196.5" y1="104.83886239075018" x2="196.5" y2="111.28786644279072" class="beautiful-wick"/>
+        <rect x="195" y="107.23131103602428" width="3" height="2.7686889639757197" class="beautiful-candle-up"/>
+    
+        <line x1="202.5" y1="104.66321103676327" x2="202.5" y2="109.81721357933486" class="beautiful-wick"/>
+        <rect x="201" y="107.0065045649988" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="208.5" y1="104.72909547619997" x2="208.5" y2="108.0448187810475" class="beautiful-wick"/>
+        <rect x="207" y="106.72563993579608" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="214.5" y1="104.57522360786287" x2="214.5" y2="109.43021720217779" class="beautiful-wick"/>
+        <rect x="213" y="106.31997296950472" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="220.5" y1="103.80933929299479" x2="220.5" y2="108.47001267295522" class="beautiful-wick"/>
+        <rect x="219" y="106.31997296950472" width="3" height="1" class="beautiful-candle-down"/>
+    
+        <line x1="226.5" y1="101.9572545173696" x2="226.5" y2="109.24231636938818" class="beautiful-wick"/>
+        <rect x="225" y="104.65900502095889" width="3" height="1.9428713742918688" class="beautiful-candle-up"/>
+    
+        <line x1="232.5" y1="102.72266850809208" x2="232.5" y2="106.68386571349734" class="beautiful-wick"/>
+        <rect x="231" y="103.91415473501758" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="238.5" y1="101.34541618505884" x2="238.5" y2="106.10858857282179" class="beautiful-wick"/>
+        <rect x="237" y="103.89001816769486" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="244.5" y1="101.7397003172565" x2="244.5" y2="105.6839246161685" class="beautiful-wick"/>
+        <rect x="243" y="103.89001816769486" width="3" height="1" class="beautiful-candle-down"/>
+    
+        <line x1="250.5" y1="100.10117133766943" x2="250.5" y2="106.81388147250684" class="beautiful-wick"/>
+        <rect x="249" y="101.22359269450568" width="3" height="2.706481550070592" class="beautiful-candle-up"/>
+    
+        <line x1="256.5" y1="99.63127312737251" x2="256.5" y2="106.03568645270464" class="beautiful-wick"/>
+        <rect x="255" y="101.22359269450568" width="3" height="2.03458920862046" class="beautiful-candle-down"/>
+    
+        <line x1="262.5" y1="102.05210048311832" x2="262.5" y2="106.10307428104127" class="beautiful-wick"/>
+        <rect x="261" y="103.25818190312614" width="3" height="1" class="beautiful-candle-down"/>
+    
+        <line x1="60" y1="20" x2="200" y2="20" class="lux-line-white"/>
+        <text x="135" y="15" text-anchor="middle" class="lux-text-red">FAILS TO BREAK HIGH</text>
+        
+        <rect x="100" y="30" width="80" height="15" class="lux-zone-blue"/>
+        <text x="190" y="40" class="lux-text-red">MITIGATION BLOCK</text>
+      </svg>
+        
+    </div>
+  </div>
+
+  <!-- ═══════════════ Q7 ═══════════════ -->
+  <div class="question-card" id="qcard-6">
+    <div class="question-header">
+      <div class="q-left">
+        <div class="q-top-row">
+          <div class="q-number">07</div>
+          <div class="question-text">What is 'Vega' in option Greeks?</div>
+          <div class="q-difficulty diff-easy">Easy</div>
+        </div>
+      </div>
+    </div>
+    <div class="options" id="opts-6">
+      <button class="option-btn" onclick="answer(6,0)"><span class="option-letter">A</span>The sensitivity of an option's premium to changes in the risk-free interest rate.</button>
+      <button class="option-btn" onclick="answer(6,1)"><span class="option-letter">B</span>The speed at which the option loses value on weekends.</button>
+      <button class="option-btn" onclick="answer(6,2)"><span class="option-letter">C</span>The measure of an option's intrinsic value.</button>
+      <button class="option-btn" onclick="answer(6,3)"><span class="option-letter">D</span>The sensitivity of an option's price to changes in Implied Volatility.</button>
+    </div>
+    <div class="explanation" id="exp-6"></div>
+    <div id="chart-6" style="display:none">
+      
+      <svg class="q-chart" viewBox="0 0 300 120" xmlns="http://www.w3.org/2000/svg">
+        <rect width="300" height="120" class="lux-bg"/>
+        <line x1="0" y1="20" x2="300" y2="20" class="lux-grid"/><line x1="0" y1="40" x2="300" y2="40" class="lux-grid"/><line x1="0" y1="60" x2="300" y2="60" class="lux-grid"/><line x1="0" y1="80" x2="300" y2="80" class="lux-grid"/><line x1="0" y1="100" x2="300" y2="100" class="lux-grid"/>
+        
+        <line x1="12.0" y1="71.21974174678789" x2="12.0" y2="81.43179966418609" class="beautiful-wick"/>
+        <rect x="10" y="74.30841471469904" width="4" height="5.69158528530096" class="beautiful-candle-up"/>
+    
+        <line x1="18.0" y1="68.99373246097844" x2="18.0" y2="77.68726852966492" class="beautiful-wick"/>
+        <rect x="16" y="72.00867275333174" width="4" height="2.299741961367303" class="beautiful-candle-up"/>
+    
+        <line x1="24.0" y1="67.13936989166729" x2="24.0" y2="73.06614407740479" class="beautiful-wick"/>
+        <rect x="22" y="69.63418658106144" width="4" height="2.374486172270295" class="beautiful-candle-up"/>
+    
+        <line x1="30.0" y1="64.97617325021018" x2="30.0" y2="73.191052480634" class="beautiful-wick"/>
+        <rect x="28" y="67.09329729267296" width="4" height="2.5408892883884846" class="beautiful-candle-up"/>
+    
+        <line x1="36.0" y1="62.20321801223611" x2="36.0" y2="69.39550170922966" class="beautiful-wick"/>
+        <rect x="34" y="65.469168527001" width="4" height="1.624128765671955" class="beautiful-candle-up"/>
+    
+        <line x1="42.0" y1="57.3260476058946" x2="42.0" y2="68.92982848820714" class="beautiful-wick"/>
+        <rect x="40" y="60.878673361278516" width="4" height="4.590495165722487" class="beautiful-candle-up"/>
+    
+        <line x1="48.0" y1="56.598310306301876" x2="48.0" y2="63.41596440008619" class="beautiful-wick"/>
+        <rect x="46" y="57.885539646690106" width="4" height="2.99313371458841" class="beautiful-candle-up"/>
+    
+        <line x1="54.0" y1="52.53645458297243" x2="54.0" y2="60.677190403396416" class="beautiful-wick"/>
+        <rect x="52" y="55.85335755692648" width="4" height="2.032182089763623" class="beautiful-candle-up"/>
+    
+        <line x1="60.0" y1="51.1812888837775" x2="60.0" y2="57.98413311431481" class="beautiful-wick"/>
+        <rect x="58" y="53.906765659435024" width="4" height="1.9465918974914587" class="beautiful-candle-up"/>
+    
+        <line x1="66.0" y1="47.11449155741986" x2="66.0" y2="57.732476501330865" class="beautiful-wick"/>
+        <rect x="64" y="48.29812359267424" width="4" height="5.608642066760787" class="beautiful-candle-up"/>
+    
+        
+        <line x1="77.5" y1="35" x2="77.5" y2="85" class="beautiful-wick"/>
+        <rect x="70" y="40" width="15" height="40" class="beautiful-candle-down"/>
+    
+        
+        <line x1="112.0" y1="66.74325917093871" x2="112.0" y2="82.00753254976753" class="beautiful-wick"/>
+        <rect x="110" y="72.61682942939808" width="4" height="7.383170570601919" class="beautiful-candle-up"/>
+    
+        <line x1="118.0" y1="66.3158181578391" x2="118.0" y2="79.16748833098514" class="beautiful-wick"/>
+        <rect x="116" y="72.01734550666347" width="4" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="124.0" y1="66.78046755353651" x2="124.0" y2="73.1514452628339" class="beautiful-wick"/>
+        <rect x="122" y="71.26837316212287" width="4" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="130.0" y1="66.57997181959944" x2="130.0" y2="78.23439359445884" class="beautiful-wick"/>
+        <rect x="128" y="70.18659458534592" width="4" height="1.081778576776955" class="beautiful-candle-up"/>
+    
+        <line x1="136.0" y1="63.899376717561154" x2="136.0" y2="74.97681402596764" class="beautiful-wick"/>
+        <rect x="134" y="70.18659458534592" width="4" height="1" class="beautiful-candle-down"/>
+    
+        <line x1="142.0" y1="58.80121995999456" x2="142.0" y2="77.67987696348298" class="beautiful-wick"/>
+        <rect x="140" y="65.75734672255703" width="4" height="5.180990331444974" class="beautiful-candle-up"/>
+    
+        <line x1="148.0" y1="62.100877499141006" x2="148.0" y2="70.3443591464416" class="beautiful-wick"/>
+        <rect x="146" y="63.77107929338021" width="4" height="1.98626742917682" class="beautiful-candle-up"/>
+    
+        <line x1="154.0" y1="57.300608174626845" x2="154.0" y2="68.95159772569494" class="beautiful-wick"/>
+        <rect x="152" y="63.70671511385296" width="4" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="160.0" y1="58.68060263731873" x2="160.0" y2="67.45200761944281" class="beautiful-wick"/>
+        <rect x="158" y="63.70671511385296" width="4" height="1" class="beautiful-candle-down"/>
+    
+        <line x1="166.0" y1="55.1677724364216" x2="166.0" y2="71.40685661662701" class="beautiful-wick"/>
+        <rect x="164" y="56.596247185348474" width="4" height="7.217284133521574" class="beautiful-candle-up"/>
+    
+        <line x1="172.0" y1="53.52312870038235" x2="172.0" y2="69.24308433186114" class="beautiful-wick"/>
+        <rect x="170" y="56.596247185348474" width="4" height="5.425571222987905" class="beautiful-candle-down"/>
+    
+        <line x1="178.0" y1="60.300533438309024" x2="178.0" y2="69.36767808993814" class="beautiful-wick"/>
+        <rect x="176" y="62.02181840833638" width="4" height="1" class="beautiful-candle-down"/>
+    
+        <line x1="184.0" y1="54.8483512448041" x2="184.0" y2="69.4826568146267" class="beautiful-wick"/>
+        <rect x="182" y="62.37786205986021" width="4" height="1.3500330035671624" class="beautiful-candle-down"/>
+    
+        <line x1="190.0" y1="51.87424075566542" x2="190.0" y2="70.23609797779955" class="beautiful-wick"/>
+        <rect x="188" y="57.23347439730438" width="4" height="6.494420666122998" class="beautiful-candle-up"/>
+    
+        <line x1="196.0" y1="53.9145494762144" x2="196.0" y2="68.31832628976902" class="beautiful-wick"/>
+        <rect x="194" y="57.23347439730438" width="4" height="6.382611957001188" class="beautiful-candle-down"/>
+    
+        <rect x="70" y="30" width="160" height="60" class="lux-zone-green" rx="5"/>
+        <text x="150" y="45" text-anchor="middle" class="lux-text-green" font-size="12">VEGA = $0.15</text>
+        <line x1="90" y1="60" x2="210" y2="60" class="lux-line-white"/>
+        <text x="150" y="70" text-anchor="middle" class="lux-text">Implied Volatility (IV) increases +1.0%</text>
+        <text x="150" y="80" text-anchor="middle" class="lux-text-green">Option Gained +$0.15</text>
+      </svg>
+        
+    </div>
+  </div>
+
+  <!-- ═══════════════ Q8 ═══════════════ -->
+  <div class="question-card" id="qcard-7">
+    <div class="question-header">
+      <div class="q-left">
+        <div class="q-top-row">
+          <div class="q-number">08</div>
+          <div class="question-text">What is a Liquidity Void?</div>
+          <div class="q-difficulty diff-medium">Medium</div>
+        </div>
+      </div>
+    </div>
+    <div class="options" id="opts-7">
+      <button class="option-btn" onclick="answer(7,0)"><span class="option-letter">A</span>A Fair Value Gap that is permanently ignored.</button>
+      <button class="option-btn" onclick="answer(7,1)"><span class="option-letter">B</span>A sudden halt in market trading due to SEC regulations.</button>
+      <button class="option-btn" onclick="answer(7,2)"><span class="option-letter">C</span>A very large, one-directional price move consisting of multiple consecutive large candles with minimal overlaps.</button>
+      <button class="option-btn" onclick="answer(7,3)"><span class="option-letter">D</span>When the options order book has no visible contracts available for trading.</button>
+    </div>
+    <div class="explanation" id="exp-7"></div>
+    <div id="chart-7" style="display:none">
+      
+      <svg class="q-chart" viewBox="0 0 300 120" xmlns="http://www.w3.org/2000/svg">
+        <rect width="300" height="120" class="lux-bg"/>
+        <line x1="0" y1="20" x2="300" y2="20" class="lux-grid"/><line x1="0" y1="40" x2="300" y2="40" class="lux-grid"/><line x1="0" y1="60" x2="300" y2="60" class="lux-grid"/><line x1="0" y1="80" x2="300" y2="80" class="lux-grid"/><line x1="0" y1="100" x2="300" y2="100" class="lux-grid"/>
+        
+        <line x1="11.5" y1="14.838862390750174" x2="11.5" y2="21.287866442790722" class="beautiful-wick"/>
+        <rect x="10" y="17.23131103602428" width="3" height="2.7686889639757197" class="beautiful-candle-up"/>
+    
+        <line x1="17.5" y1="14.663211036763272" x2="17.5" y2="19.81721357933487" class="beautiful-wick"/>
+        <rect x="16" y="17.006504564998806" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="23.5" y1="14.72909547619998" x2="23.5" y2="18.044818781047503" class="beautiful-wick"/>
+        <rect x="22" y="16.72563993579608" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="29.5" y1="14.575223607862869" x2="29.5" y2="19.430217202177786" class="beautiful-wick"/>
+        <rect x="28" y="16.31997296950472" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="35.5" y1="13.809339292994789" x2="35.5" y2="18.470012672955225" class="beautiful-wick"/>
+        <rect x="34" y="16.31997296950472" width="3" height="1" class="beautiful-candle-down"/>
+    
+        <line x1="41.5" y1="11.957254517369616" x2="41.5" y2="19.242316369388178" class="beautiful-wick"/>
+        <rect x="40" y="14.659005020958894" width="3" height="1.9428713742918617" class="beautiful-candle-up"/>
+    
+        <line x1="47.5" y1="12.7226685080921" x2="47.5" y2="16.683865713497344" class="beautiful-wick"/>
+        <rect x="46" y="13.914154735017586" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="53.5" y1="11.345416185058836" x2="53.5" y2="16.10858857282179" class="beautiful-wick"/>
+        <rect x="52" y="13.890018167694867" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="59.5" y1="11.739700317256515" x2="59.5" y2="15.683924616168493" class="beautiful-wick"/>
+        <rect x="58" y="13.890018167694867" width="3" height="1" class="beautiful-candle-down"/>
+    
+        <line x1="65.5" y1="10.101171337669435" x2="65.5" y2="16.813881472506836" class="beautiful-wick"/>
+        <rect x="64" y="11.223592694505685" width="3" height="2.70648155007059" class="beautiful-candle-up"/>
+    
+        
+        <line x1="74.0" y1="15" x2="74.0" y2="55" class="beautiful-wick"/>
+        <rect x="70" y="20" width="8" height="30" class="beautiful-candle-down"/>
+    
+        <line x1="89.0" y1="45" x2="89.0" y2="85" class="beautiful-wick"/>
+        <rect x="85" y="50" width="8" height="30" class="beautiful-candle-down"/>
+    
+        <line x1="104.0" y1="75" x2="104.0" y2="115" class="beautiful-wick"/>
+        <rect x="100" y="80" width="8" height="30" class="beautiful-candle-down"/>
+    
+        
+        <rect x="65" y="15" width="40" height="100" class="lux-zone-red"/>
+        <text x="110" y="60" class="lux-text-red" font-size="8">LIQUIDITY VOID</text>
+        
+        
+        <line x1="116.5" y1="104.33886239075018" x2="116.5" y2="111.28786644279072" class="beautiful-wick"/>
+        <rect x="115" y="106.73131103602428" width="3" height="3.2686889639757197" class="beautiful-candle-up"/>
+    
+        <line x1="122.5" y1="103.66321103676327" x2="122.5" y2="109.31721357933486" class="beautiful-wick"/>
+        <rect x="121" y="106.0065045649988" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="128.5" y1="103.22909547619997" x2="128.5" y2="107.0448187810475" class="beautiful-wick"/>
+        <rect x="127" y="105.22563993579608" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="134.5" y1="102.57522360786287" x2="134.5" y2="107.93021720217779" class="beautiful-wick"/>
+        <rect x="133" y="104.31997296950472" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="140.5" y1="101.59124271874083" x2="140.5" y2="106.18810924720918" class="beautiful-wick"/>
+        <rect x="139" y="104.10187639525076" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="146.5" y1="98.9572545173696" x2="146.5" y2="106.74231636938818" class="beautiful-wick"/>
+        <rect x="145" y="101.65900502095889" width="3" height="2.442871374291869" class="beautiful-candle-up"/>
+    
+        <line x1="152.5" y1="99.22266850809208" x2="152.5" y2="103.68386571349734" class="beautiful-wick"/>
+        <rect x="151" y="100.41415473501758" width="3" height="1.244850285941311" class="beautiful-candle-up"/>
+    
+        <line x1="158.5" y1="97.34541618505884" x2="158.5" y2="102.60858857282179" class="beautiful-wick"/>
+        <rect x="157" y="99.89001816769486" width="3" height="1" class="beautiful-candle-up"/>
+    
+        
+        <!-- Pullback to fill -->
+        
+        <line x1="167.0" y1="75" x2="167.0" y2="115" class="beautiful-wick"/>
+        <rect x="163" y="80" width="8" height="30" class="beautiful-candle-up"/>
+    
+        <line x1="182.0" y1="45" x2="182.0" y2="85" class="beautiful-wick"/>
+        <rect x="178" y="50" width="8" height="30" class="beautiful-candle-up"/>
+    
+        <line x1="197.0" y1="15" x2="197.0" y2="55" class="beautiful-wick"/>
+        <rect x="193" y="20" width="8" height="30" class="beautiful-candle-up"/>
+    
+        
+        <line x1="209.5" y1="13.219741746787882" x2="209.5" y2="21.431799664186084" class="beautiful-wick"/>
+        <rect x="208" y="16.30841471469904" width="3" height="3.6915852853009596" class="beautiful-candle-up"/>
+    
+        <line x1="215.5" y1="12.993732460978439" x2="215.5" y2="19.687268529664923" class="beautiful-wick"/>
+        <rect x="214" y="16.00867275333174" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="221.5" y1="13.139369891667286" x2="221.5" y2="17.066144077404783" class="beautiful-wick"/>
+        <rect x="220" y="15.634186581061439" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="227.5" y1="12.976173250210183" x2="227.5" y2="19.191052480634" class="beautiful-wick"/>
+        <rect x="226" y="15.093297292672961" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="233.5" y1="11.827346777908064" x2="233.5" y2="17.771372943557708" class="beautiful-wick"/>
+        <rect x="232" y="15.093297292672961" width="3" height="1" class="beautiful-candle-down"/>
+    
+        <line x1="239.5" y1="9.326047605894606" x2="239.5" y2="18.92982848820714" class="beautiful-wick"/>
+        <rect x="238" y="12.878673361278523" width="3" height="2.5904951657224835" class="beautiful-candle-up"/>
+    
+        <line x1="245.5" y1="10.598310306301883" x2="245.5" y2="15.415964400086198" class="beautiful-wick"/>
+        <rect x="244" y="11.885539646690113" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="251.5" y1="8.53645458297244" x2="251.5" y2="14.677190403396422" class="beautiful-wick"/>
+        <rect x="250" y="11.853357556926486" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="257.5" y1="9.12788078126896" x2="257.5" y2="14.037541216823358" class="beautiful-wick"/>
+        <rect x="256" y="11.853357556926486" width="3" height="1" class="beautiful-candle-down"/>
+    
+        <line x1="263.5" y1="8.816367964745625" x2="263.5" y2="15.732476501330869" class="beautiful-wick"/>
+        <rect x="262" y="10" width="3" height="1.906765659435031" class="beautiful-candle-up"/>
+    
+        <line x1="269.5" y1="8.111520649300232" x2="269.5" y2="16.379042435861706" class="beautiful-wick"/>
+        <rect x="268" y="10" width="3" height="2.7127856114939526" class="beautiful-candle-down"/>
+    
+        <line x1="275.5" y1="11.403663481482228" x2="275.5" y2="16.45787145014641" class="beautiful-wick"/>
+        <rect x="274" y="12.712785611493953" width="3" height="1" class="beautiful-candle-down"/>
+    
+        <line x1="281.5" y1="9.092445659374677" x2="281.5" y2="16.603578975267734" class="beautiful-wick"/>
+        <rect x="280" y="12.89080743725587" width="3" height="1" class="beautiful-candle-down"/>
+    
+        <line x1="287.5" y1="7.450370616704111" x2="287.5" y2="16.926482330913238" class="beautiful-wick"/>
+        <rect x="286" y="10.318613605977951" width="3" height="3.247210333061499" class="beautiful-candle-up"/>
+    
+        <line x1="293.5" y1="8.324788639796532" x2="293.5" y2="16.09659384253431" class="beautiful-wick"/>
+        <rect x="292" y="10.318613605977951" width="3" height="3.191305978500594" class="beautiful-candle-down"/>
+    
+        
+        <path d="M 105 105 Q 140 120 150 50 L 140 55 M 150 50 L 160 55" fill="none" stroke="#0096ff" stroke-width="1.5"/>
+        <text x="175" y="55" class="lux-text">PRICE RETURNS</text>
+      </svg>
+        
+    </div>
+  </div>
+
+  <!-- ═══════════════ Q9 ═══════════════ -->
+  <div class="question-card" id="qcard-8">
+    <div class="question-header">
+      <div class="q-left">
+        <div class="q-top-row">
+          <div class="q-number">09</div>
+          <div class="question-text">What does the term 'Killzone' refer to in ICT?</div>
+          <div class="q-difficulty diff-medium">Medium</div>
+        </div>
+      </div>
+    </div>
+    <div class="options" id="opts-8">
+      <button class="option-btn" onclick="answer(8,0)"><span class="option-letter">A</span>A price range where an option loses 100% of its value.</button>
+      <button class="option-btn" onclick="answer(8,1)"><span class="option-letter">B</span>A 30-minute block where high-frequency bots temporarily shut down.</button>
+      <button class="option-btn" onclick="answer(8,2)"><span class="option-letter">C</span>The specific time windows aligning with major market open volatilities, optimized for high probability entries.</button>
+      <button class="option-btn" onclick="answer(8,3)"><span class="option-letter">D</span>An arbitrary price target for a long-term swing trade.</button>
+    </div>
+    <div class="explanation" id="exp-8"></div>
+    <div id="chart-8" style="display:none">
+      
+      <svg class="q-chart" viewBox="0 0 300 120" xmlns="http://www.w3.org/2000/svg">
+        <rect width="300" height="120" class="lux-bg"/>
+        <line x1="0" y1="20" x2="300" y2="20" class="lux-grid"/><line x1="0" y1="40" x2="300" y2="40" class="lux-grid"/><line x1="0" y1="60" x2="300" y2="60" class="lux-grid"/><line x1="0" y1="80" x2="300" y2="80" class="lux-grid"/><line x1="0" y1="100" x2="300" y2="100" class="lux-grid"/>
+        <rect x="40" y="20" width="50" height="90" class="lux-zone-blue"/>
+        <rect x="120" y="20" width="50" height="90" class="lux-zone-red"/>
+        <rect x="200" y="20" width="50" height="90" class="lux-zone-green"/>
+        
+        <text x="65" y="15" text-anchor="middle" class="lux-text">LONDON KZ</text>
+        <text x="145" y="15" text-anchor="middle" class="lux-text-red">NY KZ</text>
+        <text x="225" y="15" text-anchor="middle" class="lux-text-green">LONDON CLOSE</text>
+        
+        
+        <line x1="11.0" y1="53.83886239075017" x2="11.0" y2="61.28786644279072" class="beautiful-wick"/>
+        <rect x="10" y="56.23131103602428" width="2" height="3.7686889639757197" class="beautiful-candle-up"/>
+    
+        <line x1="15.0" y1="52.66321103676327" x2="15.0" y2="58.81721357933487" class="beautiful-wick"/>
+        <rect x="14" y="55.00650456499881" width="2" height="1.2248064710254738" class="beautiful-candle-up"/>
+    
+        <line x1="19.0" y1="51.72909547619998" x2="19.0" y2="56.0448187810475" class="beautiful-wick"/>
+        <rect x="18" y="53.72563993579608" width="2" height="1.2808646292027248" class="beautiful-candle-up"/>
+    
+        <line x1="23.0" y1="50.575223607862874" x2="23.0" y2="56.430217202177786" class="beautiful-wick"/>
+        <rect x="22" y="52.319972969504725" width="2" height="1.4056669662913563" class="beautiful-candle-up"/>
+    
+        <line x1="27.0" y1="49.09124271874082" x2="27.0" y2="54.18810924720919" class="beautiful-wick"/>
+        <rect x="26" y="51.601876395250756" width="2" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="31.0" y1="45.95725451736962" x2="31.0" y2="54.24231636938818" class="beautiful-wick"/>
+        <rect x="30" y="48.659005020958894" width="2" height="2.9428713742918617" class="beautiful-candle-up"/>
+    
+        <line x1="35.0" y1="45.722668508092106" x2="35.0" y2="50.68386571349734" class="beautiful-wick"/>
+        <rect x="34" y="46.91415473501759" width="2" height="1.744850285941304" class="beautiful-candle-up"/>
+    
+        <line x1="39.0" y1="43.34541618505884" x2="39.0" y2="49.108588572821795" class="beautiful-wick"/>
+        <rect x="38" y="45.89001816769487" width="2" height="1.0241365673227207" class="beautiful-candle-up"/>
+    
+        <line x1="43.0" y1="42.77975639413793" x2="43.0" y2="47.643868539287084" class="beautiful-wick"/>
+        <rect x="42" y="44.930074244576275" width="2" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="47.0" y1="40.101171337669435" x2="47.0" y2="47.813881472506836" class="beautiful-wick"/>
+        <rect x="46" y="41.22359269450568" width="2" height="3.706481550070592" class="beautiful-candle-up"/>
+    
+        
+        <line x1="52.0" y1="37.743259170938714" x2="52.0" y2="52.007532549767525" class="beautiful-wick"/>
+        <rect x="50" y="43.61682942939808" width="4" height="6.383170570601919" class="beautiful-candle-up"/>
+    
+        <line x1="58.0" y1="37.91530208057371" x2="58.0" y2="50.568004408250545" class="beautiful-wick"/>
+        <rect x="56" y="43.61682942939808" width="4" height="1" class="beautiful-candle-down"/>
+    
+        <line x1="64.0" y1="39.52943989807712" x2="64.0" y2="45.40247291829331" class="beautiful-wick"/>
+        <rect x="62" y="44.01734550666348" width="4" height="1" class="beautiful-candle-down"/>
+    
+        <line x1="70.0" y1="40.579971819599436" x2="70.0" y2="51.23439359445885" class="beautiful-wick"/>
+        <rect x="68" y="44.18659458534592" width="4" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="76.0" y1="37.89937671756116" x2="76.0" y2="49.976814025967656" class="beautiful-wick"/>
+        <rect x="74" y="44.18659458534592" width="4" height="1.75174246865609" class="beautiful-candle-down"/>
+    
+        <line x1="82.0" y1="34.801219959994576" x2="82.0" y2="52.67987696348299" class="beautiful-wick"/>
+        <rect x="80" y="41.757346722557045" width="4" height="4.180990331444967" class="beautiful-candle-up"/>
+    
+        <line x1="88.0" y1="39.10087749914102" x2="88.0" y2="46.34435914644162" class="beautiful-wick"/>
+        <rect x="86" y="40.771079293380225" width="4" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="94.0" y1="34.36497235415411" x2="94.0" y2="46.88723354616769" class="beautiful-wick"/>
+        <rect x="92" y="40.771079293380225" width="4" height="1" class="beautiful-candle-down"/>
+    
+        
+        <line x1="99.0" y1="52.83886239075017" x2="99.0" y2="59.28786644279072" class="beautiful-wick"/>
+        <rect x="98" y="55.23131103602428" width="2" height="2.7686889639757197" class="beautiful-candle-up"/>
+    
+        <line x1="103.0" y1="52.66321103676327" x2="103.0" y2="57.81721357933487" class="beautiful-wick"/>
+        <rect x="102" y="55.00650456499881" width="2" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="107.0" y1="52.72909547619998" x2="107.0" y2="56.0448187810475" class="beautiful-wick"/>
+        <rect x="106" y="54.72563993579608" width="2" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="111.0" y1="52.575223607862874" x2="111.0" y2="57.430217202177786" class="beautiful-wick"/>
+        <rect x="110" y="54.319972969504725" width="2" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="115.0" y1="51.80933929299479" x2="115.0" y2="56.47001267295522" class="beautiful-wick"/>
+        <rect x="114" y="54.319972969504725" width="2" height="1" class="beautiful-candle-down"/>
+    
+        <line x1="119.0" y1="49.95725451736962" x2="119.0" y2="57.24231636938818" class="beautiful-wick"/>
+        <rect x="118" y="52.659005020958894" width="2" height="1.9428713742918617" class="beautiful-candle-up"/>
+    
+        
+        <line x1="124.0" y1="41.12413852697642" x2="124.0" y2="60.15146577116289" class="beautiful-wick"/>
+        <rect x="122" y="47.69393310807284" width="4" height="10.30606689192716" class="beautiful-candle-up"/>
+    
+        <line x1="130.0" y1="38.64633958205428" x2="130.0" y2="55.037543281315195" class="beautiful-wick"/>
+        <rect x="128" y="45.01951369499642" width="4" height="2.6744194130764214" class="beautiful-candle-up"/>
+    
+        <line x1="136.0" y1="37.19074196900384" x2="136.0" y2="46.1727705591912" class="beautiful-wick"/>
+        <rect x="134" y="42.176919807388245" width="4" height="2.8425938876081744" class="beautiful-candle-up"/>
+    
+        <line x1="142.0" y1="34.98092146194676" x2="142.0" y2="49.99522887291507" class="beautiful-wick"/>
+        <rect x="140" y="38.95991890851417" width="4" height="3.217000898874076" class="beautiful-candle-up"/>
+    
+        <line x1="148.0" y1="30.76309447971254" x2="148.0" y2="43.432464019332045" class="beautiful-wick"/>
+        <rect x="146" y="37.80562918575227" width="4" height="1.1542897227619022" class="beautiful-candle-up"/>
+    
+        <line x1="154.0" y1="22.170013048519568" x2="154.0" y2="45.367389082301955" class="beautiful-wick"/>
+        <rect x="152" y="29.977015062876678" width="4" height="7.828614122875589" class="beautiful-candle-up"/>
+    
+        <line x1="160.0" y1="23.976519297350812" x2="160.0" y2="35.076457833030474" class="beautiful-wick"/>
+        <rect x="158" y="25.742464205052755" width="4" height="4.234550857823923" class="beautiful-candle-up"/>
+    
+        <line x1="166.0" y1="16.491646572540475" x2="166.0" y2="31.520199556269578" class="beautiful-wick"/>
+        <rect x="164" y="23.6700545030846" width="4" height="2.072409701968155" class="beautiful-candle-up"/>
+    
+        
+        <line x1="171.0" y1="36.83886239075017" x2="171.0" y2="43.28786644279072" class="beautiful-wick"/>
+        <rect x="170" y="39.23131103602428" width="2" height="2.7686889639757197" class="beautiful-candle-up"/>
+    
+        <line x1="175.0" y1="36.66321103676327" x2="175.0" y2="41.81721357933487" class="beautiful-wick"/>
+        <rect x="174" y="39.00650456499881" width="2" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="179.0" y1="36.72909547619998" x2="179.0" y2="40.0448187810475" class="beautiful-wick"/>
+        <rect x="178" y="38.72563993579608" width="2" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="183.0" y1="36.575223607862874" x2="183.0" y2="41.430217202177786" class="beautiful-wick"/>
+        <rect x="182" y="38.319972969504725" width="2" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="187.0" y1="35.80933929299479" x2="187.0" y2="40.47001267295522" class="beautiful-wick"/>
+        <rect x="186" y="38.319972969504725" width="2" height="1" class="beautiful-candle-down"/>
+    
+        <line x1="191.0" y1="33.95725451736962" x2="191.0" y2="41.24231636938818" class="beautiful-wick"/>
+        <rect x="190" y="36.659005020958894" width="2" height="1.9428713742918617" class="beautiful-candle-up"/>
+    
+        
+        <line x1="196.0" y1="32.981500458863295" x2="196.0" y2="43.7196661069768" class="beautiful-wick"/>
+        <rect x="194" y="37.46262207204856" width="4" height="4.5373779279514395" class="beautiful-candle-up"/>
+    
+        <line x1="202.0" y1="33.104388251459724" x2="202.0" y2="42.97776548827409" class="beautiful-wick"/>
+        <rect x="200" y="37.46262207204856" width="4" height="1" class="beautiful-candle-down"/>
+    
+        <line x1="208.0" y1="34.521647981007355" x2="208.0" y2="39.5470654117139" class="beautiful-wick"/>
+        <rect x="206" y="38.01300912999761" width="4" height="1" class="beautiful-candle-down"/>
+    
+        <line x1="214.0" y1="35.589406467487535" x2="214.0" y2="43.90138910496371" class="beautiful-wick"/>
+        <rect x="212" y="38.45127987159216" width="4" height="1" class="beautiful-candle-down"/>
+    
+        <line x1="220.0" y1="33.863361747734615" x2="220.0" y2="43.37409348476268" class="beautiful-wick"/>
+        <rect x="218" y="38.63994593900944" width="4" height="1.5638068514920676" class="beautiful-candle-down"/>
+    
+        <line x1="226.0" y1="32.06363378294459" x2="226.0" y2="45.304852725845066" class="beautiful-wick"/>
+        <rect x="224" y="37.31801004191779" width="4" height="2.8857427485837235" class="beautiful-candle-up"/>
+    
+        <line x1="232.0" y1="35.34959390272146" x2="232.0" y2="40.880161773263914" class="beautiful-wick"/>
+        <rect x="230" y="36.82830947003517" width="4" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="238.0" y1="31.966804513445094" x2="238.0" y2="41.766120929900254" class="beautiful-wick"/>
+        <rect x="236" y="36.82830947003517" width="4" height="1" class="beautiful-candle-down"/>
+    
+      </svg>
+        
+    </div>
+  </div>
+
+  <!-- ═══════════════ Q10 ═══════════════ -->
+  <div class="question-card" id="qcard-9">
+    <div class="question-header">
+      <div class="q-left">
+        <div class="q-top-row">
+          <div class="q-number">10</div>
+          <div class="question-text">In a bearish AMD (Power of 3) profile, when does the Manipulation essentially occur?</div>
+          <div class="q-difficulty diff-hard">Hard</div>
+        </div>
+      </div>
+    </div>
+    <div class="options" id="opts-9">
+      <button class="option-btn" onclick="answer(9,0)"><span class="option-letter">A</span>It drops below the Asian session low before continuing further down.</button>
+      <button class="option-btn" onclick="answer(9,1)"><span class="option-letter">B</span>It shoots above the Asian session high (typically in London or NY open) to grab buy-side liquidity before crashing into distribution.</button>
+      <button class="option-btn" onclick="answer(9,2)"><span class="option-letter">C</span>It consolidates aggressively exactly at the Daily Open mapping a tight doji.</button>
+      <button class="option-btn" onclick="answer(9,3)"><span class="option-letter">D</span>Manipulation does not occur in a bearish environment, only bullish.</button>
+    </div>
+    <div class="explanation" id="exp-9"></div>
+    <div id="chart-9" style="display:none">
+      
+      <svg class="q-chart" viewBox="0 0 300 120" xmlns="http://www.w3.org/2000/svg">
+        <rect width="300" height="120" class="lux-bg"/>
+        <line x1="0" y1="20" x2="300" y2="20" class="lux-grid"/><line x1="0" y1="40" x2="300" y2="40" class="lux-grid"/><line x1="0" y1="60" x2="300" y2="60" class="lux-grid"/><line x1="0" y1="80" x2="300" y2="80" class="lux-grid"/><line x1="0" y1="100" x2="300" y2="100" class="lux-grid"/>
+        <rect x="30" y="50" width="70" height="20" class="lux-zone-yellow"/>
+        <text x="65" y="45" text-anchor="middle" class="lux-text">ASIAN RANGE</text>
+        
+        
+        <line x1="11.5" y1="54.83886239075017" x2="11.5" y2="61.28786644279072" class="beautiful-wick"/>
+        <rect x="10" y="57.23131103602428" width="3" height="2.7686889639757197" class="beautiful-candle-up"/>
+    
+        <line x1="17.5" y1="54.66321103676327" x2="17.5" y2="59.81721357933487" class="beautiful-wick"/>
+        <rect x="16" y="57.00650456499881" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="23.5" y1="54.72909547619998" x2="23.5" y2="58.0448187810475" class="beautiful-wick"/>
+        <rect x="22" y="56.72563993579608" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="29.5" y1="54.575223607862874" x2="29.5" y2="59.430217202177786" class="beautiful-wick"/>
+        <rect x="28" y="56.319972969504725" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="35.5" y1="53.80933929299479" x2="35.5" y2="58.47001267295522" class="beautiful-wick"/>
+        <rect x="34" y="56.319972969504725" width="3" height="1" class="beautiful-candle-down"/>
+    
+        <line x1="41.5" y1="51.95725451736962" x2="41.5" y2="59.24231636938818" class="beautiful-wick"/>
+        <rect x="40" y="54.659005020958894" width="3" height="1.9428713742918617" class="beautiful-candle-up"/>
+    
+        <line x1="47.5" y1="52.722668508092106" x2="47.5" y2="56.68386571349734" class="beautiful-wick"/>
+        <rect x="46" y="53.91415473501759" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="53.5" y1="51.34541618505884" x2="53.5" y2="56.108588572821795" class="beautiful-wick"/>
+        <rect x="52" y="53.89001816769487" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="59.5" y1="51.73970031725652" x2="59.5" y2="55.68392461616849" class="beautiful-wick"/>
+        <rect x="58" y="53.89001816769487" width="3" height="1" class="beautiful-candle-down"/>
+    
+        <line x1="65.5" y1="50.101171337669435" x2="65.5" y2="56.813881472506836" class="beautiful-wick"/>
+        <rect x="64" y="51.22359269450568" width="3" height="2.706481550070592" class="beautiful-candle-up"/>
+    
+        
+        <line x1="75.0" y1="50" x2="75.0" y2="65" class="beautiful-wick"/>
+        <rect x="70" y="55" width="10" height="5" class="beautiful-candle-up"/>
+    
+        <line x1="95.0" y1="25" x2="95.0" y2="60" class="beautiful-wick"/>
+        <rect x="90" y="30" width="10" height="25" class="beautiful-candle-up"/>
+    
+        <line x1="115.0" y1="25" x2="115.0" y2="55" class="beautiful-wick"/>
+        <rect x="110" y="30" width="10" height="20" class="beautiful-candle-down"/>
+    
+        <line x1="135.0" y1="45" x2="135.0" y2="85" class="beautiful-wick"/>
+        <rect x="130" y="50" width="10" height="30" class="beautiful-candle-down"/>
+    
+        <line x1="155.0" y1="75" x2="155.0" y2="105" class="beautiful-wick"/>
+        <rect x="150" y="80" width="10" height="20" class="beautiful-candle-down"/>
+    
+        
+        <line x1="171.5" y1="94.21974174678789" x2="171.5" y2="101.43179966418609" class="beautiful-wick"/>
+        <rect x="170" y="97.30841471469904" width="3" height="2.6915852853009596" class="beautiful-candle-up"/>
+    
+        <line x1="177.5" y1="94.29347442234574" x2="177.5" y2="101.38752656829762" class="beautiful-wick"/>
+        <rect x="176" y="97.30841471469904" width="3" height="1" class="beautiful-candle-down"/>
+    
+        <line x1="183.5" y1="95.51385606393758" x2="183.5" y2="99.69165790513449" class="beautiful-wick"/>
+        <rect x="182" y="98.00867275333174" width="3" height="1" class="beautiful-candle-down"/>
+    
+        <line x1="189.5" y1="96.51706253859867" x2="189.5" y2="102.65016319224551" class="beautiful-wick"/>
+        <rect x="188" y="98.63418658106144" width="3" height="1" class="beautiful-candle-down"/>
+    
+        <line x1="195.5" y1="95.82734677790806" x2="195.5" y2="102.77137294355771" class="beautiful-wick"/>
+        <rect x="194" y="99.09329729267296" width="3" height="1.375871234328045" class="beautiful-candle-down"/>
+    
+        <line x1="201.5" y1="95.3260476058946" x2="201.5" y2="103.92982848820714" class="beautiful-wick"/>
+        <rect x="200" y="98.87867336127852" width="3" height="1.590495165722487" class="beautiful-candle-up"/>
+    
+        <line x1="207.5" y1="97.5914440208903" x2="207.5" y2="101.42283068549779" class="beautiful-wick"/>
+        <rect x="206" y="98.87867336127852" width="3" height="1" class="beautiful-candle-down"/>
+    
+        <line x1="213.5" y1="95.56863667273606" x2="213.5" y2="102.64500831363279" class="beautiful-wick"/>
+        <rect x="212" y="98.8855396466901" width="3" height="1" class="beautiful-candle-down"/>
+    
+        <line x1="219.5" y1="97.12788078126896" x2="219.5" y2="103.03754121682336" class="beautiful-wick"/>
+        <rect x="218" y="99.85335755692648" width="3" height="1.0534081025085413" class="beautiful-candle-down"/>
+    
+        <line x1="225.5" y1="97.11449155741987" x2="225.5" y2="104.73247650133086" class="beautiful-wick"/>
+        <rect x="224" y="98.29812359267424" width="3" height="2.6086420667607797" class="beautiful-candle-up"/>
+    
+        <line x1="231.5" y1="96.40964424197448" x2="231.5" y2="105.67716602853595" class="beautiful-wick"/>
+        <rect x="230" y="98.29812359267424" width="3" height="3.712785611493956" class="beautiful-candle-down"/>
+    
+        <line x1="237.5" y1="100.70178707415647" x2="237.5" y2="106.75599504282066" class="beautiful-wick"/>
+        <rect x="236" y="102.0109092041682" width="3" height="1.1780218257619168" class="beautiful-candle-down"/>
+    
+        <line x1="243.5" y1="99.39056925204892" x2="243.5" y2="107.90170256794197" class="beautiful-wick"/>
+        <rect x="242" y="103.18893102993012" width="3" height="1.675016501783574" class="beautiful-candle-down"/>
+    
+        <line x1="249.5" y1="99.74849420937835" x2="249.5" y2="108.22460592358748" class="beautiful-wick"/>
+        <rect x="248" y="102.61673719865219" width="3" height="2.2472103330615028" class="beautiful-candle-up"/>
+    
+        <line x1="255.5" y1="100.62291223247077" x2="255.5" y2="109.39471743520855" class="beautiful-wick"/>
+        <rect x="254" y="102.61673719865219" width="3" height="4.191305978500594" class="beautiful-candle-down"/>
+    
+        
+        <circle cx="110" cy="30" r="15" class="lux-zone-red"/>
+        <text x="110" y="10" text-anchor="middle" class="lux-text-red">MANIPULATION</text>
+      </svg>
+        
+    </div>
+  </div>
+
+  <!-- ═══════════════ Q11 ═══════════════ -->
+  <div class="question-card" id="qcard-10">
+    <div class="question-header">
+      <div class="q-left">
+        <div class="q-top-row">
+          <div class="q-number">11</div>
+          <div class="question-text">What is 'Rho' in options trading?</div>
+          <div class="q-difficulty diff-easy">Easy</div>
+        </div>
+      </div>
+    </div>
+    <div class="options" id="opts-10">
+      <button class="option-btn" onclick="answer(10,0)"><span class="option-letter">A</span>Sensitivity of an option's price to the passage of time.</button>
+      <button class="option-btn" onclick="answer(10,1)"><span class="option-letter">B</span>Sensitivity to the underlying stock's historical volume.</button>
+      <button class="option-btn" onclick="answer(10,2)"><span class="option-letter">C</span>Sensitivity of an option's expected contract to the risk-free interest rate.</button>
+      <button class="option-btn" onclick="answer(10,3)"><span class="option-letter">D</span>The probability of the underlying asset being halted.</button>
+    </div>
+    <div class="explanation" id="exp-10"></div>
+    <div id="chart-10" style="display:none">
+      
+      <svg class="q-chart" viewBox="0 0 300 120" xmlns="http://www.w3.org/2000/svg">
+        <rect width="300" height="120" class="lux-bg"/>
+        <line x1="0" y1="20" x2="300" y2="20" class="lux-grid"/><line x1="0" y1="40" x2="300" y2="40" class="lux-grid"/><line x1="0" y1="60" x2="300" y2="60" class="lux-grid"/><line x1="0" y1="80" x2="300" y2="80" class="lux-grid"/><line x1="0" y1="100" x2="300" y2="100" class="lux-grid"/>
+        
+        <line x1="12.0" y1="62.419741746787885" x2="12.0" y2="71.43179966418609" class="beautiful-wick"/>
+        <rect x="10" y="65.50841471469904" width="4" height="4.491585285300957" class="beautiful-candle-up"/>
+    
+        <line x1="18.0" y1="61.39373246097844" x2="18.0" y2="68.88726852966492" class="beautiful-wick"/>
+        <rect x="16" y="64.40867275333174" width="4" height="1.0997419613673003" class="beautiful-candle-up"/>
+    
+        <line x1="24.0" y1="60.73936989166729" x2="24.0" y2="65.46614407740479" class="beautiful-wick"/>
+        <rect x="22" y="63.234186581061444" width="4" height="1.1744861722702993" class="beautiful-candle-up"/>
+    
+        <line x1="30.0" y1="59.776173250210185" x2="30.0" y2="66.79105248063401" class="beautiful-wick"/>
+        <rect x="28" y="61.89329729267296" width="4" height="1.3408892883884818" class="beautiful-candle-up"/>
+    
+        <line x1="36.0" y1="58.203218012236114" x2="36.0" y2="64.19550170922966" class="beautiful-wick"/>
+        <rect x="34" y="61.46916852700101" width="4" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="42.0" y1="54.52604760589461" x2="42.0" y2="64.92982848820715" class="beautiful-wick"/>
+        <rect x="40" y="58.078673361278526" width="4" height="3.390495165722484" class="beautiful-candle-up"/>
+    
+        <line x1="48.0" y1="54.99831030630189" x2="48.0" y2="60.6159644000862" class="beautiful-wick"/>
+        <rect x="46" y="56.28553964669012" width="4" height="1.7931337145884072" class="beautiful-candle-up"/>
+    
+        <line x1="54.0" y1="52.13645458297244" x2="54.0" y2="59.07719040339643" class="beautiful-wick"/>
+        <rect x="52" y="55.45335755692649" width="4" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="60.0" y1="51.98128888377751" x2="60.0" y2="57.58413311431482" class="beautiful-wick"/>
+        <rect x="58" y="54.706765659435035" width="4" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="66.0" y1="49.114491557419875" x2="66.0" y2="58.532476501330876" class="beautiful-wick"/>
+        <rect x="64" y="50.29812359267425" width="4" height="4.408642066760784" class="beautiful-candle-up"/>
+    
+        <line x1="72.0" y1="48.40964424197448" x2="72.0" y2="55.87716602853595" class="beautiful-wick"/>
+        <rect x="70" y="50.29812359267425" width="4" height="1.9127856114939519" class="beautiful-candle-down"/>
+    
+        <line x1="78.0" y1="50.2798088999184" x2="78.0" y2="55.777973217058744" class="beautiful-wick"/>
+        <rect x="76" y="51.58893102993012" width="4" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="84.0" y1="47.66558575383251" x2="84.0" y2="54.626686066158406" class="beautiful-wick"/>
+        <rect x="82" y="51.4639475317137" width="4" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="90.0" y1="44.54849420937836" x2="90.0" y2="54.824605923587484" class="beautiful-wick"/>
+        <rect x="88" y="47.4167371986522" width="4" height="4.0472103330615" class="beautiful-candle-up"/>
+    
+        <line x1="96.0" y1="45.42291223247078" x2="96.0" y2="52.39471743520856" class="beautiful-wick"/>
+        <rect x="94" y="47.4167371986522" width="4" height="2.391305978500597" class="beautiful-candle-down"/>
+    
+        <line x1="102.0" y1="48.307588234427094" x2="102.0" y2="54.1623634674707" class="beautiful-wick"/>
+        <rect x="100" y="49.8080431771528" width="4" height="1" class="beautiful-candle-down"/>
+    
+        <line x1="108.0" y1="49.466992585692594" x2="108.0" y2="54.8384315552889" class="beautiful-wick"/>
+        <rect x="106" y="50.61728433127451" width="4" height="1.4469222140039264" class="beautiful-candle-down"/>
+    
+        <line x1="114.0" y1="48.65059956193464" x2="114.0" y2="54.87764763713668" class="beautiful-wick"/>
+        <rect x="112" y="50.208623528900056" width="4" height="1.8555830163783824" class="beautiful-candle-up"/>
+    
+        <line x1="120.0" y1="47.55271405777588" x2="120.0" y2="54.50192468981524" class="beautiful-wick"/>
+        <rect x="118" y="50.208623528900056" width="4" height="2.953395557007049" class="beautiful-candle-down"/>
+    
+        <line x1="126.0" y1="48.98404678860525" x2="126.0" y2="57.02770560002181" class="beautiful-wick"/>
+        <rect x="124" y="52.32144399283841" width="4" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="132.0" y1="51.197414949378604" x2="132.0" y2="57.14253372486487" class="beautiful-wick"/>
+        <rect x="130" y="52.32144399283841" width="4" height="1" class="beautiful-candle-down"/>
+    
+        <line x1="138.0" y1="51.99192458685937" x2="138.0" y2="54.63922946299689" class="beautiful-wick"/>
+        <rect x="136" y="53.24286889635002" width="4" height="1" class="beautiful-candle-down"/>
+    
+        <line x1="144.0" y1="46.15317092578084" x2="144.0" y2="54.720072828095255" class="beautiful-wick"/>
+        <rect x="142" y="49.147581635768084" width="4" height="4.110177631764799" class="beautiful-candle-up"/>
+    
+        <line x1="150.0" y1="47.820759324558914" x2="150.0" y2="53.41290100054244" class="beautiful-wick"/>
+        <rect x="148" y="49.147581635768084" width="4" height="1.6597529952241814" class="beautiful-candle-down"/>
+    
+        <line x1="156.0" y1="48.43802580062247" x2="156.0" y2="51.81489303130484" class="beautiful-wick"/>
+        <rect x="154" y="49.551947848533324" width="4" height="1.2553867824589418" class="beautiful-candle-up"/>
+    
+        <line x1="162.0" y1="45.62212487846879" x2="162.0" y2="53.35314928378386" class="beautiful-wick"/>
+        <rect x="160" y="49.551947848533324" width="4" height="2.4282419676450147" class="beautiful-candle-down"/>
+    
+        <line x1="168.0" y1="48.01264101875941" x2="168.0" y2="56.76836971445189" class="beautiful-wick"/>
+        <rect x="166" y="51.98018981617834" width="4" height="1.0767257342965593" class="beautiful-candle-down"/>
+    
+        <line x1="174.0" y1="51.04399247852703" x2="174.0" y2="58.489064531883095" class="beautiful-wick"/>
+        <rect x="172" y="53.0569155504749" width="4" height="2.280311940946376" class="beautiful-candle-down"/>
+    
+        <line x1="180.0" y1="50.71008570586798" x2="180.0" y2="58.44628582214122" class="beautiful-wick"/>
+        <rect x="178" y="54.52211832545393" width="4" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="186.0" y1="50.95048400416156" x2="186.0" y2="58.628381863021275" class="beautiful-wick"/>
+        <rect x="184" y="54.52211832545393" width="4" height="1.9494787776476983" class="beautiful-candle-down"/>
+    
+        <line x1="192.0" y1="55.1927381869888" x2="192.0" y2="58.98879259913661" class="beautiful-wick"/>
+        <rect x="190" y="56.47159710310163" width="4" height="1" class="beautiful-candle-down"/>
+    
+        <line x1="198.0" y1="55.15653040256343" x2="198.0" y2="63.118225368566854" class="beautiful-wick"/>
+        <rect x="196" y="57.37051121575352" width="4" height="2.692572884100912" class="beautiful-candle-down"/>
+    
+        <line x1="204.0" y1="58.08716886192807" x2="204.0" y2="62.822055546801494" class="beautiful-wick"/>
+        <rect x="202" y="59.868131111436234" width="4" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="210.0" y1="57.88608153305465" x2="210.0" y2="64.40875202821447" class="beautiful-wick"/>
+        <rect x="208" y="59.868131111436234" width="4" height="2.499630093602285" class="beautiful-candle-down"/>
+    
+        <line x1="216.0" y1="57.520705513192375" x2="216.0" y2="65.84986297003978" class="beautiful-wick"/>
+        <rect x="214" y="59.05419694846478" width="4" height="3.3135642565737413" class="beautiful-candle-up"/>
+    
+        <line x1="222.0" y1="55.15920279275018" x2="222.0" y2="62.912839610047676" class="beautiful-wick"/>
+        <rect x="220" y="59.05419694846478" width="4" height="1" class="beautiful-candle-down"/>
+    
+        <line x1="228.0" y1="58.23807708734668" x2="228.0" y2="64.33779564587651" class="beautiful-wick"/>
+        <rect x="226" y="59.903882732903426" width="4" height="2.870559126133628" class="beautiful-candle-down"/>
+    
+        <line x1="234.0" y1="57.55529253006618" x2="234.0" y2="66.74321348932014" class="beautiful-wick"/>
+        <rect x="232" y="59.706624956645506" width="4" height="3.0678169023915487" class="beautiful-candle-up"/>
+    
+        <line x1="240.0" y1="54.33058353372197" x2="240.0" y2="60.89028745529817" class="beautiful-wick"/>
+        <rect x="238" y="56.70553659137038" width="4" height="3.0010883652751232" class="beautiful-candle-up"/>
+    
+        <line x1="246.0" y1="49.48574461431629" x2="246.0" y2="59.54528400194044" class="beautiful-wick"/>
+        <rect x="244" y="52.12318193990399" width="4" height="4.582354651466389" class="beautiful-candle-up"/>
+    
+        <line x1="252.0" y1="47.6658491365416" x2="252.0" y2="55.70615897790356" class="beautiful-wick"/>
+        <rect x="250" y="51.40987688905265" width="4" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="258.0" y1="48.673060512331794" x2="258.0" y2="56.00931495397915" class="beautiful-wick"/>
+        <rect x="256" y="51.40987688905265" width="4" height="2.8089607543669146" class="beautiful-candle-down"/>
+    
+        <line x1="264.0" y1="47.1657320508236" x2="264.0" y2="55.68266704714477" class="beautiful-wick"/>
+        <rect x="262" y="50.45838570961075" width="4" height="3.7604519338088096" class="beautiful-candle-up"/>
+    
+        <line x1="270.0" y1="42.609561840446624" x2="270.0" y2="51.83193703882653" class="beautiful-wick"/>
+        <rect x="268" y="45.707311056247704" width="4" height="4.751074653363048" class="beautiful-candle-up"/>
+    
+        <line x1="276.0" y1="44.104266977523615" x2="276.0" y2="48.16216775178397" class="beautiful-wick"/>
+        <rect x="274" y="45.707311056247704" width="4" height="1" class="beautiful-candle-down"/>
+    
+        <rect x="80" y="30" width="160" height="60" class="lux-zone-blue" rx="5"/>
+        <text x="160" y="50" text-anchor="middle" class="lux-text-green" font-size="10">RHO = INTEREST RATES</text>
+        <line x1="90" y1="65" x2="230" y2="65" class="lux-line-white"/>
+        <text x="160" y="76" text-anchor="middle" class="lux-text">Minimal impact for 0DTE.</text>
+        <text x="160" y="86" text-anchor="middle" class="lux-text">Crucial for LEAPs (Long-term).</text>
+      </svg>
+        
+    </div>
+  </div>
+
+  <!-- ═══════════════ Q12 ═══════════════ -->
+  <div class="question-card" id="qcard-11">
+    <div class="question-header">
+      <div class="q-left">
+        <div class="q-top-row">
+          <div class="q-number">12</div>
+          <div class="question-text">What does an Inversion Fair Value Gap (IFVG) represent?</div>
+          <div class="q-difficulty diff-hard">Hard</div>
+        </div>
+      </div>
+    </div>
+    <div class="options" id="opts-11">
+      <button class="option-btn" onclick="answer(11,0)"><span class="option-letter">A</span>An FVG that occurs precisely on the bottom of a V-shaped recovery.</button>
+      <button class="option-btn" onclick="answer(11,1)"><span class="option-letter">B</span>A Fair Value Gap that price completely disrespected and closed through, which now acts as the opposite support or resistance.</button>
+      <button class="option-btn" onclick="answer(11,2)"><span class="option-letter">C</span>When the options bid/ask spread completely inverts in a low liquidity stock.</button>
+      <button class="option-btn" onclick="answer(11,3)"><span class="option-letter">D</span>A gap on the daily chart created over a long weekend.</button>
+    </div>
+    <div class="explanation" id="exp-11"></div>
+    <div id="chart-11" style="display:none">
+      
+      <svg class="q-chart" viewBox="0 0 300 120" xmlns="http://www.w3.org/2000/svg">
+        <rect width="300" height="120" class="lux-bg"/>
+        <line x1="0" y1="20" x2="300" y2="20" class="lux-grid"/><line x1="0" y1="40" x2="300" y2="40" class="lux-grid"/><line x1="0" y1="60" x2="300" y2="60" class="lux-grid"/><line x1="0" y1="80" x2="300" y2="80" class="lux-grid"/><line x1="0" y1="100" x2="300" y2="100" class="lux-grid"/>
+        
+        <line x1="11.5" y1="23.838862390750176" x2="11.5" y2="31.287866442790722" class="beautiful-wick"/>
+        <rect x="10" y="26.23131103602428" width="3" height="3.7686889639757197" class="beautiful-candle-up"/>
+    
+        <line x1="17.5" y1="22.663211036763272" x2="17.5" y2="28.81721357933487" class="beautiful-wick"/>
+        <rect x="16" y="25.006504564998806" width="3" height="1.2248064710254738" class="beautiful-candle-up"/>
+    
+        <line x1="23.5" y1="21.72909547619998" x2="23.5" y2="26.044818781047503" class="beautiful-wick"/>
+        <rect x="22" y="23.72563993579608" width="3" height="1.2808646292027248" class="beautiful-candle-up"/>
+    
+        <line x1="29.5" y1="20.57522360786287" x2="29.5" y2="26.430217202177786" class="beautiful-wick"/>
+        <rect x="28" y="22.31997296950472" width="3" height="1.40566696629136" class="beautiful-candle-up"/>
+    
+        <line x1="35.5" y1="19.091242718740823" x2="35.5" y2="24.18810924720919" class="beautiful-wick"/>
+        <rect x="34" y="21.601876395250756" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="41.5" y1="15.957254517369616" x2="41.5" y2="24.242316369388178" class="beautiful-wick"/>
+        <rect x="40" y="18.659005020958894" width="3" height="2.9428713742918617" class="beautiful-candle-up"/>
+    
+        <line x1="47.5" y1="15.7226685080921" x2="47.5" y2="20.683865713497344" class="beautiful-wick"/>
+        <rect x="46" y="16.914154735017586" width="3" height="1.7448502859413075" class="beautiful-candle-up"/>
+    
+        <line x1="53.5" y1="13.345416185058836" x2="53.5" y2="19.10858857282179" class="beautiful-wick"/>
+        <rect x="52" y="15.890018167694867" width="3" height="1.024136567322719" class="beautiful-candle-up"/>
+    
+        <line x1="59.5" y1="12.779756394137923" x2="59.5" y2="17.643868539287084" class="beautiful-wick"/>
+        <rect x="58" y="14.930074244576275" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="65.5" y1="10.101171337669435" x2="65.5" y2="17.813881472506836" class="beautiful-wick"/>
+        <rect x="64" y="11.223592694505685" width="3" height="3.70648155007059" class="beautiful-candle-up"/>
+    
+        
+        <rect x="70" y="50" width="130" height="20" class="lux-zone-green"/>
+        <text x="100" y="45" text-anchor="middle" class="lux-text-green">BULLISH FVG</text>
+        
+        
+        <line x1="74.0" y1="25" x2="74.0" y2="45" class="beautiful-wick"/>
+        <rect x="70" y="30" width="8" height="10" class="beautiful-candle-down"/>
+    
+        <line x1="89.0" y1="35" x2="89.0" y2="85" class="beautiful-wick"/>
+        <rect x="85" y="40" width="8" height="40" class="beautiful-candle-down"/>
+    
+        <line x1="104.0" y1="75" x2="104.0" y2="105" class="beautiful-wick"/>
+        <rect x="100" y="80" width="8" height="20" class="beautiful-candle-down"/>
+    
+        <line x1="119.0" y1="85" x2="119.0" y2="105" class="beautiful-wick"/>
+        <rect x="115" y="90" width="8" height="10" class="beautiful-candle-up"/>
+    
+        <line x1="134.0" y1="65" x2="134.0" y2="95" class="beautiful-wick"/>
+        <rect x="130" y="70" width="8" height="20" class="beautiful-candle-up"/>
+    
+        <line x1="149.0" y1="65" x2="149.0" y2="95" class="beautiful-wick"/>
+        <rect x="145" y="70" width="8" height="20" class="beautiful-candle-down"/>
+    
+        <line x1="164.0" y1="80" x2="164.0" y2="110" class="beautiful-wick"/>
+        <rect x="160" y="90" width="8" height="15" class="beautiful-candle-down"/>
+    
+        
+        <line x1="176.5" y1="99.83886239075018" x2="176.5" y2="106.28786644279072" class="beautiful-wick"/>
+        <rect x="175" y="102.23131103602428" width="3" height="2.7686889639757197" class="beautiful-candle-up"/>
+    
+        <line x1="182.5" y1="99.66321103676327" x2="182.5" y2="104.81721357933486" class="beautiful-wick"/>
+        <rect x="181" y="102.0065045649988" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="188.5" y1="99.72909547619997" x2="188.5" y2="103.0448187810475" class="beautiful-wick"/>
+        <rect x="187" y="101.72563993579608" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="194.5" y1="99.57522360786287" x2="194.5" y2="104.43021720217779" class="beautiful-wick"/>
+        <rect x="193" y="101.31997296950472" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="200.5" y1="98.80933929299479" x2="200.5" y2="103.47001267295522" class="beautiful-wick"/>
+        <rect x="199" y="101.31997296950472" width="3" height="1" class="beautiful-candle-down"/>
+    
+        <line x1="206.5" y1="96.9572545173696" x2="206.5" y2="104.24231636938818" class="beautiful-wick"/>
+        <rect x="205" y="99.65900502095889" width="3" height="1.9428713742918688" class="beautiful-candle-up"/>
+    
+        <line x1="212.5" y1="97.72266850809208" x2="212.5" y2="101.68386571349734" class="beautiful-wick"/>
+        <rect x="211" y="98.91415473501758" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="218.5" y1="96.34541618505884" x2="218.5" y2="101.10858857282179" class="beautiful-wick"/>
+        <rect x="217" y="98.89001816769486" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="224.5" y1="96.7397003172565" x2="224.5" y2="100.6839246161685" class="beautiful-wick"/>
+        <rect x="223" y="98.89001816769486" width="3" height="1" class="beautiful-candle-down"/>
+    
+        <line x1="230.5" y1="95.10117133766943" x2="230.5" y2="101.81388147250684" class="beautiful-wick"/>
+        <rect x="229" y="96.22359269450568" width="3" height="2.706481550070592" class="beautiful-candle-up"/>
+    
+        <line x1="236.5" y1="94.63127312737251" x2="236.5" y2="101.03568645270464" class="beautiful-wick"/>
+        <rect x="235" y="96.22359269450568" width="3" height="2.03458920862046" class="beautiful-candle-down"/>
+    
+        <line x1="242.5" y1="97.05210048311832" x2="242.5" y2="101.10307428104127" class="beautiful-wick"/>
+        <rect x="241" y="98.25818190312614" width="3" height="1" class="beautiful-candle-down"/>
+    
+        
+        <rect x="200" y="50" width="80" height="20" class="lux-zone-red"/>
+        <text x="240" y="45" text-anchor="middle" class="lux-text-red">BEARISH IFVG</text>
+      </svg>
+        
+    </div>
+  </div>
+
+  <!-- ═══════════════ Q13 ═══════════════ -->
+  <div class="question-card" id="qcard-12">
+    <div class="question-header">
+      <div class="q-left">
+        <div class="q-top-row">
+          <div class="q-number">13</div>
+          <div class="question-text">How does the 'Options Pinning' phenomenon usually impact price action near OpEx?</div>
+          <div class="q-difficulty diff-medium">Medium</div>
+        </div>
+      </div>
+    </div>
+    <div class="options" id="opts-12">
+      <button class="option-btn" onclick="answer(12,0)"><span class="option-letter">A</span>It guarantees that all contracts expire worthless.</button>
+      <button class="option-btn" onclick="answer(12,1)"><span class="option-letter">B</span>The underlying stock price magnetically gravitates towards the strike price that has the absolute largest open interest.</button>
+      <button class="option-btn" onclick="answer(12,2)"><span class="option-letter">C</span>It forces the option premium to double temporarily.</button>
+      <button class="option-btn" onclick="answer(12,3)"><span class="option-letter">D</span>It permanently freezes trading on options contracts 3 hours before close.</button>
+    </div>
+    <div class="explanation" id="exp-12"></div>
+    <div id="chart-12" style="display:none">
+      
+      <svg class="q-chart" viewBox="0 0 300 120" xmlns="http://www.w3.org/2000/svg">
+        <rect width="300" height="120" class="lux-bg"/>
+        <line x1="0" y1="20" x2="300" y2="20" class="lux-grid"/><line x1="0" y1="40" x2="300" y2="40" class="lux-grid"/><line x1="0" y1="60" x2="300" y2="60" class="lux-grid"/><line x1="0" y1="80" x2="300" y2="80" class="lux-grid"/><line x1="0" y1="100" x2="300" y2="100" class="lux-grid"/>
+        <rect x="20" y="55" width="260" height="15" class="lux-zone-blue"/>
+        <line x1="20" y1="60" x2="280" y2="60" class="lux-line-green"/>
+        <text x="150" y="50" text-anchor="middle" class="lux-text-green">HEAVY OPEN INTEREST (STRIKE: $100)</text>
+        
+        
+        <line x1="12.0" y1="78.60062110282558" x2="12.0" y2="91.57573288558144" class="beautiful-wick"/>
+        <rect x="10" y="82.3855183933738" width="4" height="7.6144816066261996" class="beautiful-candle-up"/>
+    
+        <line x1="18.0" y1="75.32425388519361" x2="18.0" y2="86.55732347999498" class="beautiful-wick"/>
+        <rect x="16" y="79.01084094166468" width="4" height="3.3746774517091183" class="beautiful-candle-up"/>
+    
+        <line x1="24.0" y1="72.5496443071346" x2="24.0" y2="80.08746937376208" class="beautiful-wick"/>
+        <rect x="22" y="75.5427332263268" width="4" height="3.4681077153378794" class="beautiful-candle-up"/>
+    
+        <line x1="30.0" y1="69.37712289255751" x2="30.0" y2="79.95188775909021" class="beautiful-wick"/>
+        <rect x="28" y="71.86662161584121" width="4" height="3.6761116104855915" class="beautiful-candle-up"/>
+    
+        <line x1="36.0" y1="65.3151933057314" x2="36.0" y2="74.60289417125014" class="beautiful-wick"/>
+        <rect x="34" y="69.33646065875126" width="4" height="2.5301609570899473" class="beautiful-candle-up"/>
+    
+        <line x1="42.0" y1="58.694840694419604" x2="42.0" y2="73.61734060702611" class="beautiful-wick"/>
+        <rect x="40" y="63.09834170159816" width="4" height="6.238118957153105" class="beautiful-candle-up"/>
+    
+        <line x1="48.0" y1="57.473952104511675" x2="48.0" y2="66.14806308667505" class="beautiful-wick"/>
+        <rect x="46" y="58.85692455836265" width="4" height="4.241417143235509" class="beautiful-candle-up"/>
+    
+        <line x1="54.0" y1="51.727492980886055" x2="54.0" y2="62.24579223397106" class="beautiful-wick"/>
+        <rect x="52" y="55.81669694615812" width="4" height="3.040227612204532" class="beautiful-candle-up"/>
+    
+        <line x1="60.0" y1="49.5828213734171" x2="60.0" y2="58.324397689342554" class="beautiful-wick"/>
+        <rect x="58" y="52.8834570742938" width="4" height="2.9332398718643162" class="beautiful-candle-up"/>
+    
+        <line x1="66.0" y1="44.12781177717032" x2="66.0" y2="57.65107153015492" class="beautiful-wick"/>
+        <rect x="64" y="45.37265449084282" width="4" height="7.510802583450982" class="beautiful-candle-up"/>
+    
+        
+        <line x1="74.0" y1="65" x2="74.0" y2="95" class="beautiful-wick"/>
+        <rect x="70" y="70" width="8" height="20" class="beautiful-candle-up"/>
+    
+        <line x1="89.0" y1="65" x2="89.0" y2="95" class="beautiful-wick"/>
+        <rect x="85" y="70" width="8" height="20" class="beautiful-candle-down"/>
+    
+        <line x1="104.0" y1="55" x2="104.0" y2="95" class="beautiful-wick"/>
+        <rect x="100" y="60" width="8" height="30" class="beautiful-candle-up"/>
+    
+        <line x1="119.0" y1="55" x2="119.0" y2="85" class="beautiful-wick"/>
+        <rect x="115" y="60" width="8" height="20" class="beautiful-candle-down"/>
+    
+        <line x1="134.0" y1="55" x2="134.0" y2="85" class="beautiful-wick"/>
+        <rect x="130" y="60" width="8" height="20" class="beautiful-candle-up"/>
+    
+        <line x1="149.0" y1="55" x2="149.0" y2="70" class="beautiful-wick"/>
+        <rect x="145" y="60" width="8" height="5" class="beautiful-candle-down"/>
+    
+        
+        <line x1="162.0" y1="51.743259170938714" x2="162.0" y2="67.00753254976753" class="beautiful-wick"/>
+        <rect x="160" y="57.61682942939808" width="4" height="7.383170570601919" class="beautiful-candle-up"/>
+    
+        <line x1="168.0" y1="51.31581815783911" x2="168.0" y2="64.16748833098514" class="beautiful-wick"/>
+        <rect x="166" y="57.01734550666348" width="4" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="174.0" y1="51.78046755353652" x2="174.0" y2="58.15144526283392" class="beautiful-wick"/>
+        <rect x="172" y="56.26837316212288" width="4" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="180.0" y1="51.579971819599436" x2="180.0" y2="63.23439359445885" class="beautiful-wick"/>
+        <rect x="178" y="55.18659458534592" width="4" height="1.081778576776955" class="beautiful-candle-up"/>
+    
+        <line x1="186.0" y1="48.89937671756116" x2="186.0" y2="59.976814025967656" class="beautiful-wick"/>
+        <rect x="184" y="55.18659458534592" width="4" height="1" class="beautiful-candle-down"/>
+    
+        <line x1="192.0" y1="43.801219959994576" x2="192.0" y2="62.67987696348299" class="beautiful-wick"/>
+        <rect x="190" y="50.757346722557045" width="4" height="5.180990331444967" class="beautiful-candle-up"/>
+    
+        <line x1="198.0" y1="47.10087749914102" x2="198.0" y2="55.34435914644162" class="beautiful-wick"/>
+        <rect x="196" y="48.771079293380225" width="4" height="1.98626742917682" class="beautiful-candle-up"/>
+    
+        <line x1="204.0" y1="42.30060817462686" x2="204.0" y2="53.951597725694945" class="beautiful-wick"/>
+        <rect x="202" y="48.70671511385297" width="4" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="210.0" y1="43.68060263731874" x2="210.0" y2="52.452007619442824" class="beautiful-wick"/>
+        <rect x="208" y="48.70671511385297" width="4" height="1" class="beautiful-candle-down"/>
+    
+        <line x1="216.0" y1="40.167772436421615" x2="216.0" y2="56.40685661662702" class="beautiful-wick"/>
+        <rect x="214" y="41.59624718534849" width="4" height="7.217284133521574" class="beautiful-candle-up"/>
+    
+        <line x1="222.0" y1="38.523128700382365" x2="222.0" y2="54.24308433186115" class="beautiful-wick"/>
+        <rect x="220" y="41.59624718534849" width="4" height="5.425571222987905" class="beautiful-candle-down"/>
+    
+        <line x1="228.0" y1="45.30053343830904" x2="228.0" y2="54.36767808993816" class="beautiful-wick"/>
+        <rect x="226" y="47.021818408336394" width="4" height="1" class="beautiful-candle-down"/>
+    
+        <line x1="234.0" y1="39.848351244804114" x2="234.0" y2="54.482656814626715" class="beautiful-wick"/>
+        <rect x="232" y="47.37786205986023" width="4" height="1.3500330035671624" class="beautiful-candle-down"/>
+    
+        <line x1="240.0" y1="36.87424075566543" x2="240.0" y2="55.23609797779956" class="beautiful-wick"/>
+        <rect x="238" y="42.23347439730439" width="4" height="6.494420666122998" class="beautiful-candle-up"/>
+    
+        <line x1="246.0" y1="38.91454947621441" x2="246.0" y2="53.31832628976903" class="beautiful-wick"/>
+        <rect x="244" y="42.23347439730439" width="4" height="6.382611957001188" class="beautiful-candle-down"/>
+    
+        <line x1="252.0" y1="46.44835815461227" x2="252.0" y2="58.773086647006764" class="beautiful-wick"/>
+        <rect x="250" y="48.61608635430558" width="4" height="3.2184823082434235" class="beautiful-candle-down"/>
+    
+        <line x1="258.0" y1="50.48388792285786" x2="258.0" y2="61.46827144724792" class="beautiful-wick"/>
+        <rect x="256" y="51.834568662549" width="4" height="4.493844428007847" class="beautiful-candle-down"/>
+    
+        <line x1="264.0" y1="51.91519113488077" x2="264.0" y2="61.55977563822609" class="beautiful-wick"/>
+        <rect x="262" y="54.21724705780008" width="4" height="2.1111660327567705" class="beautiful-candle-up"/>
+    
+        <line x1="270.0" y1="49.353458291843666" x2="270.0" y2="63.517151247599834" class="beautiful-wick"/>
+        <rect x="268" y="54.21724705780008" width="4" height="7.506791114014099" class="beautiful-candle-down"/>
+    
+        <line x1="276.0" y1="55.18896117579941" x2="276.0" y2="69.41064003808182" class="beautiful-wick"/>
+        <rect x="274" y="61.64288798567679" width="4" height="1" class="beautiful-candle-up"/>
+    
+        <text x="260" y="75" class="lux-text-red">PINNED</text>
+      </svg>
+        
+    </div>
+  </div>
+
+  <!-- ═══════════════ Q14 ═══════════════ -->
+  <div class="question-card" id="qcard-13">
+    <div class="question-header">
+      <div class="q-left">
+        <div class="q-top-row">
+          <div class="q-number">14</div>
+          <div class="question-text">What is a Rejection Block?</div>
+          <div class="q-difficulty diff-hard">Hard</div>
+        </div>
+      </div>
+    </div>
+    <div class="options" id="opts-13">
+      <button class="option-btn" onclick="answer(13,0)"><span class="option-letter">A</span>When the CFTC rejects an options settlement.</button>
+      <button class="option-btn" onclick="answer(13,1)"><span class="option-letter">B</span>An area where institutional algorithms start accumulating short biases.</button>
+      <button class="option-btn" onclick="answer(13,2)"><span class="option-letter">C</span>A structural pivot where price abruptly fails to sweep the liquidity resting precisely at a major high/low, reversing instantly and forming an order block behind it.</button>
+      <button class="option-btn" onclick="answer(13,3)"><span class="option-letter">D</span>A series of five perfectly identical sized wicks.</button>
+    </div>
+    <div class="explanation" id="exp-13"></div>
+    <div id="chart-13" style="display:none">
+      
+      <svg class="q-chart" viewBox="0 0 300 120" xmlns="http://www.w3.org/2000/svg">
+        <rect width="300" height="120" class="lux-bg"/>
+        <line x1="0" y1="20" x2="300" y2="20" class="lux-grid"/><line x1="0" y1="40" x2="300" y2="40" class="lux-grid"/><line x1="0" y1="60" x2="300" y2="60" class="lux-grid"/><line x1="0" y1="80" x2="300" y2="80" class="lux-grid"/><line x1="0" y1="100" x2="300" y2="100" class="lux-grid"/>
+        <line x1="20" y1="20" x2="280" y2="20" class="lux-line-red"/>
+        <text x="150" y="15" text-anchor="middle" class="lux-text">BSL</text>
+        
+        
+        <line x1="11.5" y1="52.21974174678788" x2="11.5" y2="61.43179966418608" class="beautiful-wick"/>
+        <rect x="10" y="55.30841471469904" width="3" height="4.69158528530096" class="beautiful-candle-up"/>
+    
+        <line x1="17.5" y1="50.993732460978435" x2="17.5" y2="58.68726852966493" class="beautiful-wick"/>
+        <rect x="16" y="54.00867275333174" width="3" height="1.2997419613673031" class="beautiful-candle-up"/>
+    
+        <line x1="23.5" y1="50.13936989166728" x2="23.5" y2="55.06614407740478" class="beautiful-wick"/>
+        <rect x="22" y="52.634186581061435" width="3" height="1.3744861722703021" class="beautiful-candle-up"/>
+    
+        <line x1="29.5" y1="48.97617325021018" x2="29.5" y2="56.19105248063399" class="beautiful-wick"/>
+        <rect x="28" y="51.09329729267296" width="3" height="1.5408892883884775" class="beautiful-candle-up"/>
+    
+        <line x1="35.5" y1="47.20321801223611" x2="35.5" y2="53.39550170922966" class="beautiful-wick"/>
+        <rect x="34" y="50.469168527001" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="41.5" y1="43.3260476058946" x2="41.5" y2="53.929828488207136" class="beautiful-wick"/>
+        <rect x="40" y="46.878673361278516" width="3" height="3.590495165722487" class="beautiful-candle-up"/>
+    
+        <line x1="47.5" y1="43.598310306301876" x2="47.5" y2="49.41596440008619" class="beautiful-wick"/>
+        <rect x="46" y="44.885539646690106" width="3" height="1.99313371458841" class="beautiful-candle-up"/>
+    
+        <line x1="53.5" y1="40.53645458297243" x2="53.5" y2="47.677190403396416" class="beautiful-wick"/>
+        <rect x="52" y="43.85335755692648" width="3" height="1.032182089763623" class="beautiful-candle-up"/>
+    
+        <line x1="59.5" y1="40.1812888837775" x2="59.5" y2="45.98413311431481" class="beautiful-wick"/>
+        <rect x="58" y="42.906765659435024" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="65.5" y1="37.11449155741986" x2="65.5" y2="46.732476501330865" class="beautiful-wick"/>
+        <rect x="64" y="38.29812359267424" width="3" height="4.608642066760787" class="beautiful-candle-up"/>
+    
+        <line x1="71.5" y1="36.40964424197447" x2="71.5" y2="43.677166028535936" class="beautiful-wick"/>
+        <rect x="70" y="38.29812359267424" width="3" height="1.712785611493949" class="beautiful-candle-down"/>
+    
+        <line x1="77.5" y1="37.87980889991838" x2="77.5" y2="43.57797321705873" class="beautiful-wick"/>
+        <rect x="76" y="39.1889310299301" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="83.5" y1="35.065585753832494" x2="83.5" y2="42.226686066158386" class="beautiful-wick"/>
+        <rect x="82" y="38.863947531713684" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="89.5" y1="31.74849420937835" x2="89.5" y2="42.22460592358747" class="beautiful-wick"/>
+        <rect x="88" y="34.61673719865219" width="3" height="4.247210333061496" class="beautiful-candle-up"/>
+    
+        <line x1="95.5" y1="32.62291223247077" x2="95.5" y2="39.39471743520855" class="beautiful-wick"/>
+        <rect x="94" y="34.61673719865219" width="3" height="2.191305978500594" class="beautiful-candle-down"/>
+    
+        
+        <line x1="105.0" y1="35" x2="105.0" y2="65" class="beautiful-wick"/>
+        <rect x="100" y="40" width="10" height="20" class="beautiful-candle-up"/>
+    
+        <line x1="125.0" y1="25" x2="125.0" y2="45" class="beautiful-wick"/>
+        <rect x="120" y="30" width="10" height="10" class="beautiful-candle-up"/>
+    
+        <line x1="145.0" y1="25" x2="145.0" y2="50" class="beautiful-wick"/>
+        <rect x="140" y="30" width="10" height="15" class="beautiful-candle-down"/>
+    
+        <line x1="165.0" y1="40" x2="165.0" y2="85" class="beautiful-wick"/>
+        <rect x="160" y="45" width="10" height="35" class="beautiful-candle-down"/>
+    
+        <line x1="185.0" y1="75" x2="185.0" y2="105" class="beautiful-wick"/>
+        <rect x="180" y="80" width="10" height="20" class="beautiful-candle-down"/>
+    
+        
+        <line x1="201.5" y1="95.33886239075018" x2="201.5" y2="101.28786644279072" class="beautiful-wick"/>
+        <rect x="200" y="97.73131103602428" width="3" height="2.2686889639757197" class="beautiful-candle-up"/>
+    
+        <line x1="207.5" y1="95.38801750778875" x2="207.5" y2="100.5924071083094" class="beautiful-wick"/>
+        <rect x="206" y="97.73131103602428" width="3" height="1" class="beautiful-candle-down"/>
+    
+        <line x1="213.5" y1="96.0099601054027" x2="213.5" y2="99.26395415184477" class="beautiful-wick"/>
+        <rect x="212" y="98.0065045649988" width="3" height="1" class="beautiful-candle-down"/>
+    
+        <line x1="219.5" y1="96.48089057415423" x2="219.5" y2="101.02455023588642" class="beautiful-wick"/>
+        <rect x="218" y="98.22563993579608" width="3" height="1" class="beautiful-candle-down"/>
+    
+        <line x1="225.5" y1="95.80933929299479" x2="225.5" y2="100.97001267295522" class="beautiful-wick"/>
+        <rect x="224" y="98.31997296950472" width="3" height="1" class="beautiful-candle-down"/>
+    
+        <line x1="231.5" y1="94.9572545173696" x2="231.5" y2="101.74231636938818" class="beautiful-wick"/>
+        <rect x="230" y="97.65900502095889" width="3" height="1.4428713742918688" class="beautiful-candle-up"/>
+    
+        <line x1="237.5" y1="96.22266850809208" x2="237.5" y2="99.68386571349734" class="beautiful-wick"/>
+        <rect x="236" y="97.41415473501758" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="243.5" y1="94.86955275238154" x2="243.5" y2="100.08445200549907" class="beautiful-wick"/>
+        <rect x="242" y="97.41415473501758" width="3" height="1" class="beautiful-candle-down"/>
+    
+        <line x1="249.5" y1="95.7397003172565" x2="249.5" y2="100.1839246161685" class="beautiful-wick"/>
+        <rect x="248" y="97.89001816769486" width="3" height="1" class="beautiful-candle-down"/>
+    
+        <line x1="255.5" y1="95.10117133766943" x2="255.5" y2="101.31388147250684" class="beautiful-wick"/>
+        <rect x="254" y="96.22359269450568" width="3" height="2.206481550070592" class="beautiful-candle-up"/>
+    
+        <line x1="261.5" y1="94.63127312737251" x2="261.5" y2="101.53568645270464" class="beautiful-wick"/>
+        <rect x="260" y="96.22359269450568" width="3" height="2.53458920862046" class="beautiful-candle-down"/>
+    
+        <line x1="267.5" y1="97.55210048311832" x2="267.5" y2="102.10307428104127" class="beautiful-wick"/>
+        <rect x="266" y="98.75818190312614" width="3" height="1" class="beautiful-candle-down"/>
+    
+        <line x1="273.5" y1="96.52612375386012" x2="273.5" y2="102.75646400627079" class="beautiful-wick"/>
+        <rect x="272" y="99.39169827244758" width="3" height="1.0062623763376877" class="beautiful-candle-down"/>
+    
+        <line x1="279.5" y1="96.21705757280658" x2="279.5" y2="102.97173291003446" class="beautiful-wick"/>
+        <rect x="278" y="98.46255289898914" width="3" height="1.935407749796127" class="beautiful-candle-up"/>
+    
+        <line x1="285.5" y1="96.80000292153487" x2="285.5" y2="103.41381522156844" class="beautiful-wick"/>
+        <rect x="284" y="98.46255289898914" width="3" height="2.8934794838754527" class="beautiful-candle-down"/>
+    
+        
+        <rect x="130" y="25" width="20" height="20" class="lux-zone-green"/>
+        <text x="160" y="32" class="lux-text-green">REJECTION BLOCK</text>
+      </svg>
+        
+    </div>
+  </div>
+
+  <!-- ═══════════════ Q15 ═══════════════ -->
+  <div class="question-card" id="qcard-14">
+    <div class="question-header">
+      <div class="q-left">
+        <div class="q-top-row">
+          <div class="q-number">15</div>
+          <div class="question-text">What essentially defines an 'Expected Move' or 'Standard Deviation' move in an options pricing model?</div>
+          <div class="q-difficulty diff-hard">Hard</div>
+        </div>
+      </div>
+    </div>
+    <div class="options" id="opts-14">
+      <button class="option-btn" onclick="answer(14,0)"><span class="option-letter">A</span>A manual prediction made by high-tier brokerage analysts.</button>
+      <button class="option-btn" onclick="answer(14,1)"><span class="option-letter">B</span>The statistical pricing derived strictly from historical data points over the last 10 years.</button>
+      <button class="option-btn" onclick="answer(14,2)"><span class="option-letter">C</span>The exact price where the underlying asset will close on expiration day.</button>
+      <button class="option-btn" onclick="answer(14,3)"><span class="option-letter">D</span>A statistical calculation based on current Implied Volatility showcasing the probable max range of the stock for a specific timeframe.</button>
+    </div>
+    <div class="explanation" id="exp-14"></div>
+    <div id="chart-14" style="display:none">
+      
+      <svg class="q-chart" viewBox="0 0 300 120" xmlns="http://www.w3.org/2000/svg">
+        <rect width="300" height="120" class="lux-bg"/>
+        <line x1="0" y1="20" x2="300" y2="20" class="lux-grid"/><line x1="0" y1="40" x2="300" y2="40" class="lux-grid"/><line x1="0" y1="60" x2="300" y2="60" class="lux-grid"/><line x1="0" y1="80" x2="300" y2="80" class="lux-grid"/><line x1="0" y1="100" x2="300" y2="100" class="lux-grid"/>
+        <line x1="120" y1="20" x2="120" y2="100" class="lux-line-white"/>
+        <text x="120" y="15" text-anchor="middle" class="lux-text">CURRENT STOCK PRICE ($100)</text>
+        
+        <rect x="75" y="30" width="150" height="80" fill="rgba(0,150,255,0.1)"/>
+        
+        <line x1="75" y1="30" x2="75" y2="100" class="lux-line-red"/>
+        <text x="75" y="25" text-anchor="middle" class="lux-text-red">- 1SD ($95)</text>
+        
+        <line x1="225" y1="30" x2="225" y2="100" class="lux-line-green"/>
+        <text x="225" y="25" text-anchor="middle" class="lux-text-green">+ 1SD ($105)</text>
+        
+        
+        <line x1="11.5" y1="53.21974174678788" x2="11.5" y2="61.43179966418608" class="beautiful-wick"/>
+        <rect x="10" y="56.30841471469904" width="3" height="3.6915852853009596" class="beautiful-candle-up"/>
+    
+        <line x1="17.5" y1="52.993732460978435" x2="17.5" y2="59.68726852966493" class="beautiful-wick"/>
+        <rect x="16" y="56.00867275333174" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="23.5" y1="53.13936989166728" x2="23.5" y2="57.06614407740478" class="beautiful-wick"/>
+        <rect x="22" y="55.634186581061435" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="29.5" y1="52.97617325021018" x2="29.5" y2="59.19105248063399" class="beautiful-wick"/>
+        <rect x="28" y="55.09329729267296" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="35.5" y1="51.82734677790806" x2="35.5" y2="57.77137294355771" class="beautiful-wick"/>
+        <rect x="34" y="55.09329729267296" width="3" height="1" class="beautiful-candle-down"/>
+    
+        <line x1="41.5" y1="49.3260476058946" x2="41.5" y2="58.929828488207136" class="beautiful-wick"/>
+        <rect x="40" y="52.878673361278516" width="3" height="2.590495165722487" class="beautiful-candle-up"/>
+    
+        <line x1="47.5" y1="50.598310306301876" x2="47.5" y2="55.41596440008619" class="beautiful-wick"/>
+        <rect x="46" y="51.885539646690106" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="53.5" y1="48.53645458297243" x2="53.5" y2="54.677190403396416" class="beautiful-wick"/>
+        <rect x="52" y="51.85335755692648" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="59.5" y1="49.127880781268956" x2="59.5" y2="54.03754121682335" class="beautiful-wick"/>
+        <rect x="58" y="51.85335755692648" width="3" height="1" class="beautiful-candle-down"/>
+    
+        <line x1="65.5" y1="47.11449155741986" x2="65.5" y2="55.732476501330865" class="beautiful-wick"/>
+        <rect x="64" y="48.29812359267424" width="3" height="3.608642066760787" class="beautiful-candle-up"/>
+    
+        <line x1="71.5" y1="46.40964424197447" x2="71.5" y2="54.677166028535936" class="beautiful-wick"/>
+        <rect x="70" y="48.29812359267424" width="3" height="2.712785611493949" class="beautiful-candle-down"/>
+    
+        <line x1="77.5" y1="49.701787074156464" x2="77.5" y2="54.75599504282064" class="beautiful-wick"/>
+        <rect x="76" y="51.010909204168186" width="3" height="1" class="beautiful-candle-down"/>
+    
+        <line x1="83.5" y1="47.39056925204891" x2="83.5" y2="54.90170256794197" class="beautiful-wick"/>
+        <rect x="82" y="51.1889310299301" width="3" height="1" class="beautiful-candle-down"/>
+    
+        <line x1="89.5" y1="45.74849420937835" x2="89.5" y2="55.22460592358747" class="beautiful-wick"/>
+        <rect x="88" y="48.61673719865219" width="3" height="3.2472103330614956" class="beautiful-candle-up"/>
+    
+        <line x1="95.5" y1="46.62291223247077" x2="95.5" y2="54.39471743520855" class="beautiful-wick"/>
+        <rect x="94" y="48.61673719865219" width="3" height="3.191305978500594" class="beautiful-candle-down"/>
+    
+        
+        <line x1="104.0" y1="45" x2="104.0" y2="65" class="beautiful-wick"/>
+        <rect x="100" y="50" width="8" height="10" class="beautiful-candle-up"/>
+    
+        <line x1="119.0" y1="45" x2="119.0" y2="75" class="beautiful-wick"/>
+        <rect x="115" y="50" width="8" height="20" class="beautiful-candle-down"/>
+    
+        <line x1="134.0" y1="35" x2="134.0" y2="75" class="beautiful-wick"/>
+        <rect x="130" y="40" width="8" height="30" class="beautiful-candle-up"/>
+    
+        <line x1="149.0" y1="35" x2="149.0" y2="85" class="beautiful-wick"/>
+        <rect x="145" y="40" width="8" height="40" class="beautiful-candle-down"/>
+    
+        
+        <line x1="161.5" y1="72.71974174678789" x2="161.5" y2="81.43179966418609" class="beautiful-wick"/>
+        <rect x="160" y="75.80841471469904" width="3" height="4.19158528530096" class="beautiful-candle-up"/>
+    
+        <line x1="167.5" y1="71.99373246097844" x2="167.5" y2="79.18726852966492" class="beautiful-wick"/>
+        <rect x="166" y="75.00867275333174" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="173.5" y1="71.63936989166729" x2="173.5" y2="76.06614407740479" class="beautiful-wick"/>
+        <rect x="172" y="74.13418658106144" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="179.5" y1="70.97617325021018" x2="179.5" y2="77.691052480634" class="beautiful-wick"/>
+        <rect x="178" y="73.09329729267296" width="3" height="1.0408892883884846" class="beautiful-candle-up"/>
+    
+        <line x1="185.5" y1="69.7032180122361" x2="185.5" y2="75.39550170922966" class="beautiful-wick"/>
+        <rect x="184" y="72.969168527001" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="191.5" y1="66.3260476058946" x2="191.5" y2="76.42982848820714" class="beautiful-wick"/>
+        <rect x="190" y="69.87867336127852" width="3" height="3.090495165722487" class="beautiful-candle-up"/>
+    
+        <line x1="197.5" y1="67.09831030630188" x2="197.5" y2="72.4159644000862" class="beautiful-wick"/>
+        <rect x="196" y="68.3855396466901" width="3" height="1.49313371458841" class="beautiful-candle-up"/>
+    
+        <line x1="203.5" y1="64.53645458297244" x2="203.5" y2="71.17719040339641" class="beautiful-wick"/>
+        <rect x="202" y="67.85335755692648" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="209.5" y1="64.6812888837775" x2="209.5" y2="69.98413311431482" class="beautiful-wick"/>
+        <rect x="208" y="67.40676565943502" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="215.5" y1="62.11449155741986" x2="215.5" y2="71.23247650133086" class="beautiful-wick"/>
+        <rect x="214" y="63.29812359267424" width="3" height="4.108642066760787" class="beautiful-candle-up"/>
+    
+        <line x1="221.5" y1="61.40964424197447" x2="221.5" y2="69.17716602853594" class="beautiful-wick"/>
+        <rect x="220" y="63.29812359267424" width="3" height="2.212785611493949" class="beautiful-candle-down"/>
+    
+        <line x1="227.5" y1="63.87980889991838" x2="227.5" y2="69.07797321705873" class="beautiful-wick"/>
+        <rect x="226" y="65.1889310299301" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <line x1="233.5" y1="61.39056925204891" x2="233.5" y2="68.40170256794195" class="beautiful-wick"/>
+        <rect x="232" y="65.1889310299301" width="3" height="1" class="beautiful-candle-down"/>
+    
+        <line x1="239.5" y1="58.748494209378336" x2="239.5" y2="68.72460592358746" class="beautiful-wick"/>
+        <rect x="238" y="61.616737198652174" width="3" height="3.7472103330615028" class="beautiful-candle-up"/>
+    
+        <line x1="245.5" y1="59.62291223247075" x2="245.5" y2="66.89471743520853" class="beautiful-wick"/>
+        <rect x="244" y="61.616737198652174" width="3" height="2.691305978500594" class="beautiful-candle-down"/>
+    
+        <line x1="251.5" y1="62.807588234427065" x2="251.5" y2="68.96236346747067" class="beautiful-wick"/>
+        <rect x="250" y="64.30804317715277" width="3" height="1.1092411541217189" class="beautiful-candle-down"/>
+    
+        <line x1="257.5" y1="64.26699258569256" x2="257.5" y2="69.93843155528887" class="beautiful-wick"/>
+        <rect x="256" y="65.41728433127449" width="3" height="1.7469222140039307" class="beautiful-candle-down"/>
+    
+        <line x1="263.5" y1="64.05059956193462" x2="263.5" y2="69.97764763713667" class="beautiful-wick"/>
+        <rect x="262" y="65.60862352890004" width="3" height="1.5555830163783781" class="beautiful-candle-up"/>
+    
+        <line x1="269.5" y1="62.952714057775864" x2="269.5" y2="70.20192468981523" class="beautiful-wick"/>
+        <rect x="268" y="65.60862352890004" width="3" height="3.253395557007053" class="beautiful-candle-down"/>
+    
+        <line x1="275.5" y1="64.98404678860524" x2="275.5" y2="72.72770560002179" class="beautiful-wick"/>
+        <rect x="274" y="68.3214439928384" width="3" height="1" class="beautiful-candle-up"/>
+    
+        <text x="150" y="115" text-anchor="middle" class="lux-text" style="fill:#c9a84c;">EXPECTED MOVE (68% BANDS)</text>
+      </svg>
+        
+    </div>
+  </div>
+
+  <!-- ── SCORE CARD ── -->
+  <div id="score-card">
+    <div class="score-ring">
+      <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" fill="none" stroke="#222" stroke-width="6"/><circle cx="50" cy="50" r="44" fill="none" stroke="#cc1f1f" stroke-width="6" stroke-dasharray="276.5" id="score-arc" stroke-dashoffset="276.5" stroke-linecap="round" style="transition:stroke-dashoffset 1.2s ease;"/></svg>
+      <div class="score-ring-inner">
+        <div class="score-number" id="final-score">0</div>
+        <div class="score-denom">out of 15</div>
+      </div>
+    </div>
+    <h2 id="grade-title">Results</h2>
+    <p id="grade-msg"></p>
+    <div class="grade-bar">
+      <div class="grade-item grade-correct" id="correct-count">✓ 0 Correct</div>
+      <div class="grade-item grade-wrong" id="wrong-count">✗ 0 Incorrect</div>
+    </div>
+    <button class="restart-btn" onclick="restart()">↺ Retake Mastery Quiz</button>
+  </div>
+</main>
+
+<script>
+const ANSWERS=[1,2,2,1,2,0,3,2,2,1,2,1,1,2,3];
+const EXP=[
+  {c:"Correct! FVG = 3-candle imbalance where the rapid middle candle leaves a gap between C1's high and C3's low — a zone institutions transacted one-sidedly.",w:"Incorrect. An FVG is a technical 3-candle structure. C1 high to C3 low — if no wick overlap, it's a Fair Value Gap.",k:"<strong>FVG Structure:</strong> C1 High vs C3 Low. No overlap = FVG. This zone acts as a magnet for price to return to."},
+  {c:"Correct! Bullish FVG zone = C1's HIGH (lower boundary) to C3's LOW (upper boundary). The untested price range between those two points is where you watch for a long entry.",w:"Incorrect. Bullish FVG: lower boundary = C1 HIGH, upper boundary = C3 LOW. Price returns to this zone from above.",k:"<strong>Bullish FVG Entry Zone:</strong> C1 High → C3 Low. Price re-enters from above = potential demand zone."},
+  {c:"Correct! FVGs are probability zones, not guaranteed bounces. Enter when price is IN the zone AND a confirmation candle appears. Stop below the FVG bottom.",w:"Incorrect. Never blindly buy a FVG touch. Wait for a confirmation candle inside the zone (hammer, engulfing, wick rejection) THEN enter.",k:"<strong>FVG Entry Protocol:</strong> (1) Price enters zone. (2) Confirmation candle. (3) Enter. Stop below FVG bottom."},
+  {c:"Correct! A filled/mitigated FVG means price has traded through the entire zone, balancing the prior imbalance. It loses its significance as a key level.",w:"Incorrect. 'Filled' = price has traded through the full gap zone. The imbalance is resolved and the zone is no longer a reliable area of interest.",k:"<strong>FVG Lifecycle:</strong> Created → Retested (entry opportunity) → Filled (invalidated). Only trade unfilled FVGs."},
+  {c:"Correct! Stacked FVGs = institutional aggression. Each gap is a separate demand zone. Use the nearest unfilled FVG on pullbacks for entries.",w:"Incorrect. Stacked FVGs = buyers so aggressive they didn't let prior gaps fill. This is STRONG bullish structure — use each FVG as a support zone.",k:"<strong>Stacked FVGs:</strong> Highest probability entry = nearest unfilled FVG on pullback. Multiple unmitigated gaps = buyers are in firm control."},
+  {c:"Correct! C4 entering the FVG with a lower wick (showing buyers stepping in at that zone) is your confirmation. Enter long on C4's close or next green candle. Stop below FVG low.",w:"Incorrect. C4 pulling back into the FVG with a lower wick = buyers defending the zone. Enter on C4 close or first green candle. Stop below FVG low.",k:"<strong>FVG Pullback Entry:</strong> Entry = confirmation candle close inside/above FVG. Stop = below FVG bottom. Target = prior high and extension."},
+  {c:"Correct! Shooting star at prior resistance = sellers aggressively defended. Take partial profit here + move stop to breakeven. Never let a big winner become a loser.",w:"Incorrect. Shooting star at resistance = sellers are in control. The professional move: partial exit + stop to breakeven. Protect the 3:1 potential gain.",k:"<strong>Exit Management:</strong> Shooting star at resistance = partial exit + stop to breakeven. Lock in profit, keep exposure for potential continuation."},
+  {c:"Correct! Market structure = the sequence of swing highs and lows that defines trend. HH/HL = uptrend (long bias). LH/LL = downtrend (short bias). Trade WITH structure.",w:"Incorrect. Market structure = HH/HL (uptrend) or LH/LL (downtrend). This defines your directional bias. All entries should align with the prevailing structure.",k:"<strong>Structure Rule:</strong> Only take longs in HH/HL uptrend. Only take shorts in LH/LL downtrend. Structure break = reset your bias immediately."},
+  {c:"Correct! High-volume bearish engulfing + structure break below swing low = structural shift. Exit the long. The bearish FVG becomes your short entry zone on a bounce.",w:"Incorrect. A 3× volume bearish engulfing that breaks the prior swing low is NOT a pullback — it's a structural shift. Exit immediately. Plan a short on the FVG bounce.",k:"<strong>Structure Break Protocol:</strong> Exit long on structure break → Wait for FVG bounce → Short the rejection with stop above FVG high."},
+  {c:"Correct! The highest-probability short is the RETEST of the FVG — when price bounces back up into it. The zone acts as overhead resistance. Stop above FVG high = defined risk.",w:"Incorrect. Best short entry = when price bounces back UP into the bearish FVG from below (resistance test). This gives a tight stop and maximum reward.",k:"<strong>Bearish FVG Short:</strong> Wait for bounce INTO zone → Enter short → Stop above FVG high → Target origin of gap and below."},
+  {c:"Correct! Maximum confluence: FVG support + bull flag retest + hammer + declining pullback volume + SPY green = highest-conviction long. Multiple factors confirming = elite setup.",w:"Incorrect. This is MAXIMUM CONFLUENCE. FVG support, bull flag retest, hammer rejection, declining volume, bullish market all align. Enter on hammer confirmation, stop below FVG bottom.",k:"<strong>Confluence Trading:</strong> FVG + pattern retest + reversal candle + declining volume + market direction = elite entry. More factors = higher probability."},
+  {c:"Correct! At 3:1 R, a hammer at key support warns of buyers defending. Take profit. Never let a 3:1 winner collapse. If holding partial, stop moves to breakeven immediately.",w:"Incorrect. You have a 3:1 gain. Hammer at prior support = buyers defending. Take profit or at minimum move stop to breakeven. Never give back a large winner.",k:"<strong>Exit Discipline:</strong> At 2–3:1 R, take profit at logical support/resistance levels. Hammer at support = high-probability bounce. Lock in the gain."},
+  {c:"Correct! The ideal FVG confirmation: candle wicks INTO the zone (FVG tested) but closes ABOVE the FVG top (buyers rejected the drawdown). This shows the zone worked.",w:"Incorrect. The strongest FVG long signal = wick INTO the gap + close ABOVE the FVG top. The wick shows the zone was tested; the close above shows buyers overwhelmed sellers.",k:"<strong>FVG Confirmation Candle:</strong> Wick into FVG + close above FVG top = high-probability long. The zone was tested and held."},
+  {c:"Correct! Triple top + shooting star that wicks into bearish FVG but closes back below = FVG rejection confirmed. Low volume + flat/red SPY removes all bullish arguments. Short with stop above FVG high.",w:"Incorrect. Read the full stack: triple top → third rejection → shooting star wicking into bearish FVG → close back below = confirmed FVG rejection. Low volume + red SPY = short.",k:"<strong>Triple Top + FVG Rejection:</strong> The most reliable short setup. Triple rejection + wick into FVG that fails to close above = sellers are in full control."},
+  {c:"Correct! The definitive short. 15-min bearish structure sets the bias. 5-min rally into bearish FVG = institutional distribution opportunity. High-volume bearish engulfing closing below FVG = distribution confirmed. Two bullish candles inside were the bear trap. SPY red = no bullish catalyst. Short on engulfing close.",w:"Incorrect. Multi-timeframe read: 15-min bearish structure (bias = short). 5-min rally into FVG = distribution zone. Two green candles inside = bear trap. High-volume engulfing below FVG + SPY red = institutional selling confirmed.",k:"<strong>Multi-TF FVG Short:</strong> Higher TF structure = bias. Lower TF FVG rejection = entry. High-volume engulfing = distribution. Bear trap → distribution → continuation lower."}
+];
+let answered=new Array(15).fill(false),correct=0,wrong=0;
+function answer(q,c){
+  if(answered[q])return;
+  answered[q]=true;
+  const card=document.getElementById('qcard-'+q);
+  const opts=document.getElementById('opts-'+q);
+  const exp=document.getElementById('exp-'+q);
+  const ok=c===ANSWERS[q];
+  Array.from(opts.children).forEach((b,i)=>{
+    b.disabled=true;
+    if(i===ANSWERS[q])b.classList.add('correct');
+    else if(i===c&&!ok)b.classList.add('wrong');
+  });
+  card.classList.add(ok?'answered-correct':'answered-wrong');
+  exp.classList.add('show',ok?'exp-correct':'exp-wrong');
+  exp.innerHTML=`<div class="exp-label">${ok?'✓ Correct':'✗ Incorrect'}</div><p>${ok?EXP[q].c:EXP[q].w}</p>${EXP[q].k?`<div class="exp-key">${EXP[q].k}</div>`:''}`;
+  if(ok)correct++;else wrong++;
+  updateProgress();checkDone();
+}
+function updateProgress(){
+  const t=answered.filter(Boolean).length;
+  document.getElementById('progress-text').textContent=t+' / 15 answered';
+  document.getElementById('progress-fill').style.width=(t/15*100)+'%';
+}
+function checkDone(){
+  if(answered.filter(Boolean).length<15)return;
+  setTimeout(()=>{
+    const sc=document.getElementById('score-card');
+    sc.style.display='block';
+    document.getElementById('final-score').textContent=correct;
+    document.getElementById('correct-count').textContent='✓ '+correct+' Correct';
+    document.getElementById('wrong-count').textContent='✗ '+wrong+' Incorrect';
+    const pct=correct/15;
+    const passed=pct>=0.70;
+    const circ=276.5;
+    setTimeout(()=>{document.getElementById('score-arc').style.strokeDashoffset=circ-(correct/15)*circ;},200);
+    let title,msg,arcColor;
+    if(correct>=14){title='PASS — Master Trader';arcColor='#c9a84c';msg='Elite performance. Near-perfect. You have mastered FVG structure, multi-timeframe analysis, and precision entry/exit discipline.';}
+    else if(correct>=11){title='PASS — Advanced Trader';arcColor='#1e7e34';msg='You passed with '+correct+'/15 ('+Math.round(pct*100)+'%). Strong command of FVG concepts. Review the missed scenarios — that precision separates consistent traders.';}
+    else if(correct===10){title='FAIL — Very Close';arcColor='#cc1f1f';msg='10/15 (67%) — one question short of 70%. Review the FVG entry/exit scenarios you missed and retake.';}
+    else{title='FAIL — Keep Studying';arcColor='#9e1515';msg='You scored '+correct+'/15 ('+Math.round(pct*100)+'%). Need 11+ to pass. Focus on FVG identification, market structure, and scenario reading before retrying.';}
+    sc.style.borderColor=passed?'#1e7e34':'#9e1515';
+    document.getElementById('final-score').style.color=passed?'#4caf75':'#ff4444';
+    document.getElementById('score-arc').style.stroke=arcColor;
+    const badge=document.createElement('div');
+    badge.style.cssText='display:inline-block;margin-bottom:14px;padding:7px 26px;border-radius:5px;font-family:"Barlow Condensed",sans-serif;font-size:1.05rem;letter-spacing:3px;text-transform:uppercase;font-weight:700;'+(passed?'background:rgba(30,126,52,.2);color:#4caf75;border:2px solid #1e7e34;':'background:rgba(204,31,31,.2);color:#ff6060;border:2px solid #cc1f1f;');
+    badge.textContent=passed?'✓ PASSED':'✗ FAILED';
+    badge.id='pass-badge';
+    const h2=document.getElementById('grade-title');
+    const old=document.getElementById('pass-badge');
+    if(old)old.replaceWith(badge);else h2.parentNode.insertBefore(badge,h2);
+    document.getElementById('grade-title').textContent=title;
+    document.getElementById('grade-msg').textContent=msg;
+    const note=document.getElementById('pass-note')||document.createElement('p');
+    note.id='pass-note';note.style.cssText='margin-top:8px;font-size:.76rem;color:#555;letter-spacing:1px;';
+    note.textContent='Pass mark: 11/15 (70%)  ·  Your score: '+correct+'/15 ('+Math.round(pct*100)+'%)';
+    document.getElementById('grade-msg').after(note);
+    sc.scrollIntoView({behavior:'smooth',block:'start'});
+  },600);
+}
+function restart(){
+  answered.fill(false);correct=0;wrong=0;
+  for(let i=0;i<15;i++){
+    document.getElementById('qcard-'+i).className='question-card';
+    const opts=document.getElementById('opts-'+i);
+    Array.from(opts.children).forEach((b,ci)=>{b.disabled=false;b.className='option-btn';b.onclick=()=>answer(i,ci);});
+    const exp=document.getElementById('exp-'+i);exp.className='explanation';exp.innerHTML='';
+  }
+  document.getElementById('score-card').style.display='none';
+  document.getElementById('score-arc').style.strokeDashoffset=276.5;
+  updateProgress();window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>

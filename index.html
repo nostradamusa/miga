@@ -1,125 +1,511 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MIGA Academy Quizzes</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #f4f4f4;
-            text-align: center;
-        }
-        h1 {
-            color: #333;
-        }
-        .form-container, .quiz-container {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
-        }
-        label {
-            display: block;
-            margin: 10px 0 5px;
-            font-weight: bold;
-        }
-        input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        button {
-            padding: 10px 20px;
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        .quiz-link {
-            display: inline-block;
-            margin: 10px;
-            padding: 15px 30px;
-            background-color: #007BFF;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            font-size: 18px;
-        }
-        .quiz-link:hover {
-            background-color: #0056b3;
-        }
-        .welcome {
-            margin-bottom: 20px;
-            font-size: 18px;
-            color: #555;
-        }
-        #quiz-selection {
-            display: none;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MIGA Trading Academy — Quiz Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;600;700&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red:   #cc1f1f;
+    --red2:  #9e1515;
+    --red3:  #ff4444;
+    --green: #1e7e34;
+    --dark:  #0f0f0f;
+    --dark2: #161616;
+    --dark3: #1e1e1e;
+    --dark4: #2a2a2a;
+    --light: #e8e8e8;
+    --muted: #777;
+    --gold:  #c9a84c;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--dark);
+    color: var(--light);
+    font-family: 'Barlow', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── DIAGONAL BG ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: repeating-linear-gradient(
+      135deg, transparent, transparent 80px,
+      rgba(204,31,31,0.025) 80px, rgba(204,31,31,0.025) 81px
+    );
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    z-index: 1;
+    background: var(--dark2);
+    border-bottom: 3px solid var(--red);
+    padding: 60px 40px 52px;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .hero-backdrop {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    overflow: hidden;
+    gap: 0;
+  }
+
+  .hero-backdrop-logo {
+    width: min(600px, 95vw);
+    height: auto;
+    opacity: 0.08;
+    filter: drop-shadow(0 0 60px rgba(204,31,31,0.20));
+    pointer-events: none;
+    user-select: none;
+    margin-top: 120px;
+  }
+
+  .logo-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    margin-bottom: 28px;
+  }
+
+  .logo-badge {
+    width: 72px;
+    height: 72px;
+    background: var(--red);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 30px;
+    color: #fff;
+    box-shadow: 0 0 40px rgba(204,31,31,0.5);
+    flex-shrink: 0;
+  }
+
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    letter-spacing: 5px;
+    line-height: 1;
+  }
+
+  .hero h1 span { color: var(--red); }
+
+  .hero-sub {
+    margin-top: 14px;
+    font-size: 0.82rem;
+    color: var(--muted);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+
+  .hero-divider {
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--red), var(--gold));
+    margin: 22px auto;
+    border-radius: 1px;
+  }
+
+  .hero-desc {
+    max-width: 580px;
+    margin: 0 auto;
+    font-size: 0.97rem;
+    color: #aaa;
+    line-height: 1.75;
+  }
+
+  /* ── RULES BAR ── */
+  .rules-bar {
+    position: relative;
+    z-index: 1;
+    background: rgba(204,31,31,0.07);
+    border-bottom: 1px solid rgba(204,31,31,0.2);
+    padding: 14px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 36px;
+    flex-wrap: wrap;
+  }
+
+  .rule-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.82rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .rule-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .rule-dot.red   { background: var(--red); }
+  .rule-dot.gold  { background: var(--gold); }
+  .rule-dot.green { background: var(--green); }
+
+  .rule-item strong { color: var(--light); }
+
+  /* ── MAIN ── */
+  main {
+    position: relative;
+    z-index: 1;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 56px 24px 80px;
+  }
+
+  .section-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-align: center;
+    margin-bottom: 36px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .section-label::before,
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--dark4);
+  }
+
+  /* ── QUIZ CARDS ── */
+  .quiz-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 56px;
+  }
+
+  @media (max-width: 680px) {
+    .quiz-grid { grid-template-columns: 1fr; }
+  }
+
+  .quiz-card {
+    background: var(--dark2);
+    border: 1px solid var(--dark4);
+    border-radius: 12px;
+    overflow: hidden;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    position: relative;
+  }
+
+  .quiz-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 16px 48px rgba(0,0,0,0.5);
+  }
+
+  .quiz-card.card-1:hover { border-color: var(--gold); box-shadow: 0 16px 48px rgba(201,168,76,0.12); }
+  .quiz-card.card-2:hover { border-color: var(--red);  box-shadow: 0 16px 48px rgba(204,31,31,0.18); }
+
+  .card-top {
+    padding: 32px 28px 24px;
+    border-bottom: 1px solid var(--dark4);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card-top::after {
+    content: attr(data-num);
+    position: absolute;
+    right: -8px; bottom: -16px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 7rem;
+    color: rgba(255,255,255,0.03);
+    pointer-events: none;
+    line-height: 1;
+  }
+
+  .card-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 18px;
+  }
+
+  .badge-1 { background: rgba(201,168,76,0.15); color: var(--gold); border:1px solid rgba(201,168,76,0.35); }
+  .badge-2 { background: rgba(204,31,31,0.18); color: var(--red3); border:1px solid rgba(204,31,31,0.4); }
+
+  .card-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    letter-spacing: 3px;
+    color: #fff;
+    line-height: 1.1;
+    margin-bottom: 10px;
+  }
+
+  .card-subtitle {
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .card-body {
+    padding: 22px 28px;
+    flex: 1;
+  }
+
+  .card-stats {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+  }
+
+  .stat-pill {
+    background: var(--dark3);
+    border: 1px solid var(--dark4);
+    padding: 5px 12px;
+    border-radius: 4px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .stat-pill strong { color: var(--light); }
+
+  .card-topics {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    margin-bottom: 22px;
+  }
+
+  .card-topics li {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-size: 0.85rem;
+    color: #999;
+    line-height: 1.4;
+  }
+
+  .topic-dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .dot-gold  { background: var(--gold); }
+  .dot-red   { background: var(--red3); }
+
+  .card-cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 14px 24px;
+    border-radius: 7px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.95rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 700;
+    transition: all 0.2s;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    width: 100%;
+  }
+
+  .cta-1 {
+    background: rgba(201,168,76,0.12);
+    color: var(--gold);
+    border: 1px solid rgba(201,168,76,0.4);
+  }
+  .cta-1:hover { background: rgba(201,168,76,0.22); }
+
+  .cta-2 {
+    background: var(--red);
+    color: #fff;
+  }
+  .cta-2:hover { background: var(--red2); }
+
+  .cta-arrow {
+    font-size: 1rem;
+    transition: transform 0.2s;
+  }
+
+  .quiz-card:hover .cta-arrow { transform: translateX(4px); }
+
+  /* ── PASS RULE BOX ── */
+  .pass-rule {
+    background: var(--dark2);
+    border: 1px solid var(--dark4);
+    border-left: 4px solid var(--red);
+    border-radius: 8px;
+    padding: 24px 28px;
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+    margin-bottom: 36px;
+  }
+
+  .pass-icon {
+    font-size: 1.8rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .pass-rule h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.15rem;
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+    color: var(--red3);
+  }
+
+  .pass-rule p {
+    font-size: 0.87rem;
+    color: #999;
+    line-height: 1.65;
+  }
+
+  .pass-threshold {
+    display: inline-block;
+    margin-top: 10px;
+    background: rgba(204,31,31,0.15);
+    border: 1px solid rgba(204,31,31,0.35);
+    color: var(--red3);
+    padding: 4px 14px;
+    border-radius: 4px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  /* ── PATH INDICATOR ── */
+  .path-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    margin-bottom: 56px;
+    flex-wrap: wrap;
+  }
+
+  .path-step {
+    background: var(--dark3);
+    border: 1px solid var(--dark4);
+    border-radius: 8px;
+    padding: 16px 20px;
+    text-align: center;
+    min-width: 130px;
+  }
+
+  .path-step-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    color: var(--red);
+    letter-spacing: 1px;
+    line-height: 1;
+  }
+
+  .path-step-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  .path-step-sub {
+    font-size: 0.78rem;
+    color: #777;
+    margin-top: 3px;
+  }
+
+  .path-arrow {
+    padding: 0 12px;
+    color: var(--red2);
+    font-size: 1.3rem;
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 520px) {
+    .path-arrow { display: none; }
+    .path-row { gap: 8px; }
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    position: relative;
+    z-index: 1;
+    border-top: 1px solid var(--dark4);
+    padding: 28px 40px;
+    text-align: center;
+    font-size: 0.78rem;
+    color: var(--muted);
+    letter-spacing: 1px;
+  }
+
+  footer strong { color: var(--red); }
+</style>
 </head>
 <body>
-    <h1>Welcome to MIGA Academy Quizzes</h1>
 
-    <!-- Registration Form -->
-    <div class="form-container" id="register-form-container">
-        <p>Please enter your name to start:</p>
-        <form id="register-form">
-            <label for="firstName">First Name:</label>
-            <input type="text" id="firstName" name="firstName" required>
-            <label for="lastName">Last Name:</label>
-            <input type="text" id="lastName" name="lastName" required>
-            <button type="submit">Start Quizzes</button>
-        </form>
-    </div>
+<!-- ── HERO ── -->
+<div class="hero">
+  <img src="logo.jpg" class="logo-badge" alt="MTA Logo" style="object-fit:contain; background:transparent; padding:4px;" />
+  <div class="hero-backdrop">
+<footer>
+  <strong>MIGA Trading Academy</strong> &nbsp;·&nbsp; All quizzes for educational purposes only &nbsp;·&nbsp; Not financial advice
+</footer>
 
-    <!-- Quiz Selection (Hidden Until Registered) -->
-    <div class="quiz-container" id="quiz-selection">
-        <div id="welcome-message" class="welcome"></div>
-        <p>Select a quiz to get started:</p>
-        <a href="quiz1.html" class="quiz-link">Quiz 1: Basics/Intermediate</a>
-        <a href="quiz2.html" class="quiz-link">Quiz 2: Advanced/Mastery</a>
-    </div>
-
-    <script>
-        // Check if user is already registered
-        const user = JSON.parse(localStorage.getItem('user'));
-        if (user) {
-            showQuizSelection(user);
-        }
-
-        // Handle form submission
-        document.getElementById('register-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const firstName = document.getElementById('firstName').value.trim();
-            const lastName = document.getElementById('lastName').value.trim();
-            if (firstName && lastName) {
-                const user = { firstName, lastName };
-                localStorage.setItem('user', JSON.stringify(user));
-                showQuizSelection(user);
-            } else {
-                alert('Please enter both your First Name and Last Name.');
-            }
-        });
-
-        function showQuizSelection(user) {
-            document.getElementById('register-form-container').style.display = 'none';
-            document.getElementById('quiz-selection').style.display = 'block';
-            document.getElementById('welcome-message').innerText = 
-                `Welcome, ${user.firstName} ${user.lastName}!`;
-        }
-    </script>
 </body>
 </html>
