@@ -64,7 +64,7 @@ def generate_bg_candles(num=30, start_x=10, spacing=6, start_y=60, trend=0, vol=
     y = start_y
     data = []
     for _ in range(num):
-        move = random.uniform(-vol, vol) + trend
+        move = random.uniform(-float(vol), float(vol)) + float(trend)
         o = y
         c = y + move
         if c < 10: c = 10; move = c - o
@@ -581,8 +581,8 @@ questions = [
 answers_js = "const ANSWERS=[" + ",".join([str(q['ans']) for q in questions]) + "];"
 explanations_js = "const EXPLANATIONS=[\n"
 for q in questions:
-    c_escaped = q["exp_c"].replace('"', '\\"')
-    w_escaped = q["exp_w"].replace('"', '\\"')
+    c_escaped = str(q.get("exp_c", "")).replace('"', '\\"')
+    w_escaped = str(q.get("exp_w", "")).replace('"', '\\"')
     explanations_js += f'  {{c:"{c_escaped}",w:"{w_escaped}"}},\n'
 explanations_js += "];"
 
