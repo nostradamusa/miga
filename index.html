@@ -501,8 +501,109 @@
 
 <!-- ── HERO ── -->
 <div class="hero">
-  <img src="logo.jpg" class="logo-badge" alt="MTA Logo" style="object-fit:contain; background:transparent; padding:4px;" />
-  <div class="hero-backdrop">
+  <img src="logo.jpg" class="hero-backdrop-logo" alt="MTA Logo" />
+  </div>
+
+  <div class="logo-row">
+    <div class="logo-badge">MTA</div>
+  </div>
+  <h1>MIGA TRADING <span>ACADEMY</span></h1>
+  <div class="hero-sub">Knowledge is Power</div>
+  <div class="hero-divider"></div>
+  <p class="hero-desc">Elevate your trading skills with our interactive quizzes. Choose a path below to test your understanding of algorithmic principles and market mechanics.</p>
+</div>
+
+<!-- ── RULES BAR ── -->
+<div class="rules-bar">
+  <div class="rule-item">
+    <div class="rule-dot green"></div>
+    <span><strong>80%</strong> OR HIGHER TO PASS</span>
+  </div>
+  <div class="rule-item">
+    <div class="rule-dot gold"></div>
+    <span>COMPLETE <strong>QUIZ 1</strong> FOR BASICS</span>
+  </div>
+  <div class="rule-item">
+    <div class="rule-dot red"></div>
+    <span>COMPLETE <strong>QUIZ 2</strong> FOR MASTERY</span>
+  </div>
+</div>
+
+<main>
+  <div class="section-label">CHOOSE YOUR PATH</div>
+
+  <div class="quiz-grid">
+    <!-- QUIZ 1 -->
+    <a href="quiz1_intermediate.html" class="quiz-card card-1">
+      <div class="card-top" data-num="1">
+        <div class="card-badge badge-1">INTERMEDIATE</div>
+        <div class="card-title">QUIZ 1: BASICS</div>
+        <div class="card-subtitle">Test your foundational knowledge.</div>
+      </div>
+      <div class="card-body">
+        <div class="card-stats">
+          <div class="stat-pill"><strong>23</strong> QUESTIONS</div>
+        </div>
+        <ul class="card-topics">
+          <li><div class="topic-dot dot-gold"></div>Market Structure & Trends</li>
+          <li><div class="topic-dot dot-gold"></div>Support & Resistance</li>
+        </ul>
+        <button class="card-cta cta-1">START QUIZ <span class="cta-arrow">→</span></button>
+      </div>
+    </a>
+
+    <!-- QUIZ 2 -->
+    <a href="quiz2_mastery.html" class="quiz-card card-2">
+      <div class="card-top" data-num="2">
+        <div class="card-badge badge-2">MASTERY</div>
+        <div class="card-title">QUIZ 2: ADVANCED</div>
+        <div class="card-subtitle">Test your advanced strategies.</div>
+      </div>
+      <div class="card-body">
+        <div class="card-stats">
+          <div class="stat-pill"><strong>25</strong> QUESTIONS</div>
+        </div>
+        <ul class="card-topics">
+          <li><div class="topic-dot dot-red"></div>Advanced Concept Trading</li>
+          <li><div class="topic-dot dot-red"></div>MIGA Optimization</li>
+        </ul>
+        <button class="card-cta cta-2">START QUIZ <span class="cta-arrow">→</span></button>
+      </div>
+    </a>
+  </div>
+
+  <!-- PASS RULE BOX -->
+  <div class="pass-rule">
+    <div class="pass-icon">🎯</div>
+    <div>
+      <h3>PASSING REQUIREMENTS</h3>
+      <p>In order to prove your mastery of the concepts taught by MIGA Trading Academy, you must score at least an 80% on each quiz.</p>
+      <div class="pass-threshold">SCORE >= 80%</div>
+    </div>
+  </div>
+
+  <!-- PATH INDICATOR -->
+  <div class="path-row">
+    <div class="path-step">
+      <div class="path-step-num">01</div>
+      <div class="path-step-label">LEARN</div>
+      <div class="path-step-sub">Study the basics</div>
+    </div>
+    <div class="path-arrow">→</div>
+    <div class="path-step">
+      <div class="path-step-num">02</div>
+      <div class="path-step-label">QUIZ 1</div>
+      <div class="path-step-sub">Prove foundation</div>
+    </div>
+    <div class="path-arrow">→</div>
+    <div class="path-step">
+      <div class="path-step-num">03</div>
+      <div class="path-step-label">QUIZ 2</div>
+      <div class="path-step-sub">Show mastery</div>
+    </div>
+  </div>
+</main>
+
 <footer>
   <strong>MIGA Trading Academy</strong> &nbsp;·&nbsp; All quizzes for educational purposes only &nbsp;·&nbsp; Not financial advice
 </footer>
